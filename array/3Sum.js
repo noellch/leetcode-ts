@@ -15,7 +15,7 @@ var threeSum = function (nums) {
     // 判斷直到 array 的最後三位。
     for (let i = 0; i < nums.length - 2; i++) {
         // 非常重要之二！每一輪的迴圈開始時，一定要把 lp 跟 rp 重新初始化。
-        // 等於每次的判斷都是由 range from i、i + 1 to end of this array。
+        // 等於每次的判斷都是 range from i、i + 1 to the end of this array。
         // 這樣才不會錯過任何一個組合
         lp = i + 1
         rp = nums.length - 1
