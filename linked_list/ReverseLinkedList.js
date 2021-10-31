@@ -44,4 +44,4 @@ var reverseList = function (head) {
     return prev
 }
 
-//* 聽說這題面試很常考？？
+//* 聽說這題很常考？？

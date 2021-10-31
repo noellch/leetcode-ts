@@ -22,15 +22,16 @@ var countAndSay = function (n) {
     // n = 1 時 下面 for loop 不會作用。所以會直接返回 s = '1'。
     let s = '1'
 
-    // 第一圈代表要跑多少步驟。 ex: n = 4 要跑四圈，但因為 n = 1  return 1 不用跑，實際上只跑了 3 圈。所以 i = 1 ~ 3
-    for (let i = 1; i < n; i++) {
-        s = l(s)
+    // ex: n = 4 要跑四圈，但因為 n = 1  return 1 不用跑，實際上只跑了 3 圈。
+    while (n > 1) {
+        s = fn(s)
+        n--
     }
 
     return s
 }
 
-const l = s => {
+const l = (s) => {
     // 設定一個 pointer
     let p = 0
     // 儲存連續同字元的長度
