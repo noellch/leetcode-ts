@@ -9,11 +9,13 @@ var rotate = function (matrix) {
 
     for (let i = 0; i < len; i++) {
         for (let j = i + 1; j < len; j++) {
+            let temp = matrix[i][j]
             matrix[i][j] = matrix[j][i]
+            matrix[j][i] = temp
         }
     }
 
-    matrix.forEach(m => m.reverse())
+    matrix.forEach((m) => m.reverse())
     return matrix
 }
 
