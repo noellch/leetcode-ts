@@ -4,28 +4,28 @@ You must write an algorithm that runs in O(n) time.
 
  */
 
-// var longestConsecutive = function (nums) {
-//     if (nums.length <= 0) return 0
+var longestConsecutive = function (nums) {
+    if (nums.length <= 0) return 0
 
-//     let maxLen = 0,
-//         temp = 0
+    let maxLen = 0,
+        temp = 0
 
-//     const n = new Set(nums)
-//     nums = [...n]
+    const n = new Set(nums)
+    nums = [...n]
 
-//     nums.sort((a, b) => a - b)
+    nums.sort((a, b) => a - b)
 
-//     for (let i = 0; i < nums.length; i++) {
-//         if (nums[i + 1] - nums[i] === 1) {
-//             ++temp
-//         } else {
-//             maxLen = Math.max(temp, maxLen)
-//             temp = 0
-//         }
-//     }
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i + 1] - nums[i] === 1) {
+            ++temp
+        } else {
+            maxLen = Math.max(temp, maxLen)
+            temp = 0
+        }
+    }
 
-//     return maxLen + 1
-// }
+    return maxLen + 1
+}
 
 var longestConsecutive = function (nums) {
     if (nums.length <= 0) return 0

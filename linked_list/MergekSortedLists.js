@@ -130,7 +130,7 @@ const merge = (a, b) => {
 var mergeKLists = function (lists) {
     if (!lists.length) return null
 
-    // base case。若 lists 長度等於 1，return。
+    // base case。若 lists 長度等於 1，return。
     if (lists.length <= 1) return lists[0]
 
     // 不斷將 lists 從中點切分成左右。

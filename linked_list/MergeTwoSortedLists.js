@@ -22,7 +22,7 @@ var mergeTwoLists = function (l1, l2) {
     // 讓 l1 的值 跟 l2 的值不斷比較。直到其中一個 list 結束。
     while (l1 && l2) {
         if (l1.val > l2.val) {
-            // 當下若 l1.val > l2.val，新的 node 的第二項變成 l2
+            // 當下若 l1.val > l2.val，新的 node 的第二項變成 l2
             c.next = l2
             // 假設 l2 = [1,2,3,4]，l2.next = [2,3,4]
             l2 = l2.next
