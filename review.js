@@ -1,39 +1,18 @@
-var search = function (nums, target) {
-    let leftIdx = 0,
-        rightIdx = nums.length - 1
+var rob = function (nums) {
+    if (!nums.length) return 0
+    if (nums.length === 1) return nums[0]
 
-    while (leftIdx < rightIdx) {
-        let mid = Math.floor((leftIdx + rightIdx) / 2)
+    let prev = nums[0]
+    let current = Math.max(nums[0], nums[1])
+    let temp
 
-        if (nums[mid] < nums[rightIdx]) {
-            rightIdx = mid
-        } else {
-            leftIdx = mid + 1
-        }
+    for (let i = 2; i < nums.length; i++) {
+        temp = current
+        current = Math.max(current, nums[i] + prev)
+        prev = temp
     }
 
-    let pivot = leftIdx
-    leftIdx = 0
-    rightIdx = nums.length - 1
-
-    if (target > nums[rightIdx]) {
-        rightIdx = pivot - 1
-    } else {
-        leftIdx = pivot
-    }
-
-    let mid = Math.floor((leftIdx + rightIdx) / 2)
-    while (nums[mid] !== target && leftIdx < rightIdx) {
-        if (nums[mid] < target) {
-            leftIdx = mid + 1
-        } else {
-            rightIdx = mid - 1
-        }
-
-        mid = Math.floor((leftIdx + rightIdx) / 2)
-    }
-
-    return nums[mid] === target ? mid : -1
+    return current
 }
 
-console.log(search([0, 1, 2, 4, 5, 6, 7], 4))
+console.log(rob([2, 7, 9, 3, 1]))
