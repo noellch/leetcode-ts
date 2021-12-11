@@ -56,6 +56,9 @@ var buildTree = function (preorder, inorder) {
     return constructTree(0, inorder.length - 1, preorder)
 }
 
+//   3
+// 9   20
+//   15  7
 const preorder = [3, 9, 20, 15, 7],
     inorder = [9, 3, 15, 20, 7]
 

@@ -5,14 +5,24 @@
  * Given the root of a binary tree, return the maximum path sum of any non-empty path.
  */
 
-var maxPathSum = function (root) {
+// Definition for a binary tree node.
+class TreeNode {
+    val: number
+    left: TreeNode | null
+    right: TreeNode | null
+    constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+        this.val = val === undefined ? 0 : val
+        this.left = left === undefined ? null : left
+        this.right = right === undefined ? null : right
+    }
+}
+
+var maxPathSum = function (root: TreeNode): number {
     let maxPathSumNum = -Infinity
 
-    const maxPathSumRec = function (node) {
+    const maxPathSumRec = function (node: TreeNode) {
         // base case。若左或右為 null，表示只需判斷 node.val。返回 0 使得 node.val 加上後不會改變值。
-        if (!node) {
-            return 0
-        }
+        if (!node) return 0
 
         // 若 node.left 小於 0，左邊往下都可以不需要考慮了...因為為負數的話只會使 max sum 更小。
         // 所以負數只取零，因為 0 + node.val = node.val 自身。
