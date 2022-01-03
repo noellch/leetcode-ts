@@ -28,7 +28,7 @@ var combinationSum = function (candidates, target, pointer = 0, cur = [], combin
         cur.push(value)
         // 進行 recursion 直到 target 小於等於 0。
         // ex: candidates = [2, 3, 6, 7]，會將 2 不斷 push 進 cur，直到 cur = [2, 2, 2, 2] 時 target = -1 後 return 當下的 context。
-        // 這時將 [2, 2, 2, 2].pop()，進行下一次的 recursion。這時 cur = [2, 2, 2, 3]。 target = -2 return。再將 [2, 2, 2, 3].pop()。
+        // 這時將 [2, 2, 2, 2].pop()，進行下一次的 recursion。這時 cur = [2, 2, 2, 3]。 target = -2 return。再將 [2, 2, 2, 3].pop()。
         // 直到 pointer 超過 candidates.length。再次 return 當下的 context，將[2, 2, 2].pop()。
         combinationSum(candidates, target - value, pointer, cur, combination)
         // 拿掉 cur 數組中最後一個項目，改為 candidates 中的下一位。

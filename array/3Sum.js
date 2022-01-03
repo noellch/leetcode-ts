@@ -62,3 +62,6 @@ console.log(threeSum([-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4]))
 //* rp 從 array 的尾端開始。lp 則從 i + 1 隨著 loop 不斷往上。
 //* 每一輪都要判斷 nums[i] , nums[i+1] 到 nums[nums.length-1] 這段區間的所有數字的和。
 //* 若為 0 則 push 進 result 最後返回。
+
+// time complexity: O(n^2)
+// space complexity: O(n)

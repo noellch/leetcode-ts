@@ -36,7 +36,7 @@ var mergeKLists = function (lists) {
 }
 
 //* 將 lists 內 k 個 list 中的所有 node 都拿出來放進一個新的 array。
-//* 用每個 node 的值 去 sort 這個 array。
+//* 用每個 node 的值去 sort 這個 array。
 //* 將這個 array 中的 node 重新組成一個新的 list。
 //* Time complexity : O(NlogN) where NN is the total number of nodes.
 //*S pace complexity : O(N).

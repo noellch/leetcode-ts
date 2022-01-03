@@ -12,7 +12,7 @@ var removeNthFromEnd = function (head, n) {
         fp = fp.next
     }
 
-    // 再設定一個 slow pointer，以及一個 prev。都指向頭
+    // 再設定一個 slow pointer，以及一個 prev。都指向頭
     let sp = head
     let prev = sp
 
