@@ -10,13 +10,13 @@ function letterCombinations(digits: string): string[] {
     const result: string[] = []
 
     function helper(idx = 0, s: string): void {
-        console.log(idx)
         if (digits.length === idx) {
             result.push(s)
             return
         }
 
         for (const c of L[digits[idx]]) {
+            // 把 digits[idx] 對應到的數字個別拿出來
             helper(idx + 1, s + c)
         }
     }

@@ -1,8 +1,13 @@
-function play() {
-    return 0 < null
+var arrayPairSum = function (nums) {
+    nums.sort((a, b) => a - b)
+
+    let result = 0
+
+    for (let i = 0; i < nums.length; i += 2) {
+        result += nums[i]
+    }
+
+    return result
 }
 
-// console.log(play({}, []))
-const a = play()
-
-console.log(a)
+console.log(arrayPairSum([6, 2, 6, 5, 1, 2]))
