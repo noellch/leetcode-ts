@@ -23,7 +23,7 @@ function zigzagLevelOrder(root: TreeNode | null): number[][] {
         let levelLen = queue.length
         const l: number[] = []
 
-        for (let i = 0; i < levelLen; i++) {
+        while (levelLen--) {
             const node = queue.shift()
 
             if (deep % 2 === 0) l.push(node.val)

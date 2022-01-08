@@ -1,5 +1,5 @@
 var arrayPairSum = function () {
-    let p = 5
+    let p = 2
     while (--p) {
         console.log(p)
     }
