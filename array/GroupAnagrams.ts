@@ -17,5 +17,7 @@ var groupAnagrams = function (strs: string[]): string[][] {
 const input = ['eat', 'tea', 'tan', 'ate', 'nat', 'bat']
 console.log(groupAnagrams(input))
 
-//* 考的是 cache 的概念。
-//* 重點是有沒有想到 string 可以拆解成 array，sort 後再 join。
+/**
+ * 考的是 cache 的概念。
+ * 重點是有沒有想到 string 可以拆解成 array，sort 後再 join。
+ */
