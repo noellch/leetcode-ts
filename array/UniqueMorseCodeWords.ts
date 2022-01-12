@@ -14,19 +14,45 @@ Return the number of different transformations among all words we have. */
 //? 會給定一個英文字串組成的 array。將各個字串的字母轉換成摩斯密碼再組合。返回字串轉換後，共有幾總不同的摩斯密碼組合。
 //? 題目有給摩斯密碼的對照 array
 
-var uniqueMorseRepresentations = function (words) {
-    const morseArr = ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....', '..', '.---', '-.-', '.-..', '--', '-.', '---', '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..']
+var uniqueMorseRepresentations = function (words: string[]): number {
+    const morseArr = [
+        '.-',
+        '-...',
+        '-.-.',
+        '-..',
+        '.',
+        '..-.',
+        '--.',
+        '....',
+        '..',
+        '.---',
+        '-.-',
+        '.-..',
+        '--',
+        '-.',
+        '---',
+        '.--.',
+        '--.-',
+        '.-.',
+        '...',
+        '-',
+        '..-',
+        '...-',
+        '.--',
+        '-..-',
+        '-.--',
+        '--..',
+    ]
 
-    const set = new Set(
-        words.map((word) => {
-            let m = ''
-            for (let i of word) {
-                m += morseArr[i.charCodeAt(0) - 97]
-            }
-            return m
-        })
-    )
+    const result = words.map((word) => {
+        let char = ''
+        for (const w of word) {
+            char += morseArr[w.charCodeAt(0) - 97]
+        }
+        return char
+    })
 
+    const set: Set<string> = new Set(result)
     return set.size
 }
 

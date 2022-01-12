@@ -1,13 +1,33 @@
-var maxProfit = function (prices: number[]): number {
-    let profit = 0
+const pivot = (arr: number[], l: number, r: number) => {
+    const swap = (arr: number[], l: number, r: number) => {
+        const temp = arr[l]
+        arr[l] = arr[r]
+        arr[r] = temp
+    }
 
-    for (let i = 1; i < prices.length; i += 1) {
-        if (prices[i] > prices[i - 1]) {
-            profit += prices[i] - prices[i - 1]
+    let pivot = arr[l]
+    let swapIdx = l
+
+    for (let i = l + 1; i < arr.length; i++) {
+        if (arr[i] < pivot) {
+            swapIdx++
+            swap(arr, swapIdx, i)
         }
     }
 
-    return profit
+    swap(arr, l, swapIdx)
+
+    return swapIdx
 }
 
-console.log(maxProfit([1, 3, 2, 6, 9, 12]))
+const quickSort = (arr: number[], left = 0, right = arr.length - 1): void => {
+    if (left < right) {
+        const pivotIdx = pivot(arr, left, right)
+        quickSort(arr, left, pivotIdx - 1)
+        quickSort(arr, pivotIdx + 1, right)
+    }
+
+    console.log(arr)
+}
+
+console.log(quickSort([3, 1, 4, 12, 9, 6, 32, 54]))
