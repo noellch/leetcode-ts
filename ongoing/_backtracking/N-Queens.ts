@@ -24,8 +24,10 @@ function solveNQueens(n: number): string[][] {
 
         // row 從 0 開始，每一個列都會反覆遍歷每一行
         for (let col = 0; col < n; col++) {
+            // 這幾個位置不能放，跳過判斷
             if (column.has(col) || posDiag.has(r + col) || negDiag.has(r - col)) continue
 
+            // 這個位置可以放，加進放置這個位置後而導致不能放的位置
             column.add(col)
             posDiag.add(r + col)
             negDiag.add(r - col)
