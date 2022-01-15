@@ -4,38 +4,39 @@
  * A substring is a contiguous sequence of characters within the string.
  */
 
-// solution1
-// function countSubstrings(s: string): number {
-//     let result: number = 0
+solution1
+function countSubstrings(s: string): number {
+    let result: number = 0
 
-//     // check: 已傳進來的左右指標當作中點向外逐一確認是否為 palindrome，是的話就將 count 加一並 return。
-//     function check(s: string, left: number, right: number): number {
-//         let count: number = 0
+    // check: 已傳進來的左右指標當作中點向外逐一確認是否為 palindrome，是的話就將 count 加一並 return。
+    function check(s: string, left: number, right: number): number {
+        let count: number = 0
 
-//         let j = left,
-//             k = right
-//         while (j >= 0 && k < s.length && s[j] === s[k]) {
-//             count++
-//             j--
-//             k++
-//         }
+        let j = 
+        ,
+            k = right
+        while (j >= 0 && k < s.length && s[j] === s[k]) {
+            count++
+            j--
+            k++
+        }
 
-//         return count
-//     }
+        return count
+    }
 
-//     let t: number = 0
+    let t: number = 0
 
-//     // 將每個字母的 index 當作中點
-//     for (let i = 0; i < s.length; i++) {
-//         // 以單個字母為中點的 palindrome。
-//         t = check(s, i, i)
-//         result += t
-//         // 以雙個字母為中點的 palindrome。
-//         t = check(s, i, i + 1)
-//         result += t
-//     }
-//     return result
-// }
+    // 將每個字母的 index 當作中點
+    for (let i = 0; i < s.length; i++) {
+        // 以單個字母為中點的 palindrome。
+        t = check(s, i, i)
+        result += t
+        // 以雙個字母為中點的 palindrome。
+        t = check(s, i, i + 1)
+        result += t
+    }
+    return result
+}
 
 // solution2
 
