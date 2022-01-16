@@ -21,42 +21,37 @@ Do not ignore any characters other than the leading whitespace or the rest of th
 //? 4. 遇到不是 0 ~ 9 的字元則結束，後面的字元全部忽略。
 //? 5. 若最後的數字大於 Math.pow(2, 31)-1 或 小於 -Math.pow(2, 31)，則返回以上這兩個數字。
 
-var myAtoi = function (s) {
-    // 設定一個 pointer 隨著字元的順序往上確認
-    let pointer = 0
-    // 儲存連續數字
-    let num = 0
-    // 判斷最終的結果是正數還是負數
-    let flag = 1
-    // 設定邊界
+var myAtoi = function (s: string): number {
+    let digits = 0,
+        flag = 1,
+        p = 0
     const INT_MAX = Math.pow(2, 31) - 1
     const INT_MIN = -Math.pow(2, 31)
 
-    // 若亦串開頭是' '，則直接忽略。pointer 往上。
-    while (s[pointer] === ' ') ++pointer
+    // 若開頭是' '
+    while (s[p] === ' ') {
+        p++
+    }
 
     // 遇到接下來的 '-' 或 '+' 符號則設定 flag。
-    if (s[pointer] === '-' || s[pointer] === '+') {
-        flag = s[pointer] === '+' ? 1 : -1
-        ++pointer
+    if (s[p] === '-' || s[p] === '+') {
+        flag = s[p] === '+' ? 1 : -1
+        p++
     }
 
-    // 若 +- 符號後緊跟著 0 ~ 9 的數字則累計到 num。
-    // 判斷 s[pointer] !== ' ' 是因為 s[pointer] 若是空格轉成數字會變成 0，所以加上去避免將空格轉成 0。
-
-    while (+s[pointer] >= 0 && +s[pointer] <= 9 && s[pointer] !== ' ') {
-        // 每跑一輪就將數字乘以 10 加回去。
-        num = +s[pointer] + num * 10
-        ++pointer
+    // 若 +- 符號後緊跟著 0 ~ 9 的數字。
+    // 判斷 s[p] !== ' ' 是因為 s[p 若是空格轉成數字會變成 0，所以加上去避免將空格轉成 0。
+    while (+s[p] >= 0 && +s[p] <= 9 && s[p] !== ' ') {
+        digits = digits * 10 + +s[p]
+        p++
     }
 
-    // 最終結果的正負數
-    num = num * flag
+    digits = digits * flag
 
-    if (num >= INT_MAX) return INT_MAX
-    if (num <= INT_MIN) return INT_MIN
+    if (digits >= INT_MAX) return INT_MAX
+    if (digits <= INT_MIN) return INT_MIN
 
-    return num
+    return digits
 }
 
-console.log(myAtoi('-21474836460'))
+console.log(myAtoi('  -2147483 '))
