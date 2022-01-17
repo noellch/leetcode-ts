@@ -8,8 +8,6 @@ var intersect = function (nums1: number[], nums2: number[]): number[] {
         table[num] = ++table[num] || 1
     }
 
-    console.log(table)
-
     for (const num of nums2) {
         if (table[num]) {
             result.push(num)
