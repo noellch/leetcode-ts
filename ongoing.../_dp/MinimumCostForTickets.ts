@@ -18,6 +18,7 @@ function mincostTickets(days: number[], costs: number[]): number {
         dp[i] = Math.min(dp[i], dp[i - 1] + costs[0])
 
         for (let j = 1; j <= i; j++) {
+            
             if (days[j - 1] + 7 > days[i - 1]) {
                 dp[i] = Math.min(dp[i], dp[j - 1] + costs[1])
             }
@@ -35,3 +36,12 @@ const days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 30, 31],
     costs = [2, 7, 15]
 
 console.log(mincostTickets(days, costs))
+
+/**
+ * 
+ * dp[i] 表示到第 i 天為止最小的花費
+ * 一開始先假設所有日子都是以買 1 日票計算
+ * 再計算第 i 天時再重新以 j 到 i 逐一判斷是不是有買 7 日票時更便宜的選擇
+ * 有的話更新 dp[i]
+ *  30 天的票也是一樣的邏輯
+ */
