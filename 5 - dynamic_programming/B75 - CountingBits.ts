@@ -4,13 +4,12 @@
 
 // function countBits(n: number): number[] {
 //     const result: number[] = []
-//     let count: number
-//     result[0] = 0
-//     for (let i = 1; i <= n; i++) {
-//         count = 0
-//         let k = i
+
+//     for (let i = 0; i <= n; i++) {
+//         let count = 0,
+//             k = i
 //         while (k) {
-//             count += k & 1
+//             count = count + (k & 1)
 //             k = k >>> 1
 //         }
 //         result.push(count)
@@ -21,6 +20,7 @@
 
 function countBits(n: number): number[] {
     const dp: number[] = []
+
     dp[0] = 0
 
     for (let i = 1; i <= n; i++) {
@@ -57,4 +57,4 @@ function countBits(n: number): number[] {
 
 */
 
-console.log(countBits(8))
+console.log(countBits(5))
