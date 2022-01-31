@@ -9,7 +9,6 @@ Each time you can either climb 1 or 2 steps. In how many distinct ways can you c
 //         dp[i] = dp[i - 1] + dp[i - 2]
 //     }
 
-//     console.log('🚀 ~ file: B75 - ClimbingStairs.ts ~ line 7 ~ dp', dp)
 //     return dp[n]
 // }
 

@@ -12,21 +12,17 @@ Return the number of different expressions that you can build, which evaluates t
 function findTargetSumWays(nums: number[], target: number): number {
     const dp: Map<string, number> = new Map()
 
-    function backtrack(idx: number, total: number): number {
-        // 當 idx 遍歷過所有陣列值後，若當下的 total 等於 target，表示方法有效，返回 1
-        if (idx === nums.length) {
+    function backtrack(i: number, total: number): number {
+        // 當 i 遍歷過所有陣列值後，若當下的 total 等於 target，表示方法有效，返回 1
+        if (i === nums.length) {
             if (total === target) return 1
             else return 0
         }
 
-        // dp 中已存在快取
-        if (dp.has(`${idx}-${total}`)) {
-            return dp.get(`${idx}-${total}`)!
-        }
+        if (dp.has(`${i}-${total}`)) return dp.get(`${i}-${total}`) as number
 
-        // dfs 搜尋
-        const ways = backtrack(idx + 1, total + nums[idx]) + backtrack(idx + 1, total - nums[idx])
-        dp.set(`${idx}-${total}`, ways)
+        const ways = backtrack(i + 1, total + nums[i]) + backtrack(i + 1, total - nums[i])
+        dp.set(`${i}-${total}`, ways)
 
         return ways
     }
@@ -34,7 +30,9 @@ function findTargetSumWays(nums: number[], target: number): number {
     return backtrack(0, 0)
 }
 
-console.log(findTargetSumWays([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 0))
+const nums = [1, 1, 1, 1, 1],
+    target = 3
+console.log(findTargetSumWays(nums, target))
 
 // T.C: O(T*N)
 // S.C: O(T*N)
