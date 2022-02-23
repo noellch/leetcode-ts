@@ -9,17 +9,17 @@ Return true if it is possible to split s​​​​​​ as described above, o
 A substring is a contiguous sequence of characters in a string. */
 
 function splitString(s: string): boolean {
-    function dfs(index: number, prev: number): boolean {
-        if (index >= s.length) return true
+    function dfs(idx: number, prevVal: number): boolean {
+        if (idx === s.length) return true
 
         // j 從傳入的 index 往後開始
-        for (let j = index; j < s.length; j++) {
-            const val = s.substring(index, j + 1)
+        for (let j = idx; j < s.length; j++) {
+            const curVal = s.substring(idx, j + 1)
 
             // 若這組 substring 比前一組小 1，表示組數字是可以列入考慮的候選
             // 然後再將 j+1 傳入 dfs 做 recursion，繼續往下判斷下一組比這組數字小 1 的數字
             // 一直返回都是 true ，表示 s 可被拆解成題目的要求
-            if (+val + 1 === prev && dfs(j + 1, +val)) return true
+            if (+curVal + 1 === +prevVal && dfs(j + 1, +curVal)) return true
         }
 
         return false
@@ -43,5 +43,5 @@ function splitString(s: string): boolean {
     return false
 }
 
-const s = '050043'
+const s = '4771447713'
 console.log(splitString(s))
