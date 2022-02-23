@@ -11,13 +11,20 @@ var combinationSum = function (candidates: number[], target: number) {
     const result: number[][] = []
 
     function dfs(i: number, cur: number[], total: number) {
+        // i 為當下處理的 candidates 中項目的 index
+        // total 為當下 cur 中數字的和。若等於 target 則將 cur 放進 result
+        // cur 為當下處理的數組，在 total 還未等於 target 時持續把 i 指向的數字 push 進去。
         if (total === target) return result.push(Array.from(cur))
 
+        // 若 i 超過 candidates 的長度，或是 total 大於 target
         if (i >= candidates.length || total > target) return
 
+        // 將 candidates 中的數字輪流放進 cur
         cur.push(candidates[i])
+        // 每一輪 total 都會加上放進 cur 的那個數字
         dfs(i, cur, total + candidates[i])
-        console.log(cur)
+        // 上面 dfs return 後，表示遇到 edge case 或是 total 剛好等於 target
+        // 將 cur 最後一位 pop 掉，換下個數字
         cur.pop()
         dfs(i + 1, cur, total)
     }

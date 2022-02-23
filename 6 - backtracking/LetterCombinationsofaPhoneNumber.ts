@@ -6,22 +6,29 @@ function letterCombinations(digits: string): string[] {
     if (!digits.length) return []
 
     type O = { [key: string]: string }
-    const L: O = { '2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl', '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz' }
+    const L: O = {
+        '2': 'abc',
+        '3': 'def',
+        '4': 'ghi',
+        '5': 'jkl',
+        '6': 'mno',
+        '7': 'pqrs',
+        '8': 'tuv',
+        '9': 'wxyz',
+    }
     const result: string[] = []
 
-    function helper(idx = 0, s: string): void {
-        if (digits.length === idx) {
-            result.push(s)
-            return
-        }
+    function backtracking(idx: number, str: string) {
+        if (idx === digits.length) return result.push(str)
 
-        for (const c of L[digits[idx]]) {
-            // 把 digits[idx] 對應到的數字個別拿出來
-            helper(idx + 1, s + c)
+        // 把 digits[idx] 對應到的數字個別拿出來
+        for (const d of L[digits[idx]]) {
+            backtracking(idx + 1, str + d)
         }
     }
 
-    helper(0, '')
+    backtracking(0, '')
+
     return result
 }
 
