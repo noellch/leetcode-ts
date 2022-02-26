@@ -9,28 +9,29 @@ Given two integer arrays gas and cost, return the starting gas station's index i
 //? 可以從任一加油站出發，試問可否開車繞完這條圓形的路回道最初的加油站。
 //? 若可以，返回起點加油站的 index，反之，返回 -1。
 
-// solution 1
-// var canCompleteCircuit = function (gas: number[], cost: number[]): number {
-//     let tank = 0
-//     let total = 0
-//     let start = 0
-//     const len = gas.length
+// solution 1/
+var canCompleteCircuit = function (gas: number[], cost: number[]): number {
+    let total = 0,
+        tank = 0,
+        start = 0
 
-//     for (let i = 0; i < len; i++) {
-//         // 累計跑完一整圈剩下的 gas
-//         total += gas[i] - cost[i]
-//         // 以 0 為起點到 i 所剩下的 gas，若小於 0，表示從 0 到 i 這段都不可能當作起點，
-//         // 所以將起點重設為 i + 1
-//         tank += gas[i] - cost[i]
+    for (let i = 0; i < gas.length; i++) {
+        // 計算總共剩餘的 gas 量
+        total += gas[i] - cost[i]
+        // 計算當前總共剩餘的 gas 量
+        tank += gas[i] - cost[i]
 
-//         if (tank < 0) {
-//             tank = 0
-//             start = i + 1
-//         }
-//     }
+        // 當下剩餘的 gas 量若小於 0，
+        // 則從上個起點 start 到這個 i 中間的每個點都不可能當作起點
+        if (tank < 0) {
+            // 重新假設以 i+1 當作起點
+            tank = 0
+            start = i + 1
+        }
+    }
 
-//     return total < 0 ? -1 : start
-// }
+    return total < 0 ? -1 : start
+}
 
 /**
  *
@@ -39,29 +40,37 @@ Given two integer arrays gas and cost, return the starting gas station's index i
  * 中間的每一站都不可能作為起點，所以更新 start 為 i + 1。最後若跑完一整輪，所有的 gas 加總減去 cost 加總為負數，表示沒有一個點可以作為起點，
  * 反之，start 則為起點。
  *
+ *       X  X  X (一出發就失敗，不可能為起點)
+ * gas  [1, 2, 3, 4, 5]
+ * cost [3, 4, 5, 1, 2]
+ * left -2 -2 -2  3  3    (1+2+3+4+5)-(3+4+5+1+2) = 0
  */
 
 // solution 2
 var canCompleteCircuit = function (gas: number[], cost: number[]): number {
-    let max = -Infinity
-    let total = 0
-    let start = 0
-    const len = gas.length
+    let total = 0,
+        maxLeft = -Infinity,
+        start = 0
 
-    for (let i = len - 1; i >= 0; i--) {
-        // i 到 最後所剩下的 gas 量
+    // 找出所剩餘的 gas 最多的點
+    // 由後往前遍歷，剩餘最多 gas 量的點，最有可能是起點
+    for (let i = gas.length - 1; i >= 0; i--) {
+        // 計算總共剩餘的 gas 量
         total += gas[i] - cost[i]
 
-        // max 代表由 i 到最後所剩下的 gas 量的最大值，
-        // 只要是大於之前的最大值，就表示油量足夠由 i 到最後，故更新 start 為 i。
-        if (total > max) {
-            max = total
+        if (total > maxLeft) {
+            maxLeft = total
             start = i
         }
     }
 
-    // 若 total 為負，表示無論哪個為起點都不可能跑完一輪。
     return total < 0 ? -1 : start
 }
 
-console.log(canCompleteCircuit([1, 2, 3, 4, 5], [3, 4, 5, 1, 2]))
+/**
+ * gas   [1, 2, 3, 4, 5]
+ * cost  [3, 4, 5, 1, 2]
+ * max    6  6  6  6  3   <- 由後往前 這個點存在剩下的 gas 是最多的。最有可能當作起點
+ * total  0  2  4  6  3
+ *                 i
+ */

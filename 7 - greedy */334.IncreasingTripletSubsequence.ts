@@ -3,12 +3,13 @@
  */
 
 function increasingTriplet(nums: number[]): boolean {
-    // nums 內最小的值
-    let min: number = nums[0]
-    // nums 內第二小的值
-    let middle: number = Infinity
+    if (nums.length < 3) return false
+    // 假設 nums 內最小的值
+    let min = nums[0],
+        // 假設 nums 內第二小的值
+        middle = Infinity
 
-    for (let num of nums) {
+    for (const num of nums) {
         // 只要出現比 min 更小的值就更新 min
         if (num <= min) min = num
         // 比 min 大 但小於等於 middle
@@ -16,6 +17,7 @@ function increasingTriplet(nums: number[]): boolean {
         // 出現比 min 大也比 middle 大的值
         else return true
     }
+
     return false
 }
 
