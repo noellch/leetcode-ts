@@ -18,9 +18,10 @@ class ListNode {
 function oddEvenList(head: ListNode | null): ListNode | null {
     if (!head) return head
 
-    let odd: ListNode | null = head
-    let even: ListNode | null = head.next
-    let evenHead: ListNode = even
+    let odd = head
+    let even = head.next
+    // 最後作為 even 的頭 接在 odd list 的後面
+    const evenHEAD = even
 
     while (odd.next && even.next) {
         odd.next = even.next
@@ -29,7 +30,8 @@ function oddEvenList(head: ListNode | null): ListNode | null {
         even = even.next
     }
 
-    odd.next = evenHead
+    odd.next = evenHEAD
+
     return head
 }
 
