@@ -44,8 +44,8 @@ Given a roman numeral, convert it to an integer. */
 //     return int
 // }
 
-var romanToInt = function (s) {
-    let roman = {
+function romanToInt(s: string): number {
+    let roman: { [key: string]: number } = {
         I: 1,
         V: 5,
         X: 10,
@@ -54,22 +54,23 @@ var romanToInt = function (s) {
         D: 500,
         M: 1000,
     }
-    // 先讓 int = 個位數
-    let int = roman[s[s.length - 1]]
+
+    let int = roman[s[s.length - 1]] as number
 
     for (let i = s.length - 1; i > 0; i--) {
         if (roman[s[i - 1]] >= roman[s[i]]) {
-            // 下一位比自己大或等於自己，就加上它
             int += roman[s[i - 1]]
         } else {
-            // 若比自己小，就把它減掉
-            int = int - roman[s[i - 1]]
+            int -= roman[s[i - 1]]
         }
     }
+
     return int
 }
 
 console.log(romanToInt('XIIV'))
 
-//* 使用 map 來 mapping 出對應的數字。
-//* 主要思維：若下一個數字比自己大或等於自己，就將下個數字加上去。若比自己小，就把它減掉。
+/**
+ *使用 map 來 mapping 出對應的數字。
+ *若下一個數字比自己大或等於自己，就將下個數字加上去。若比自己小，就把它減掉。
+ */
