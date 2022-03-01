@@ -15,7 +15,7 @@ Given two integers x and y, return the Hamming distance between them. */
 //? 漢明重量是字符串相對於同樣長度的零字符串的漢明距離，也就是說，它是字符串中非零的元素個數：對於二進位字符串來說，就是1的個數，所以11101的漢明重量是4。
 //? 也就是説比較兩個同長度二進位字串，同樣位置的不同字符的數量。
 
-var hammingDistance = function (x, y) {
+function hammingDistance(x: number, y: number): number {
     let n = x ^ y
     let count = 0
 
@@ -29,5 +29,7 @@ var hammingDistance = function (x, y) {
 
 console.log(hammingDistance(1, 4))
 
-//* 首先先將兩個字串做 XOR 來得出合併兩字串。因為若相同位元同為 0 或 1，合併後都會成為 0。
-//* 也就是合併後字串 1 的個數，就是原始兩字串相比的漢明距離。
+/**
+ * 首先先將兩個字串做 XOR 來得出合併兩字串。因為若相同位元同為 0 或 1，合併後都會成為 0。
+ * 也就是合併後字串 1 的個數，就是原始兩字串相比的漢明距離。
+ */
