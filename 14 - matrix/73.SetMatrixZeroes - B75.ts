@@ -15,9 +15,9 @@
  */
 
 // solution1
-var setZeroes = function (matrix) {
-    const rowSet = new Set()
-    const colSet = new Set()
+var setZeroes = function (matrix: number[][]): void {
+    const rowSet: Set<number> = new Set()
+    const colSet: Set<number> = new Set()
 
     for (let row = 0; row < matrix.length; row++) {
         for (let col = 0; col < matrix[row].length; col++) {
@@ -35,8 +35,6 @@ var setZeroes = function (matrix) {
             }
         }
     }
-
-    return matrix
 }
 
 /**
@@ -46,13 +44,22 @@ var setZeroes = function (matrix) {
 
 // solution2
 function setZeroes(matrix: number[][]): void {
+    // [0][0] 位置
     let zeroRow = false
 
     for (let row = 0; row < matrix.length; row++) {
         for (let col = 0; col < matrix[row].length; col++) {
+            // 遇到 0 時將該行的 [row][0] 及 [0][col] 設定成 0
+            // 表示之後這一行列上的每個元素值都要改為 0
+            /**
+             * 1 1 1      1 0 1
+             * 1 0 1  =>  0 0 1
+             * 1 1 1      1 1 1
+             */
             if (matrix[row][col] === 0) {
                 matrix[0][col] = 0
 
+                // row > 0 是因為 [0][0] 這個位置的 row 狀態交由 zeroRow 儲存
                 if (row > 0) {
                     matrix[row][0] = 0
                 } else {
@@ -62,6 +69,13 @@ function setZeroes(matrix: number[][]): void {
         }
     }
 
+    // 將剛紀錄為 0 的行列位置，整行整列都設定為 0
+    // 以上方為例
+    /**
+     * 1 1 1      1 0 1      1 0 1
+     * 1 0 1  =>  0 0 1  =>  0 0 0
+     * 1 1 1      1 1 1      1 0 1
+     */
     for (let row = 1; row < matrix.length; row++) {
         for (let col = 1; col < matrix[row].length; col++) {
             if (matrix[row][0] === 0 || matrix[0][col] === 0) {
@@ -70,18 +84,25 @@ function setZeroes(matrix: number[][]): void {
         }
     }
 
+    // 若 [0][0] 為 0 則第一 col 整排為 0
     if (matrix[0][0] === 0) {
         for (let row = 0; row < matrix.length; row++) {
             matrix[row][0] = 0
         }
     }
 
+    // 若 zeroRow 為 0 則第一 row 整排為 0
     if (zeroRow) {
         for (let col = 0; col < matrix[0].length; col++) {
             matrix[0][col] = 0
         }
     }
 }
+
+/**
+ * 以第一 row 及 第一 col 當作同行同列遇到 0 時的紀錄
+ * 但因為 [0][0] 位置會重疊，所以需要設定另一個變數儲存其中之一
+ */
 
 /**
  * T.C : O(m*n)
