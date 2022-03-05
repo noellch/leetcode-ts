@@ -3,7 +3,6 @@
  * (i.e., from left to right, level by level).
  */
 
-// definition for a binary tree node.
 class TreeNode {
     val: number
     left: TreeNode | null
@@ -17,25 +16,28 @@ class TreeNode {
 }
 
 var levelOrder = function (root: TreeNode | null): number[][] {
-    const result = []
-    const queue = []
-    let levelNodes: number
-    let temp: Array<number>
-    let currentNode: TreeNode
-
     if (!root) return []
 
-    queue.push(root)
-    while (queue.length !== 0) {
-        levelNodes = queue.length
-        temp = []
-        for (let i = 0; i < levelNodes; i++) {
-            currentNode = queue.shift()
-            if (currentNode.left) queue.push(currentNode.left)
-            if (currentNode.right) queue.push(currentNode.right)
-            temp.push(currentNode.val)
+    const data: number[][] = []
+
+    let node = root
+
+    const queue: TreeNode[] = [node]
+
+    while (queue.length) {
+        let levelLen = queue.length
+        const level: number[] = []
+
+        while (levelLen-- > 0) {
+            node = queue.shift()
+
+            level.push(node.val)
+            if (node.left) queue.push(node.left)
+            if (node.right) queue.push(node.right)
         }
-        result.push(temp)
+
+        data.push(level)
     }
-    return result
+
+    return data
 }

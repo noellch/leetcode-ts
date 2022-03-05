@@ -15,24 +15,27 @@ class TreeNode {
 
 function zigzagLevelOrder(root: TreeNode | null): number[][] {
     if (!root) return []
-    const data: Array<number[]> = []
-    const queue: TreeNode[] = [root]
+
+    let node = root
+    const data: number[][] = []
+    const queue: TreeNode[] = [node]
     let deep = 0
 
     while (queue.length) {
+        const level: number[] = []
         let levelLen = queue.length
-        const l: number[] = []
 
-        while (levelLen--) {
-            const node = queue.shift()
+        while (levelLen-- > 0) {
+            node = queue.shift()
 
-            if (deep % 2 === 0) l.push(node.val)
-            else l.unshift(node.val)
+            if (deep % 2 === 0) level.push(node.val)
+            else level.unshift(node.val)
 
             if (node.left) queue.push(node.left)
             if (node.right) queue.push(node.right)
         }
-        data.push(l)
+
+        data.push(level)
         deep++
     }
 

@@ -17,15 +17,14 @@ function inorderTraversal(root: TreeNode | null): number[] {
     const data: number[] = []
 
     if (root) {
-        let current = root
+        let node = root
 
         function traversal(node: TreeNode | null) {
             if (node.left) traversal(node.left)
             data.push(node.val)
             if (node.right) traversal(node.right)
         }
-        traversal(current)
+        traversal(node)
     }
-
     return data
 }

@@ -11,38 +11,38 @@ class TreeNode {
         this.right = right === undefined ? null : right
     }
 }
-// BFS
-// function invertTree(root: TreeNode | null): TreeNode | null {
-//     if (!root) return null
 
-//     const queue: Array<TreeNode> = []
-//     let node = root
-//     queue.push(node)
+// dfs
+function invertTree(root: TreeNode | null): TreeNode | null {
+    if (!root) return null
+    let node = root
 
-//     while (queue.length) {
-//         node = queue.shift()
-//         node.left && queue.push(node.left)
-//         node.right && queue.push(node.right)
+    const temp = node.left
+    node.left = node.right
+    node.right = temp
 
-//         const temp = node.right
-//         node.right = node.left
-//         node.left = temp
-//     }
+    invertTree(node.left)
+    invertTree(node.right)
 
-//     return root
-// }
+    return root
+}
 
-//DFS
+//bfs
 function invertTree(root: TreeNode | null): TreeNode | null {
     if (!root) return null
 
     let node = root
+    const queue: TreeNode[] = [node]
 
-    const temp = node.right
-    node.right = node.left
-    node.left = temp
+    while (queue.length) {
+        node = queue.shift()
+        node.left && queue.push(node.left)
+        node.right && queue.push(node.right)
 
-    invertTree(node.left)
-    invertTree(node.right)
+        const temp = node.left
+        node.left = node.right
+        node.right = temp
+    }
+
     return root
 }
