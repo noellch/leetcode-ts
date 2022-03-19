@@ -66,7 +66,7 @@ const s = 'cars',
  *
  */
 
-var wordBreak = function (s, wordDict) {
+var wordBreak = function (s: any, wordDict: any) {
     const table = new Array(s.length + 1).fill(false)
     // 每一個 true 代表著它所在的 index 之前的 substring 是否存在 wordDict 中。
     table[0] = true
@@ -81,6 +81,7 @@ var wordBreak = function (s, wordDict) {
         //      i j
         // 已知 go 存在於 wordDict，只需判斷 a 開始到 l 的每個 substring 組成。
         if (!table[i]) continue
+        
         // 遍歷每一次 i ~ j 的 substring 組成。
         for (let j = i + 1; j < table.length; j++) {
             // 若存在 wordDict 將標示 j 所在的 index 值改為 true，代表 這個 i ~ j 的 string 存在於 wordDict。
