@@ -1,38 +1,36 @@
 // 1
-const cached = (func) => {
+function cache1(func) {
     const cache = {}
 
-    return function (...args) {
-        // args => `[1, 2, 4]`
+    return function cached(...args) {
         const key = JSON.stringify(args)
 
         if (key in cache) {
-            console.log('Fetching from cache')
-            console.log(cache)
+            console.log('from cache')
             return cache[key]
         } else {
-            const result = func(...args)
+            const result = func.apply(this, args)
             cache[key] = result
             return result
         }
     }
 }
-// 2
-var memoize = function (f) {
-    var cache = {}
 
-    return function () {
-        var arg_str = JSON.stringify(arguments)
-        cache[arg_str] = cache[arg_str] || f.apply(f, arguments)
-        return cache[arg_str]
+// 2
+function cache2(func) {
+    const cache = {}
+
+    return function cached(...args) {
+        const key = JSON.stringify(args)
+        cache[key] = cache[key] || func.apply(this, args)
+
+        return cache[key]
     }
 }
 
-function sum(a, b, c) {
+const ca = cache1(function (a, b, c) {
     return a + b + c
-}
+})
 
-const f = cached(sum)
-
-console.log(f(1, 2, 4))
-console.log(f(1, 2, 4))
+console.log(ca(1, 2, 3))
+console.log(ca(1, 2, 3))
