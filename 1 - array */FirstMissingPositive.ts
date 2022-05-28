@@ -24,8 +24,7 @@ var firstMissingPositive = function (nums: number[]): number {
     while (i < nums.length) {
         // 改變原始的 array。如果 nums[i] 小於 1 或 大於 nums.length，nums[i] 就不動。
         // 反之則將 nums[i] 放到屬於他的位置，如 3 就跟 index 2 的元素交換，4 就跟 index 3 的元素交換。
-        if (nums[i] > 0 && nums[i] <= nums.length && nums[nums[i] - 1] !== nums[i])
-            [nums[nums[i] - 1], nums[i]] = [nums[i], nums[nums[i] - 1]]
+        if (nums[i] > 0 && nums[i] <= nums.length && nums[nums[i] - 1] !== nums[i]) [nums[nums[i] - 1], nums[i]] = [nums[i], nums[nums[i] - 1]]
         else i++
     }
 
