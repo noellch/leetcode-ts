@@ -11,10 +11,7 @@ Given an array of strings words where each word can be written as a concatenatio
 For example, "cab" can be written as "-.-..--...", which is the concatenation of "-.-.", ".-", and "-...". We will call such a concatenation the transformation of a word.
 Return the number of different transformations among all words we have. */
 
-//? 會給定一個英文字串組成的 array。將各個字串的字母轉換成摩斯密碼再組合。返回字串轉換後，共有幾總不同的摩斯密碼組合。
-//? 題目有給摩斯密碼的對照 array
-
-var uniqueMorseRepresentations = function (words: string[]): number {
+function uniqueMorseRepresentations(words: string[]): number {
     const morseArr = [
         '.-',
         '-...',
@@ -45,18 +42,25 @@ var uniqueMorseRepresentations = function (words: string[]): number {
     ]
 
     const result = words.map((word) => {
-        let char = ''
-        for (const w of word) {
-            char += morseArr[w.charCodeAt(0) - 97]
+        let morseCode = ''
+
+        for (const letter of word) {
+            morseCode += morseArr[letter.charCodeAt(0) - 97]
         }
-        return char
+
+        return morseCode
     })
 
-    const set: Set<string> = new Set(result)
-    return set.size
+    return new Set(result).size
 }
 
 console.log(uniqueMorseRepresentations(['gin', 'zen', 'gig', 'msg']))
 
-// * 不是太難的一題。要看有幾種不重複方的式第一個想到的就是用 Set。
-// * 要提高效能可以將 morseArr 改為 map。ex: {a: '.-', b: '-...'... }。這樣就不需要每個字母都用 charCodeAt 去轉換再對照。
+/**
+ * 要提高效能可以將 morseArr 改為 map。ex: {a: '.-', b: '-...'... }。這樣就不需要每個字母都用 charCodeAt 去轉換再對照。
+ */
+
+/**
+ * T.C.: O(n^m) (worst case。n 為 words 的長度。m 為最長 word 的字母數。）
+ * S.C.: O(n)（worst case。n 為 words 的長度。因為 Set 的 size 可能最差與 words 的長度 相同。）
+ */
