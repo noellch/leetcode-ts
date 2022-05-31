@@ -39,7 +39,6 @@ function topKFrequent_2(nums: number[], k: number): number[] {
 
     // 相同頻率的數字放進同一個 bucket 中。
     for (const [num, count] of Object.entries(table)) {
-        console.log(num, count)
         freqBucket[count].push(+num)
     }
 
