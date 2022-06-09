@@ -22,7 +22,6 @@ function findDuplicate(nums: number[]): number {
     while (true) {
         slow = nums[slow]
         slow2 = nums[slow2]
-        console.log(slow, slow2)
 
         if (slow === slow2) break
     }
@@ -44,8 +43,8 @@ function findDuplicate(nums: number[]): number {
  * slow pointer 和 slow2 pointer 交會處就會是迴圈的起點，也就是我們要找的重複值
  *
  *  [1, 3, 4, 2, 2]
- * fast pointer 1 => 3 => 4 => 4 => 4 => 4
- * slow pointer 1 => 3 => 2 => 4 => 4
+ * fast pointer 3 => 4 => 4 => 4
+ * slow pointer 1 => 3 => 2 => 4
  * 交會處處的值是 4，目標是要找到迴圈的開頭。
  *
  * #

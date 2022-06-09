@@ -7,13 +7,22 @@ The final sorted array should not be returned by the function, but instead be st
  */
 
 /**
+ * Follow up: Can you come up with an algorithm that runs in O(m + n) time?
+ */
+
+/**
  Do not return anything, modify nums1 in-place instead.
  */
 function merge(nums1: number[], m: number, nums2: number[], n: number): void {
-    // nums1 的最後一個 index
+    // last index of nums1
     let last = m + n - 1
 
-    // m 跟 n 都大於 0 表示兩個 array 都還沒被判斷完
+    /**
+     * 從 nums1 跟 nums2 的後端開始比。
+     * 比較 nums1[m-1] 跟 nums2[n-1]，比較大的就放到 last，也就是 nums1 的最後端。
+     * 到最後若 m 已經小於 0，表示 num1 已經沒有元素可以比較，把 nums2 剩下的全部放到 num1 的最前面。
+     */
+
     while (m > 0 && n > 0) {
         if (nums1[m - 1] > nums2[n - 1]) {
             nums1[last] = nums1[m - 1]
@@ -39,11 +48,9 @@ const nums1 = [1, 2, 3, 0, 0, 0],
     nums2 = [2, 5, 6],
     n = 3
 
-console.log(merge(nums1, m, nums2, n))
+merge(nums1, m, nums2, n)
 
 /**
- * 從 num1 的最後一個 index 'last' 開始判斷
- * 若 num2 的最後一個值大於 num1 的第 m-1 個值，last = nums2[n-1]，反之 last = nums1[m-1]
- * 到最後若 m 已經小於 0，表示 num1 已經沒有元素可以比較，把 nums2 剩下的全部放到 num1 的最前面。
- *
+ * T.C: O(m + n)
+ * S.C: O(1)
  */

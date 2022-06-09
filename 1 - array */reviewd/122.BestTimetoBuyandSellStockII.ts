@@ -1,4 +1,4 @@
-/* Q: You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
+/* You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
 
 On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can buy it then immediately sell it on the same day.
 
@@ -19,7 +19,6 @@ var maxProfit = function (prices: number[]): number {
 console.log(maxProfit([1, 3, 2, 6, 9, 12]))
 
 /**
- *
  * 因為可以在同一天買賣，為求最大利益，一定是在 n 比 n - 1 價格高時賣出。
  * 題目不考慮購入成本，只考慮利潤。故儘管最後一天買入而未賣出也不影響已經發生的利潤。
  * ex: [1, 3, 5, 6, 9]。

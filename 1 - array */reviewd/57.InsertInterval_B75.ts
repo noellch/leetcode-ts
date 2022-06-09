@@ -1,12 +1,53 @@
-/* Q: You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti. You are also given an interval newInterval = [start, end] that represents the start and end of another interval.
+/* You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti. You are also given an interval newInterval = [start, end] that represents the start and end of another interval.
 
 Insert newInterval into intervals such that intervals is still sorted in ascending order by starti and intervals still does not have any overlapping intervals (merge overlapping intervals if necessary).
 
-Return intervals after the insertion.
+Return intervals after the insertion. */
 
+function insert_1(intervals: number[][], newInterval: number[]): number[][] {
+    const result: number[][] = []
+
+    for (let i = 0; i < intervals.length; i++) {
+        // newInterval 可完整插入 intervals[i] 前方。
+        // 所以把剩下的 intervals 整段放進 result 就是結果。
+        if (newInterval[1] < intervals[i][0]) {
+            result.push(newInterval)
+            result.push(...intervals.slice(i))
+            return result
+            // newInterval 比當下 intervals[i] 還大。
+            // 所以把 intervals[i] 放進 result
+        } else if (newInterval[0] > intervals[i][1]) {
+            result.push(intervals[i])
+            // newInterval 跟 intervals[i] overlapping，要 merge 成新的 newInterval。
+        } else {
+            newInterval = [Math.min(newInterval[0], intervals[i][0]), Math.max(newInterval[1], intervals[i][1])]
+        }
+    }
+
+    // 這邊是第一個判斷式若都沒跑到，等於 newInterval 是在 result 最後端。
+    result.push(newInterval)
+    return result
+}
+
+console.log(
+    insert_1(
+        [
+            [1, 2],
+            [3, 5],
+            [6, 7],
+            [8, 10],
+            [12, 16],
+        ],
+        [4, 8]
+    )
+)
+
+/**
+ * T.C.: O(n)
+ * S.C.: O(n)
  */
 
-var insert = function (intervals: number[][], newInterval: number[]): number[][] {
+function insert_2(intervals: number[][], newInterval: number[]): number[][] {
     // 將 newInterval 放入後依照 [0] 的大小 ascending 排列。
     intervals.push(newInterval)
     intervals.sort((a, b) => a[0] - b[0])
@@ -43,13 +84,13 @@ var insert = function (intervals: number[][], newInterval: number[]): number[][]
 }
 
 console.log(
-    insert(
+    insert_2(
         [
             [1, 2],
             [3, 5],
-            [12, 16],
             [6, 7],
             [8, 10],
+            [12, 16],
         ],
         [4, 8]
     )
