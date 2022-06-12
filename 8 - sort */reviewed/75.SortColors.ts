@@ -1,42 +1,49 @@
+/* Given an array nums with n objects colored red, white, or blue, 
+sort them in-place so that objects of the same color are adjacent,
+ with the colors in the order red, white, and blue.
+
+We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
+
+You must solve this problem without using the library's sort function. */
+
 /**
+ * Follow up:
+ * Could you come up with a one-pass algorithm using only constant extra space?
  *
- * Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color
- * are adjacent, with the colors in the order red, white, and blue.
- * We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively.
- * You must solve this problem without using the library's sort function.
- *
+ * can't use sort function
+ * sort them in-place
  */
 
 /**
-    Do not return anything, modify nums in-place instead.
+ Do not return anything, modify nums in-place instead.
  */
-
 function sortColors(nums: number[]): void {
-    function swap(i: number, j: number) {
-        let temp = nums[i]
-        nums[i] = nums[j]
-        nums[j] = temp
+    function swap(j: number, k: number) {
+        let temp = nums[j];
+        nums[j] = nums[k];
+        nums[k] = temp;
     }
 
     let l = 0,
         r = nums.length - 1,
-        i = 0
+        i = 0;
 
     while (i <= r) {
         if (nums[i] === 0) {
-            swap(l, i)
-            l++
+            swap(i, l);
+            l++;
+            i++;
         } else if (nums[i] === 2) {
-            swap(i, r)
-            r--
-            // 這邊的 i-- 會跟下方的 i++ 抵銷，也就是說 i 不動。
-            i--
+            swap(i, r);
+            r--;
+        } else {
+            i++;
         }
-        i++
     }
+    console.log(nums);
 }
 
-console.log([2, 0, 2, 1, 1, 0])
+sortColors([1, 0, 2]);
 
 /**
  * quick sort
@@ -53,10 +60,7 @@ console.log([2, 0, 2, 1, 1, 0])
  * 為了解決這個問題，在每次遇到 2 時的交換，i 就不要 +1，這樣才能讓 i 有機會遇到下個 0。
  *
  *
- * time complexity
- * O(n)
- *
- * space complexity
- * O(1)
+ * T.C: O(n)
+ * S.C: O(n1)
  *
  */
