@@ -3,22 +3,22 @@
 function merge(intervals: number[][]): number[][] {
     // 必須先以 interval 的第一個元素做 ascending 排序
     // intervals 的題目都可以先考慮到排序
-    intervals.sort((a, b) => a[0] - b[0])
+    intervals.sort((a, b) => a[0] - b[0]);
 
-    let prev = intervals[0]
+    let prev = intervals[0];
     // prev 經比較後會動態調整，以 intervals[0] 為初始。
-    const result: number[][] = [prev]
+    const result: number[][] = [prev];
 
     for (let i = 1; i < intervals.length; i++) {
         if (prev[1] >= intervals[i][0]) {
-            prev[1] = Math.max(prev[1], intervals[i][1])
+            prev[1] = Math.max(prev[1], intervals[i][1]);
         } else {
-            prev = intervals[i]
-            result.push(prev)
+            prev = intervals[i];
+            result.push(prev);
         }
     }
 
-    return result
+    return result;
 }
 
 const intervals = [
@@ -29,9 +29,9 @@ const intervals = [
     [5, 7],
     [2, 2],
     [4, 6],
-]
+];
 
-console.log(merge(intervals))
+console.log(merge(intervals));
 
 /**
  * T.C.: O(nlogn) + O(n)

@@ -24,34 +24,34 @@ Do not ignore any characters other than the leading whitespace or the rest of th
 var myAtoi = function (s: string): number {
     let digits = 0,
         flag = 1,
-        p = 0
-    const INT_MAX = Math.pow(2, 31) - 1
-    const INT_MIN = -Math.pow(2, 31)
+        p = 0;
+    const INT_MAX = Math.pow(2, 31) - 1;
+    const INT_MIN = -Math.pow(2, 31);
 
     // 若開頭是' '
     while (s[p] === ' ') {
-        p++
+        p++;
     }
 
     // 遇到接下來的 '-' 或 '+' 符號則設定 flag。
     if (s[p] === '-' || s[p] === '+') {
-        flag = s[p] === '+' ? 1 : -1
-        p++
+        flag = s[p] === '+' ? 1 : -1;
+        p++;
     }
 
     // 若 +- 符號後緊跟著 0 ~ 9 的數字。
     // 判斷 s[p] !== ' ' 是因為 s[p 若是空格轉成數字會變成 0，所以加上去避免將空格轉成 0。
     while (+s[p] >= 0 && +s[p] <= 9 && s[p] !== ' ') {
-        digits = digits * 10 + +s[p]
-        p++
+        digits = digits * 10 + +s[p];
+        p++;
     }
 
-    digits = digits * flag
+    digits = digits * flag;
 
-    if (digits >= INT_MAX) return INT_MAX
-    if (digits <= INT_MIN) return INT_MIN
+    if (digits >= INT_MAX) return INT_MAX;
+    if (digits <= INT_MIN) return INT_MIN;
 
-    return digits
-}
+    return digits;
+};
 
-console.log(myAtoi('  -2147483 '))
+console.log(myAtoi('  -2147483 '));

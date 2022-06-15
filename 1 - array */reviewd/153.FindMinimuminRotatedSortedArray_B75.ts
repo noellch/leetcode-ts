@@ -14,20 +14,20 @@ You must write an algorithm that runs in O(log n) time. */
 
 function findMin_1(nums: number[]): number {
     let left = 0,
-        right = nums.length - 1
-    let mid: number
+        right = nums.length - 1;
+    let mid: number;
 
     while (left < right) {
-        mid = ~~((left + right) / 2)
+        mid = ~~((left + right) / 2);
 
-        if (nums[mid] > nums[right]) left = mid + 1
-        else right = mid
+        if (nums[mid] > nums[right]) left = mid + 1;
+        else right = mid;
     }
 
-    return nums[left]
+    return nums[left];
 }
 
-console.log(findMin_1([4, 5, 6, 7, 8, 9, 1, 2, 3]))
+console.log(findMin_1([4, 5, 6, 7, 8, 9, 1, 2, 3]));
 
 /**
  * T.C.: O(logn)
@@ -35,28 +35,28 @@ console.log(findMin_1([4, 5, 6, 7, 8, 9, 1, 2, 3]))
  */
 
 function findMin_2(nums: number[]): number {
-    let res = nums[0]
+    let res = nums[0];
     let left = 0,
-        right = nums.length - 1
-    let mid: number
+        right = nums.length - 1;
+    let mid: number;
 
     while (left <= right) {
         if (nums[left] <= nums[right]) {
-            res = Math.min(nums[left], res)
-            break
+            res = Math.min(nums[left], res);
+            break;
         }
 
-        mid = ~~((left + right) / 2)
-        res = Math.min(nums[mid], res)
+        mid = ~~((left + right) / 2);
+        res = Math.min(nums[mid], res);
 
-        if (nums[mid] >= nums[left]) left = mid + 1
-        else right = mid - 1
+        if (nums[mid] >= nums[left]) left = mid + 1;
+        else right = mid - 1;
     }
 
-    return res
+    return res;
 }
 
-console.log(findMin_2([4, 5, 6, 7, 8, 9, 1, 2, 3]))
+console.log(findMin_2([4, 5, 6, 7, 8, 9, 1, 2, 3]));
 
 /**
  * T.C.: O(logn)
