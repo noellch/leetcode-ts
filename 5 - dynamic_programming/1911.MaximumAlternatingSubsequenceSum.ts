@@ -31,20 +31,18 @@ A subsequence of an array is a new array generated from the original array by de
 
 function maxAlternatingSum(nums: number[]): number {
     let sumEven = 0,
-        sumOdd = 0
+        sumOdd = 0;
 
     for (let i = 0; i < nums.length; i++) {
-        const tempOdd = Math.max(sumEven - nums[i], sumOdd)
-        const tempEven = Math.max(sumOdd + nums[i], sumEven)
-        sumEven = tempEven
-        sumOdd = tempOdd
+        const tempOdd = Math.max(sumEven - nums[i], sumOdd);
+        const tempEven = Math.max(sumOdd + nums[i], sumEven);
+        sumEven = tempEven;
+        sumOdd = tempOdd;
     }
-    return sumEven
+    return sumEven;
 }
 
-const nums = [4, 2, 5, 3]
-
-console.log(maxAlternatingSum(nums))
+console.log(maxAlternatingSum([4, 2, 5, 3]));
 
 /**
  *
