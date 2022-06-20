@@ -12,35 +12,35 @@ int getMin() retrieves the minimum element in the stack.
  */
 
 class MinStack {
-    stack: number[]
-    min: number[]
+    stack: number[];
+    min: number[];
 
     constructor() {
-        this.stack = []
-        this.min = []
+        this.stack = [];
+        this.min = [];
     }
 
     push(val: number): void {
-        this.stack.push(val)
+        this.stack.push(val);
 
         if (!this.min.length) {
-            this.min.push(val)
+            this.min.push(val);
         } else {
-            this.min.push(Math.min(val, this.min[this.min.length - 1]))
+            this.min.push(Math.min(val, this.min[this.min.length - 1]));
         }
     }
 
     pop(): void {
-        this.stack.pop()
-        this.min.pop()
+        this.stack.pop();
+        this.min.pop();
     }
 
     top(): number {
-        return this.stack[this.stack.length - 1]
+        return this.stack[this.stack.length - 1];
     }
 
     getMin(): number {
-        return this.min[this.min.length - 1]
+        return this.min[this.min.length - 1];
     }
 }
 
