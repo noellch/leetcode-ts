@@ -16,21 +16,21 @@ A subarray is a contiguous part of an array. */
 
 function maxSubArray(nums: number[]): number {
     let maxSub = nums[0],
-        curSum = 0
+        curSum = 0;
 
     for (let i = 0; i < nums.length; i++) {
-        // 不斷追蹤每個元素的和，若等於負數，可以解讀為對後續的最大和沒有幫助，
-        // ex： [1, 2, -4 ,5]
-        // 1 + 2 = 3 目前最大和 3
-        // 3 + -4 = -1 目前最大和 3，但 -1 對於後續構成最大和沒有幫助，所以重設 curSum = 0
-        // 所以 0 + 5 = 5 ，最大的 contiguous subarray sum 等於 5
-        if (curSum < 0) curSum = 0
+        //
+        //
+        //
+        //
+        //
+        if (curSum < 0) curSum = 0;
 
-        curSum += nums[i]
-        maxSub = Math.max(maxSub, curSum)
+        curSum += nums[i];
+        maxSub = Math.max(maxSub, curSum);
     }
 
-    return maxSub
+    return maxSub;
 }
 
-console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
+console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]));

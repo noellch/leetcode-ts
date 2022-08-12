@@ -1,8 +1,10 @@
-/* You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
+/* 
+You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
 
-Return true if you can reach the last index, or false otherwise. */
+Return true if you can reach the last index, or false otherwise.
+ */
 
-var canJump1 = function (nums: number[]): boolean {
+var canJump_1 = function (nums: number[]): boolean {
     let goal = nums.length - 1;
 
     // 如果當下已到達的距離(i) 加上可走的距離(nums[i]) 大於或等於目標
@@ -14,11 +16,12 @@ var canJump1 = function (nums: number[]): boolean {
     return goal === 0;
 };
 
-const nums = [2, 3, 1, 1, 4];
+/* 
+T.C.: O(n)
+S.C.: O(1)
+*/
 
-console.log(canJump1(nums));
-
-var canJump2 = function (nums: number[]): boolean {
+var canJump_2 = function (nums: number[]): boolean {
     // 目前最遠可到達的距離，會動態被更新
     // ex: [2, 1, 1, 2, 3]
     // 2 最遠可以到 2 + 0(index 0) = 2 farthest = 2
@@ -37,4 +40,10 @@ var canJump2 = function (nums: number[]): boolean {
     return farthest >= nums.length - 1;
 };
 
-console.log(canJump2(nums));
+const nums = [2, 3, 1, 1, 4];
+console.log(canJump_1(nums));
+
+/* 
+T.C.: O(n)
+S.C.: O(1)
+*/
