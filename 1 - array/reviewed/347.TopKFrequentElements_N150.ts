@@ -5,6 +5,8 @@ You may return the answer in any order. */
 
 // T.C. 要優於 O(nlogn)，n 是 nums 的長度。
 
+/* ------------------------------------------------------------------------------- */
+
 function topKFrequent_1(nums: number[], k: number): number[] {
     // num : count
     const table: { [key: string]: number } = {};
@@ -24,6 +26,8 @@ console.log(topKFrequent_1([1, 2, 2, 2, 3, 3, 4], 2));
  * T.C.: O(n) + O(nlogn) => O(n)
  * S.C.: O(n)
  */
+
+/* ------------------------------------------------------------------------------- */
 
 function topKFrequent_2(nums: number[], k: number): number[] {
     const table: { [key: string]: number } = {};
@@ -54,9 +58,11 @@ function topKFrequent_2(nums: number[], k: number): number[] {
     return result;
 }
 
-console.log(topKFrequent_2([1], 1));
+console.log(topKFrequent_2([1, 2, 2, 2, 3, 3, 4], 2));
 
 /**
  * T.C.: O(n)
  * S.C.: O(n)
  */
+
+/* ------------------------------------------------------------------------------- */

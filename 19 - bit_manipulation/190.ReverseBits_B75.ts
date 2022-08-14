@@ -13,7 +13,7 @@ In Java, the compiler represents the signed integers using 2's complement notati
 /**  Reverse bits of a given 32 bits unsigned integer. */
 
 // solution1;
-var reverseBits1 = function (n: any) {
+var reverseBits_1 = function (n: any) {
     var result = 0;
     var count = 32;
 
@@ -28,10 +28,10 @@ var reverseBits1 = function (n: any) {
     return result;
 };
 
-console.log(reverseBits1(11111111111111111111111111111101));
+console.log(reverseBits_1(11111111111111111111111111111101));
 
 // solution2
-function reverseBits2(n: number): number {
+function reverseBits_2(n: number): number {
     let result = 0;
     let count = 32;
     // 因為是 32-bits integer，所以只會有 32 位元
@@ -55,7 +55,7 @@ function reverseBits2(n: number): number {
 }
 
 // solution3
-function reverseBits3(n: number): number {
+function reverseBits_3(n: number): number {
     let result = 0;
 
     for (let i = 0; i < 32; i++) {
@@ -65,7 +65,7 @@ function reverseBits3(n: number): number {
 
     return result >>> 0;
 }
-console.log(reverseBits3(11111111111111111111111111111101));
+console.log(reverseBits_3(11111111111111111111111111111101));
 
 /**
  * T.C.: O(n)
