@@ -29,7 +29,8 @@ function isValid(s: string): boolean {
     return stack.length === 0;
 }
 
-console.log(isValid('(){}}{'));
+console.log(isValid('(){}{}'));
+console.log(isValid('()}{()'));
 
 /**
  * s 長度不為偶數根本不用開始配對，因為一定是 false。
@@ -39,4 +40,5 @@ console.log(isValid('(){}}{'));
 
 /**
  * T.C.: O(n)
+ * S.C.: O(n/2)
  */

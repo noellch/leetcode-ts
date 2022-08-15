@@ -9,24 +9,29 @@ Your solution must use only constant extra space.
   */
 
 function twoSum(numbers: number[], target: number): number[] {
-    if (numbers.length === 2) return [1, 2]
+    if (numbers.length === 2) return [1, 2];
 
     let left = 0,
-        right = numbers.length - 1
+        right = numbers.length - 1;
 
     while (left < right) {
         if (numbers[left] + numbers[right] < target) {
-            left++
+            left++;
         } else if (numbers[left] + numbers[right] > target) {
-            right--
+            right--;
         } else {
-            break
+            break;
         }
     }
-    return [left + 1, right + 1]
+    return [left + 1, right + 1];
 }
 
 let numbers = [5, 25, 75],
-    target = 100
+    target = 100;
 
-console.log(twoSum(numbers, target))
+console.log(twoSum(numbers, target));
+
+/*
+T.C.: O(n)
+S.C.: O(1)
+*/

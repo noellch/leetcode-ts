@@ -1,6 +1,8 @@
 /* Given a string s, find the length of the longest substring without repeating characters. */
 
-function lengthOfLongestSubstring1(s: string): number {
+/* ------------------------------------------------------------------------------- */
+
+function lengthOfLongestSubstring_1(s: string): number {
     if (!s.length) return 0;
     if (s.length === 1) return 1;
 
@@ -27,14 +29,17 @@ function lengthOfLongestSubstring1(s: string): number {
     return longest;
 }
 
-console.log(lengthOfLongestSubstring1('aab'));
+console.log(lengthOfLongestSubstring_1('aab'));
+console.log(lengthOfLongestSubstring_1('abcabcbb'));
 
 /**
  * T.C.: O(n)
  * S.C.: O(n)
  */
 
-function lengthOfLongestSubstring2(s: string): number {
+/* ------------------------------------------------------------------------------- */
+
+function lengthOfLongestSubstring_2(s: string): number {
     if (!s.length) return 0;
     if (s.length === 1) return 1;
 
@@ -56,9 +61,46 @@ function lengthOfLongestSubstring2(s: string): number {
     return longest;
 }
 
-console.log(lengthOfLongestSubstring2('aab'));
+console.log(lengthOfLongestSubstring_2('aab'));
+console.log(lengthOfLongestSubstring_2('abcabcbb'));
+
+/**
+ * T.C.: best O(n) / worst O(n^2)
+ * S.C.: O(n)
+ */
+
+/* ------------------------------------------------------------------------------- */
+
+function lengthOfLongestSubstring_3(s: string): number {
+    if (!s) return 0;
+    if (s.length === 1) return 1;
+
+    let longest = -Infinity,
+        l = 0,
+        r = 0;
+
+    const hashSet = new Set<string>();
+
+    while (r < s.length) {
+        if (!hashSet.has(s[r])) {
+            hashSet.add(s[r]);
+            r++;
+            longest = Math.max(longest, hashSet.size);
+        } else {
+            hashSet.delete(s[l]);
+            l++;
+        }
+    }
+
+    return longest;
+}
+
+console.log(lengthOfLongestSubstring_3('aab'));
+console.log(lengthOfLongestSubstring_3('abcabcbb'));
 
 /**
  * T.C.: O(n)
  * S.C.: O(n)
  */
+
+/* ------------------------------------------------------------------------------- */
