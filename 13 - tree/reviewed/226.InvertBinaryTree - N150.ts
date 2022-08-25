@@ -1,6 +1,8 @@
 /** Given the root of a binary tree, invert the tree, and return its root. */
 
 // Definition for a binary tree node.
+
+/* ------------------------------------------------------------------------------- */
 class TreeNode {
     val: number;
     left: TreeNode | null;
@@ -11,6 +13,8 @@ class TreeNode {
         this.right = right === undefined ? null : right;
     }
 }
+
+/* ------------------------------------------------------------------------------- */
 
 // dfs
 function invertTree_dfs(root: TreeNode | null): TreeNode | null {
@@ -26,6 +30,15 @@ function invertTree_dfs(root: TreeNode | null): TreeNode | null {
 
     return root;
 }
+
+/* 
+T.C.: O(n)
+S.C.: O(n)
+每個 node 都會被訪問過一次，所以 T.C. 是 O(n)。
+因為使用了遞迴，在 worst case 下每次的 function call 都會佔用 stack 的位置，所以 S.C. 是 O(n)。
+*/
+
+/* ------------------------------------------------------------------------------- */
 
 //bfs
 function invertTree_bfs(root: TreeNode | null): TreeNode | null {
@@ -46,3 +59,13 @@ function invertTree_bfs(root: TreeNode | null): TreeNode | null {
 
     return root;
 }
+
+/* 
+T.C.: O(n)
+S.C.: O(n)
+每個 node 都會被訪問過一次，所以 T.C. 是 O(n)。
+在 worst case 下，queue 會包含同一個 level 的所有 nodes；對於 full binary tree 最後一層的 leaf 共有 n/2 個，
+所以 S.C. 等於 O(n/2) => O(n)
+*/
+
+/* ------------------------------------------------------------------------------- */

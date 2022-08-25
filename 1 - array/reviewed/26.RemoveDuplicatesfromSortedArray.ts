@@ -13,20 +13,20 @@ Do not allocate extra space for another array. You must do this by modifying the
 
 function removeDuplicates(nums: number[]): number {
     // p 同時代表著目前有多少個不重複的數字
-    let p = 1
+    let p = 1;
 
     // nums[0] 一定是第一次出現且不重複的，所以從 nums[1]開始判斷。
     for (let i = 1; i < nums.length; i++) {
         if (nums[i] !== nums[i - 1]) {
-            nums[p] = nums[i]
-            p++
+            nums[p] = nums[i];
+            p++;
         }
     }
 
-    return p
+    return p;
 }
 
-console.log(removeDuplicates([1, 1, 2, 2, 3, 4, 5, 5, 5, 6]))
+console.log(removeDuplicates([1, 1, 2, 2, 3, 4, 5, 5, 5, 6]));
 
 /**
  * 因為 nums 是 non-decreasing order。

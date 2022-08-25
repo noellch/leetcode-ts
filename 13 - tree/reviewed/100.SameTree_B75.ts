@@ -2,6 +2,8 @@
 
 Two binary trees are considered the same if they are structurally identical, and the nodes have the same value. */
 
+/* ------------------------------------------------------------------------------- */
+
 class TreeNode {
     val: number;
     left: TreeNode | null;
@@ -13,25 +15,21 @@ class TreeNode {
     }
 }
 
-function isSameTree1(p: TreeNode | null, q: TreeNode | null): boolean {
-    if (!p && !q) return true;
-    if (!p || !q) return false;
+/* ------------------------------------------------------------------------------- */
 
-    if (p?.val === q?.val) {
-        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
-    } else return false;
+function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
+    if (!p && !q) return true;
+    if (!p || !q || p.val !== q.val) return false;
+
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
 }
 
-function isSameTree2(p: TreeNode | null, q: TreeNode | null): boolean {
-    if (!p && !q) return true;
-
-    if (p && q) {
-        if (p?.val !== q?.val) return false;
-        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
-    }
-
-    return false;
-}
+/* 
+recursively 遍歷兩顆 tree 的每個 node。
+若 node 同時不存在 return true。
+若 node 同時存在但值不同 return false。
+若 node 不同時存在 return false。
+*/
 
 /**
  * T.C.: O(n)
@@ -42,3 +40,5 @@ function isSameTree2(p: TreeNode | null, q: TreeNode | null): boolean {
  * worst case 是完全不平衡的 tree。這時 call stack 會佔用 tree 的高度是 n。
  *
  */
+
+/* ------------------------------------------------------------------------------- */

@@ -26,10 +26,10 @@ function isValidBST1(root: TreeNode | null): boolean {
         if (!node) return true;
         if (node.val <= left || node.val >= right) return false;
 
-        return isValid(node.left, left, node.val) && isValid(node.right, node.val, right);
+        return isValid(node.left!, left, node.val) && isValid(node.right!, node.val, right);
     }
 
-    return isValid(root, -Infinity, Infinity);
+    return isValid(root!, -Infinity, Infinity);
 }
 
 /**
@@ -47,7 +47,7 @@ function isValidBST2(root: TreeNode | null): boolean {
         if (node.right) DFS(node.right);
     }
 
-    DFS(root);
+    DFS(root!);
 
     for (let i = 0; i < data.length; i++) {
         if (data[i] >= data[i + 1]) return false;
