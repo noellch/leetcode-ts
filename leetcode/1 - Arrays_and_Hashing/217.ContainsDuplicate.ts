@@ -4,36 +4,39 @@ and return false if every element is distinct.
 
 /* ------------------------------------------------------------------------------- */
 
-function containsDuplicate_1(nums: number[]): boolean {
-    const set: Set<number> = new Set(nums);
+/* function containsDuplicate(nums: number[]): boolean {
+    const set = new Set<number>(nums);
 
-    return set.size !== nums.length;
+    return set.size === nums.length;
 }
-
-/**
- * T.C.: O(n)
- * S.C.: O(n)
  */
+
+/*
+T.C.: O(n)
+S.C.: O(n)
+*/
 
 /* ------------------------------------------------------------------------------- */
 
-function containsDuplicate_2(nums: number[]): boolean {
-    // value: the number of presence
-    const table: Map<number, number> = new Map();
+function containsDuplicate(nums: number[]): boolean {
+    const table = new Map<number, number>();
 
     for (const num of nums) {
         if (table.has(num)) return true;
-
         table.set(num, 1);
     }
 
     return false;
 }
-/**
- * T.C.: O(n)
- * S.C.: O(n)
- */
 
-console.log(containsDuplicate_2([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]));
+/*
+T.C.: O(n)
+S.C.: O(n)
+*/
 
 /* ------------------------------------------------------------------------------- */
+
+// const nums = [1, 2, 3, 1];
+// const nums = [1, 2, 3, 4];
+const nums = [1, 1, 1, 3, 3, 4, 3, 2, 4, 2];
+console.log(containsDuplicate(nums));
