@@ -1,0 +1,53 @@
+/* 
+https://leetcode.com/problems/combination-sum/
+
+Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.
+
+The same number may be chosen from candidates an unlimited number of times. Two combinations are unique if the 
+frequency
+ of at least one of the chosen numbers is different.
+
+The test cases are generated such that the number of unique combinations that sum up to target is less than 150 combinations for the given input.
+*/
+
+/* ------------------------------------------------------------------------------- */
+
+function combinationSum(candidates: number[], target: number): number[][] {
+    const result: number[][] = [];
+    const current: number[] = [];
+
+    function dfs(idx: number, total: number) {
+        if (total === target) return result.push([...current]);
+        if (total > target || idx > candidates.length - 1) return;
+
+        current.push(candidates[idx]);
+        dfs(idx, total + candidates[idx]);
+        current.pop();
+        dfs(idx + 1, total);
+    }
+    dfs(0, 0);
+
+    return result;
+}
+
+/*
+T.C.: O(N * (N^H))
+- H 是 recursion tree 可能的高度（target / MIN(candidates)）。
+- N 是 candidates 的長度，在遞迴樹的每個層級中，我們有 N 個選擇來減少目標，然後遞迴進行。
+- 每個節點上的操作涉及構建一個組合，並檢查其總和是否等於目標值。組合的構建需要 O(N) 的時間，檢查總和是否相等也需要 O(N) 的時間。每個節點的操作成本為 O(N)。
+- 
+S.C.: O(N * H)
+- recursion tree 最大深度為 H。
+- 每一層暫存的 current 最大的長度為 N。
+*/
+
+/* ------------------------------------------------------------------------------- */
+
+const candidates = [2, 3, 6, 7],
+    target = 7;
+// const candidates = [2, 3, 5],
+//     target = 8;
+// const candidates = [2],
+//     target = 1;
+
+console.log(combinationSum(candidates, target));

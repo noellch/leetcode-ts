@@ -29,20 +29,20 @@
 // }
 
 function permute(nums: number[]): number[][] {
-    const result: number[][] = []
+    const result: number[][] = [];
 
-    if (nums.length === 1) return [[...nums]]
+    if (nums.length === 1) return [[...nums]];
 
     for (let i = 0; i < nums.length; i++) {
-        const n = nums.shift()!
-        const perms = permute(nums)
+        const n = nums.shift()!;
+        const perms = permute(nums);
 
         for (const perm of perms) {
-            perm.push(n)
-            result.push([...perm])
+            perm.push(n);
+            result.push([...perm]);
         }
 
-        nums.push(n)
+        nums.push(n);
         // perm 跟 nums 是一樣的
         // perm 放進 result => [[3,2],[2,3]] (下一輪 push n=1)
         // nums 為了下一輪
@@ -60,7 +60,7 @@ function permute(nums: number[]): number[][] {
          */
     }
 
-    return result
+    return result;
 }
 
 /**
@@ -77,4 +77,4 @@ function permute(nums: number[]): number[][] {
  * 另外兩個分支概念一樣。
  */
 
-console.log(permute([1, 2, 3]))
+console.log(permute([1, 2, 3]));
