@@ -8,68 +8,68 @@ Return the maximum area of an island in grid. If there is no island, return 0.
 
 /* ------------------------------------------------------------------------------- */
 // dfs
-// function maxAreaOfIsland(grid: number[][]): number {
-//     let result = 0;
-//     function dfs(row: number, col: number): number {
-//         if (row < 0 || col < 0 || row >= grid.length || col >= grid[0].length || grid[row][col] === 0) return 0;
-
-//         grid[row][col] = 0;
-
-//         return 1 + dfs(row + 1, col) + dfs(row - 1, col) + dfs(row, col + 1) + dfs(row, col - 1);
-//     }
-
-//     for (let row = 0; row < grid.length; row++) {
-//         for (let col = 0; col < grid[row].length; col++) {
-//             if (grid[row][col] === 1) {
-//                 result = Math.max(result, dfs(row, col));
-//             }
-//         }
-//     }
-
-//     return result;
-// }
-/* ------------------------------------------------------------------------------- */
-
-// bfs
 function maxAreaOfIsland(grid: number[][]): number {
-    const DIRECTIONS = [
-        [1, 0],
-        [-1, 0],
-        [0, 1],
-        [0, -1],
-    ];
-
     let result = 0;
+    function dfs(row: number, col: number): number {
+        if (row < 0 || col < 0 || row >= grid.length || col >= grid[0].length || grid[row][col] === 0) return 0;
 
-    function bfs(row: number, col: number): number {
-        const queue: [number, number][] = [[row, col]];
-        let area = 0;
+        grid[row][col] = 0;
 
-        while (queue.length > 0) {
-            const [row, col] = queue.shift() as [number, number];
-
-            if (row < 0 || col < 0 || row >= grid.length || col >= grid[0].length || grid[row][col] === 0) continue;
-
-            area++;
-            grid[row][col] = 0;
-            for (const [dr, dc] of DIRECTIONS) {
-                queue.push([row + dr, col + dc]);
-            }
-        }
-
-        return area;
+        return 1 + dfs(row + 1, col) + dfs(row - 1, col) + dfs(row, col + 1) + dfs(row, col - 1);
     }
 
     for (let row = 0; row < grid.length; row++) {
         for (let col = 0; col < grid[row].length; col++) {
             if (grid[row][col] === 1) {
-                result = Math.max(result, bfs(row, col));
+                result = Math.max(result, dfs(row, col));
             }
         }
     }
 
     return result;
 }
+/* ------------------------------------------------------------------------------- */
+
+// bfs
+// function maxAreaOfIsland(grid: number[][]): number {
+//     const DIRECTIONS = [
+//         [1, 0],
+//         [-1, 0],
+//         [0, 1],
+//         [0, -1],
+//     ];
+
+//     let result = 0;
+
+//     function bfs(row: number, col: number): number {
+//         const queue: [number, number][] = [[row, col]];
+//         let area = 0;
+
+//         while (queue.length > 0) {
+//             const [row, col] = queue.shift() as [number, number];
+
+//             if (row < 0 || col < 0 || row >= grid.length || col >= grid[0].length || grid[row][col] === 0) continue;
+
+//             area++;
+//             grid[row][col] = 0;
+//             for (const [dr, dc] of DIRECTIONS) {
+//                 queue.push([row + dr, col + dc]);
+//             }
+//         }
+
+//         return area;
+//     }
+
+//     for (let row = 0; row < grid.length; row++) {
+//         for (let col = 0; col < grid[row].length; col++) {
+//             if (grid[row][col] === 1) {
+//                 result = Math.max(result, bfs(row, col));
+//             }
+//         }
+//     }
+
+//     return result;
+// }
 
 /*
 T.C.: O(R * C)
