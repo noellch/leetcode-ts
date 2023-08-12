@@ -37,11 +37,13 @@ function isPalindrome(s: string, l: number, r: number) {
 
 /*
 T.C.: O(2^N)
-- O(N⋅2N), where N is the length of the string s. In the worst case, there could be 2^N possible substrings and it will take O(N) to generate each substring using substring. However, we are eliminating one additional iteration to check if the substring is a palindrome or not.
+- 在最壞的情況下，我們需要考慮所有可能的分割情況。假設給定的字符串長度是 N。
+在每一步，我們都有兩種選擇：要不就在當前位置進行分割，要不就不進行分割。因此，總的分割方案數是指數級的，是 O(2^N)。
 
 S.C.: O(N)
-- O(N * N), where N is the length of the string s. The recursive call stack would require N space as in Approach 1. Additionally we also use 2 dimensional array of size N* N
-- This gives us a total space complexity of O(N * N) + O(N) = O(N * N)
+- 遞迴調用的 call stack 高度為 N。其中 N 是 s 的長度。
+- 此外，我還還需要額外的二維陣列還保存結果 N * N。
+- O(N * N) + O(N) = O(N * N)
 */
 
 /* ------------------------------------------------------------------------------- */

@@ -58,15 +58,12 @@ function subsets(nums: number[]): number[][] {
 
 /*
 T.C.: O(N * 2^N)
-- 每個數字的兩種選擇共 2^N 種可能 - O(2^N)，
-- 在每個回溯步驟中，將元素添加到 subset 中，這需要 O(1) 時間。
-- T.C. 為 O(N * 2^N)。
+- 每個數字的兩種選擇共 2^N 種可能。
+- 在每個回溯步驟中，將元素添加到 subset 中，這需要 O(N) 時間。
 
 S.C.: O(N)
-- 除了輸入和輸出，額外的空間主要用於遞迴呼叫的 call stack 和 subset。
-- 最壞情況下，call stack 的深度是 N。
+- 除了輸入和輸出，額外的空間主要用於遞迴呼叫的 call stack 和 subset，最壞情況下，call stack 的深度是 N。
 - subset 的隨著遞迴的進行而變化，最大大小不會超過輸入的陣列長度 N。
-- S.C. 為 O(N)。
 */
 
 const nums = [1, 2, 3];

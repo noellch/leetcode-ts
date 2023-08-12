@@ -61,19 +61,15 @@ function combinationSum2(candidates: number[], target: number): number[][] {
 
 /*
 T.C.: O(2^N)
-- In the worst case, our algorithm will exhaust all possible combinations from the input array, 
-which in total amounts to 2^N as we discussed before.
--The sorting will take O(N * log(⁡N))
-To sum up, the overall time complexity of the algorithm is dominated by the backtracking process,
- which is O(2^N)
+- sort 的時間複雜度 O(N * log(⁡N))。
+- 在最壞的情況下，我們需要遍歷所有可能的組合。
+每一層的遞迴都需要嘗試所有的數組元素，但由於每個數字只能使用一次，所以下一層的遞迴需要排除已經使用過的數字。
+總的時間複雜度是指數級的 O(2^N)。
 
 S.C.: O(N)
-- We use the variable comb to keep track of the current combination we build, which requires O(N) space.
-- In addition, we apply recursion in the algorithm, which will incur additional memory consumption in the function call stack.
-In the worst case, the stack will pile up to O(N) space.
-- To sum up, the overall space complexity of the algorithm is O(N)+O(N)=O(N).
+- 在遞迴的過程中，我們需要使用額外的數據結構來保存當前的組合，以及記錄哪些數字已經被選擇過。
+這個數據結構的大小取決於遞迴的深度和選擇的數字數量。最壞情況下，所有數組元素都被選中，所以空間複雜度是 O(N)。
 
-Note: we did not take into account the space needed to hold the final results of combination in the above analysis.
 */
 
 /* ------------------------------------------------------------------------------- */
