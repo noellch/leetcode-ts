@@ -128,6 +128,11 @@ Connected Undirected Graph - Minimum Spanning Tree: MST
 //     return result;
 // }
 
+/*
+T.C.: O(N^2 * log(N)) // priority queue operation
+S.C.: O(N) // store visited node
+*/
+
 /* ------------------------------------------------------------------------------- */
 
 // Kruskal's Algorithm
@@ -144,6 +149,7 @@ class UnionFind {
         }
     }
 
+    // T.C. = worst O(N), general O(1)
     find(node: number) {
         if (node !== this.parent[node]) {
             this.parent[node] = this.find(this.parent[node]);
@@ -152,6 +158,7 @@ class UnionFind {
         return this.parent[node];
     }
 
+    // T.C. = worst O(N), general O(1)
     union(node1: number, node2: number) {
         const p1 = this.find(node1);
         const p2 = this.find(node2);
@@ -175,6 +182,7 @@ function minCostConnectPoints(points: number[][]): number {
     let result = 0;
     const edges: number[][] = [];
 
+    // T.C. = O(N^2)
     for (let i = 0; i < len; i++) {
         const [x1, y1] = points[i];
         for (let j = i; j < len; j++) {
@@ -183,10 +191,13 @@ function minCostConnectPoints(points: number[][]): number {
             edges.push([i, j, distance]);
         }
     }
+
+    // T.C. = O(log(N))
     edges.sort((a, b) => a[2] - b[2]);
 
     const unionFind = new UnionFind(len);
 
+    // T.C. = O(N)
     for (const [u, v, distance] of edges) {
         if (unionFind.find(u) !== unionFind.find(v)) {
             unionFind.union(u, v);
@@ -197,6 +208,10 @@ function minCostConnectPoints(points: number[][]): number {
     return result;
 }
 
+/*
+T.C.: O(N^2 * log(N)) // due to the sort operation
+S.C.: O(N^2) // store all the edges
+*/
 /* ------------------------------------------------------------------------------- */
 
 const points = [
