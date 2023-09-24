@@ -6,7 +6,7 @@
 
 function maxProduct(nums: number[]): number {
     // 避免 nums 只有一個元素時
-    if (nums.length <= 1) return nums[0]
+    if (nums.length <= 1) return nums[0];
 
     /**
      * nums 中的元素可能存在負數，若出現最小負數積，再與接下來的負數相乘，則可能成為最大的正數積。
@@ -16,7 +16,7 @@ function maxProduct(nums: number[]): number {
 
     let curMax = 0,
         curMin = 0,
-        result = 0
+        result = 0;
 
     /**
      *  與新的一個元素相乘後可能會出現三種情況
@@ -27,22 +27,22 @@ function maxProduct(nums: number[]): number {
 
     for (let i = 0; i < nums.length; i++) {
         if (nums[i] === 0) {
-            curMax = 1
-            curMin = 1
-            continue
+            curMax = 1;
+            curMin = 1;
+            continue;
         }
         // 避免下面的 curMax 被更新後，curMin 取到更新後的值
-        const temp = curMax
-        curMax = Math.max(curMax * nums[i], curMin * nums[i], nums[i])
-        curMin = Math.min(temp * nums[i], curMin * nums[i], nums[i])
-        result = Math.max(result, curMax)
+        const temp = curMax;
+        curMax = Math.max(curMax * nums[i], curMin * nums[i], nums[i]);
+        curMin = Math.min(temp * nums[i], curMin * nums[i], nums[i]);
+        result = Math.max(result, curMax);
     }
 
-    return result
+    return result;
 }
 
-const nums = [-2]
-console.log(maxProduct(nums))
+const nums = [-2];
+console.log(maxProduct(nums));
 
 /**
  *
