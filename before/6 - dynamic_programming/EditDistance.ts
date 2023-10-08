@@ -10,33 +10,33 @@ Replace a character
  */
 
 function minDistance(word1: string, word2: string): number {
-    const dp = Array.from({ length: word1.length + 1 }, () => new Array(word2.length + 1).fill(0))
+    const dp = Array.from({ length: word1.length + 1 }, () => new Array(word2.length + 1).fill(0));
 
     for (let i = word1.length; i >= 0; i--) {
-        dp[i][word2.length] = word1.length - i
+        dp[i][word2.length] = word1.length - i;
     }
 
     for (let j = word2.length; j >= 0; j--) {
-        dp[word1.length][j] = word2.length - j
+        dp[word1.length][j] = word2.length - j;
     }
 
     for (let k = word1.length - 1; k >= 0; k--) {
         for (let l = word2.length - 1; l >= 0; l--) {
             // 當下字母是否相等
             if (word1[k] === word2[l]) {
-                dp[k][l] = dp[k + 1][l + 1]
+                dp[k][l] = dp[k + 1][l + 1];
             } else {
-                dp[k][l] = 1 + Math.min(dp[k + 1][l], dp[k][l + 1], dp[k + 1][l + 1])
+                dp[k][l] = 1 + Math.min(dp[k + 1][l], dp[k][l + 1], dp[k + 1][l + 1]);
             }
         }
     }
 
-    return dp[0][0]
+    return dp[0][0];
 }
 
 const word1 = 'horse',
-    word2 = 'ros'
-console.log(minDistance(word1, word2))
+    word2 = 'ros';
+console.log(minDistance(word1, word2));
 
 /**
  *
