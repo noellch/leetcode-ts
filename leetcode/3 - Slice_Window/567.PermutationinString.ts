@@ -43,9 +43,9 @@ S.C.: O(M + N)
 
 // const s1 = 'ab',
 //     s2 = 'eidbaooo';
-// const s1 = 'ab',
-//     s2 = 'eidboaoo';
-const s1 = 'hello',
-    s2 = 'ooolleoooleh';
+const s1 = 'ab',
+    s2 = 'eidboaoo';
+// const s1 = 'hello',
+//     s2 = 'ooolleoooleh';
 
 console.log(checkInclusion(s1, s2));

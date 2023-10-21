@@ -16,7 +16,7 @@ function characterReplacement(s: string, k: number): number {
 
         // 若 window 長度減去 window 內最常出現的字母頻率大於 k，
         // 表示現在這個 window 替換掉 k 個字母已經無法達到全相同字母 substring
-        while (r - l + 1 - Math.max(...table.values()) > k) {
+        if (r - l + 1 - Math.max(...table.values()) > k) {
             // 所以將 l 所在位置的字母頻率減一
             // l 向上，window 內縮
             table.set(s[l], (table.get(s[l]) as number) - 1);
