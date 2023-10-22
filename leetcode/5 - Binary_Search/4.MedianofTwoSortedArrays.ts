@@ -50,9 +50,9 @@ function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
 我們知道中位數會將 merge 後的 array 分成對等的左右兩部分，
 若 merged array 共有 13 個 item，則中位數會將之分為兩個長度為 6 的 subarray。
 找到較短 array 中位數的 index，再用 subarray 的長度減去它，就可以在不 merge 的情況下找到兩個 array 在 merge 後中位數可能的位置。
-例如，[1, 2, 3, 4, 5, 6, 7] 和 [3, 4, 5, 6, 7]
-找到較短 array 中位數為 index2，用 merge 後 array 長度的一半減去它 (6 - 2 - 2 = 4。 會多減一個 2 是因為兩個 array 的 index 都是從 0 開始) 
-所以較長 array 的中位數可能位於 index4。
+例如，[1, 2, 3, 4, 5, 6, 7] 和 [3, 4, 5, 6, 7, 8]
+找到較短 array 中位數為 index2，用 merge 後 array 長度的一半減去它 (6 - 2 - 2 = 2。 會多減一個 2 是因為兩個 array 的 index 都是從 0 開始) 
+所以較長 array 的中位數可能位於 index2。
 
 接著要驗證找到的兩個中位數是否無誤，
 因為我們知道兩個 array 都 sorted，所以找到的兩個中位數一定會小於自身 array 的下一個 index。

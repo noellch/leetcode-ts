@@ -12,6 +12,7 @@ function largestRectangleArea(heights: number[]): number {
 
     for (let i = 0; i < heights.length; i++) {
         heightStart = i;
+        console.log(stack);
         while (stack.length && stack[stack.length - 1][0] > heights[i]) {
             const [height, index] = stack.pop() as [number, number];
             result = Math.max(result, height * (i - index));
@@ -27,12 +28,14 @@ function largestRectangleArea(heights: number[]): number {
 /*
 T.C.: O(N)
 S.C.: O(N)
-- nice explanation from nhttps://leetcode.com/problems/largest-rectangle-in-histogram/submissions/
+- nice explanation from https://leetcode.com/problems/largest-rectangle-in-histogram/solutions/1430546/monotonique-stack-solution-intuition-javascript/
 */
 
 /* ------------------------------------------------------------------------------- */
 
 const heights = [2, 1, 5, 6, 2, 3, 1, 1];
+// const heights = [4, 3, 2, 1];
+// const heights = [1, 2, 3, 4];
 // const heights = [2, 4];
 
 console.log(largestRectangleArea(heights));
