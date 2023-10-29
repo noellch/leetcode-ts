@@ -63,70 +63,70 @@ class LinkedListNode {
     }
 }
 
-// class LRUCache {
-//     cache: Map<number, LinkedListNode>;
-//     head: LinkedListNode;
-//     tail: LinkedListNode;
+class LRUCache {
+    cache: Map<number, LinkedListNode>;
+    head: LinkedListNode;
+    tail: LinkedListNode;
 
-//     constructor(readonly capacity: number) {
-//         this.capacity = capacity;
-//         this.cache = new Map();
+    constructor(readonly capacity: number) {
+        this.capacity = capacity;
+        this.cache = new Map();
 
-//         // doubly linked list :
-//         // left head side is the least recently used element
-//         // right head side is the most recently used element
-//         this.head = new LinkedListNode(0, 0);
-//         this.tail = new LinkedListNode(0, 0);
-//         this.head.prev = null;
-//         this.head.next = this.tail;
-//         this.tail.prev = this.head;
-//         this.tail.next = null;
-//     }
+        // doubly linked list :
+        // left head side is the least recently used element
+        // right head side is the most recently used element
+        this.head = new LinkedListNode(0, 0);
+        this.tail = new LinkedListNode(0, 0);
+        this.head.prev = null;
+        this.head.next = this.tail;
+        this.tail.prev = this.head;
+        this.tail.next = null;
+    }
 
-//     // remove node from the doubly linked list
-//     remove(node: LinkedListNode) {
-//         const prev = node.prev;
-//         const next = node.next;
+    // remove node from the doubly linked list
+    remove(node: LinkedListNode) {
+        const prev = node.prev;
+        const next = node.next;
 
-//         (prev as LinkedListNode).next = next;
-//         (next as LinkedListNode).prev = prev;
-//     }
+        (prev as LinkedListNode).next = next;
+        (next as LinkedListNode).prev = prev;
+    }
 
-//     // insert node to the end before tail of the doubly linked list
-//     insert(node: LinkedListNode) {
-//         node.prev = this.tail.prev as LinkedListNode;
-//         node.next = this.tail as LinkedListNode;
-//         (this.tail.prev as LinkedListNode).next = node;
-//         this.tail.prev = node;
-//     }
+    // insert node to the end before tail of the doubly linked list
+    insert(node: LinkedListNode) {
+        node.prev = this.tail.prev as LinkedListNode;
+        node.next = this.tail as LinkedListNode;
+        (this.tail.prev as LinkedListNode).next = node;
+        this.tail.prev = node;
+    }
 
-//     get(key: number): number {
-//         const node = this.cache.get(key);
-//         if (node) {
-//             this.remove(node);
-//             this.insert(node);
-//             return node.value as number;
-//         }
+    get(key: number): number {
+        const node = this.cache.get(key);
+        if (node) {
+            this.remove(node);
+            this.insert(node);
+            return node.value as number;
+        }
 
-//         return -1;
-//     }
+        return -1;
+    }
 
-//     put(key: number, value: number): void {
-//         if (this.cache.has(key)) {
-//             const node = this.cache.get(key);
-//             this.remove(node!);
-//         }
-//         const newNode = new LinkedListNode(key, value);
-//         this.cache.set(key, newNode);
-//         this.insert(newNode);
+    put(key: number, value: number): void {
+        if (this.cache.has(key)) {
+            const node = this.cache.get(key);
+            this.remove(node!);
+        }
+        const newNode = new LinkedListNode(key, value);
+        this.cache.set(key, newNode);
+        this.insert(newNode);
 
-//         if (this.capacity < this.cache.size) {
-//             const lru = this.head.next;
-//             this.remove(lru!);
-//             this.cache.delete(lru?.key as number);
-//         }
-//     }
-// }
+        if (this.capacity < this.cache.size) {
+            const lru = this.head.next;
+            this.remove(lru!);
+            this.cache.delete(lru?.key as number);
+        }
+    }
+}
 
 /**
  * Your LRUCache object will be instantiated and called as such:
