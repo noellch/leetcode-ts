@@ -17,6 +17,21 @@ class TreeNode {
     }
 }
 
+// function lowestCommonAncestor(root: TreeNode | null, p: TreeNode | null, q: TreeNode | null): TreeNode | null {
+//     let current = root;
+
+//     if (current && p && q && current?.val > p?.val && current?.val > q?.val) {
+//         return lowestCommonAncestor(root?.left || null, p, q);
+//     }
+//     if (current && p && q && current?.val < p?.val && current?.val < q?.val) {
+//         return lowestCommonAncestor(root?.right || null, p, q);
+//     }
+
+//     return root;
+// }
+
+/* ------------------------------------------------------------------------------- */
+
 function lowestCommonAncestor(root: TreeNode | null, p: TreeNode | null, q: TreeNode | null): TreeNode | null {
     let current = root;
 
@@ -33,7 +48,7 @@ function lowestCommonAncestor(root: TreeNode | null, p: TreeNode | null, q: Tree
 
 /**
  * 如果 root.val 沒有比 p 和 q 的值大或小，表示 p 或 q 本身的值就是等於 root.val
- * 或是 p.val < root.val && root.val > q.val，這時 root 就是 p、q 的 lowest ancestor
+ * 或是 p.val < root.val && root.val < q.val，這時 root 就是 p、q 的 lowest ancestor
  */
 
 /*

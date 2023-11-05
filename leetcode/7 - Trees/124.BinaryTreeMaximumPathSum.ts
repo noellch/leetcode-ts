@@ -21,14 +21,17 @@ class TreeNode {
 
 function maxPathSum(root: TreeNode | null): number {
     let maxPathSum = -Infinity;
-    function dfs(root: TreeNode | null) {
-        if (!root) return 0;
 
-        const leftMax = Math.max(0, dfs(root.left));
-        const rightMax = Math.max(0, dfs(root.right));
-        maxPathSum = Math.max(maxPathSum, leftMax + rightMax + root.val);
+    function dfs(node: TreeNode | null) {
+        if (!node) return 0;
 
-        return root.val + Math.max(leftMax, rightMax);
+        // 有可能是負數
+        let leftMax = Math.max(dfs(node.left), 0);
+        let rightMax = Math.max(dfs(node.right), 0);
+
+        maxPathSum = Math.max(maxPathSum, leftMax + rightMax + node?.val);
+
+        return Math.max(leftMax, rightMax) + node?.val;
     }
 
     dfs(root);
