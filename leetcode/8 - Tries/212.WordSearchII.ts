@@ -1,7 +1,5 @@
 /* 
-Given an m x n board of characters and a list of strings words, return all words on the board.
-
-Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
+https://leetcode.com/problems/word-search-ii/description/
 */
 
 /* ------------------------------------------------------------------------------- */
@@ -15,8 +13,6 @@ class Trie {
 }
 
 function findWords(board: string[][], words: string[]): string[] {
-    const result: string[] = [];
-
     /*
     T.C.: O(W * words.length)
     S.C.: O(W * words.length)
@@ -26,7 +22,7 @@ function findWords(board: string[][], words: string[]): string[] {
         for (const word of words) {
             let node = trie;
             for (const w of word) {
-                if (!node.children[w]) {
+                if (!(w in node.children)) {
                     node.children[w] = new Trie();
                 }
                 node = node.children[w];
@@ -44,25 +40,28 @@ function findWords(board: string[][], words: string[]): string[] {
     共 ROW * COL * 4 * 3^(word.length - 1)
     S.C.: O(N)
     */
+    const result: string[] = [];
+
     function search(node: Trie, row: number, col: number) {
         if (node.word) {
             result.push(node.word);
             node.word = '';
         }
 
-        if (row < 0 || row >= board.length || col < 0 || col >= board[0].length) return;
+        if (row < 0 || row >= board.length || col < 0 || col >= board[row].length) return;
 
-        const l = board[row][col];
-        if (!node.children[l]) return;
+        let w = board[row][col];
+
+        if (!(w in node.children)) return;
 
         board[row][col] = '*';
 
-        search(node.children[l], row - 1, col);
-        search(node.children[l], row, col + 1);
-        search(node.children[l], row + 1, col);
-        search(node.children[l], row, col - 1);
+        search(node.children[w], row + 1, col);
+        search(node.children[w], row, col + 1);
+        search(node.children[w], row - 1, col);
+        search(node.children[w], row, col - 1);
 
-        board[row][col] = l;
+        board[row][col] = w;
     }
 
     const trie = buildTrie();

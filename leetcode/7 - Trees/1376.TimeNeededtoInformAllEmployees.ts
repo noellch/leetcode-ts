@@ -11,34 +11,56 @@ Return the number of minutes needed to inform all the employees about the urgent
 */
 
 /* ------------------------------------------------------------------------------- */
+// BFS
+// function numOfMinutes(n: number, headID: number, manager: number[], informTime: number[]): number {
+//     const adj = manager.reduce((a, c, i) => {
+//         if (a[manager[i]]) {
+//             a[manager[i]].push(i);
+//         } else {
+//             a[manager[i]] = [i];
+//         }
 
+//         return a;
+//     }, {} as { [key: number]: number[] });
+
+//     const queue: [number, number][] = [[headID, 0]];
+
+//     let result = 0;
+
+//     while (queue.length) {
+//         const [i, time] = queue.shift() as [number, number];
+//         result = Math.max(result, time);
+
+//         if (adj[i]) {
+//             for (const emp of adj[i]) {
+//                 queue.push([emp, time + informTime[i]]);
+//             }
+//         }
+//     }
+
+//     return result;
+// }
+
+/*
+T.C.: O(N)
+S.C.: O(N)
+*/
+
+/* ------------------------------------------------------------------------------- */
+// DFS
 function numOfMinutes(n: number, headID: number, manager: number[], informTime: number[]): number {
-    const adj = manager.reduce((a, c, i) => {
-        if (a[manager[i]]) {
-            a[manager[i]].push(i);
-        } else {
-            a[manager[i]] = [i];
+    function helper(employeeId: number) {
+        if (manager[employeeId] !== -1) {
+            informTime[employeeId] += helper(manager[employeeId]);
+            manager[employeeId] = -1;
         }
 
-        return a;
-    }, {} as { [key: number]: number[] });
-
-    const queue: [number, number][] = [[headID, 0]];
-
-    let result = 0;
-
-    while (queue.length) {
-        const [i, time] = queue.shift() as [number, number];
-        result = Math.max(result, time);
-
-        if (adj[i]) {
-            for (const emp of adj[i]) {
-                queue.push([emp, time + informTime[i]]);
-            }
-        }
+        return informTime[employeeId];
     }
 
-    return result;
+    manager.forEach((_, i) => helper(i));
+
+    return Math.max(...informTime);
 }
 
 /*

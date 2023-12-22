@@ -1,29 +1,28 @@
 /* 
-https://leetcode.com/problems/last-stone-weight/description/
+https://leetcode.com/problems/maximum-subsequence-score/description/
 */
 
 /* ------------------------------------------------------------------------------- */
 
-class MaxHeap {
+class MinHeap {
     data: number[];
     constructor() {
         this.data = [];
     }
 
-    insert(value: number) {
-        this.data.push(value);
+    insert(val: number) {
+        this.data.push(val);
         this.bubbleUp();
     }
 
     bubbleUp() {
         let idx = this.data.length - 1;
-        let ele = this.data[idx];
+        const ele = this.data[idx];
 
         while (idx > 0) {
-            let parentIdx = Math.floor((idx - 1) / 2);
-            let parentEle = this.data[parentIdx];
-
-            if (ele <= parentEle) break;
+            const parentIdx = Math.floor((idx - 1) / 2);
+            const parentEle = this.data[parentIdx];
+            if (parentEle <= ele) break;
 
             this.data[parentIdx] = ele;
             this.data[idx] = parentEle;
@@ -31,22 +30,22 @@ class MaxHeap {
         }
     }
 
-    extractMax() {
-        const result = this.data[0];
+    extractMin() {
         const last = this.data.pop() as number;
+        const min = this.data[0];
 
         if (this.data.length > 0) {
             this.data[0] = last;
             this.sinkDown();
         }
 
-        return result;
+        return min;
     }
 
     sinkDown() {
         let idx = 0;
-        let ele = this.data[idx];
-        let len = this.data.length;
+        const ele = this.data[idx];
+        const len = this.data.length;
 
         while (true) {
             let leftIdx = idx * 2 + 1;
@@ -57,14 +56,14 @@ class MaxHeap {
 
             if (leftIdx < len) {
                 leftChild = this.data[leftIdx];
-                if (leftChild > ele) {
+                if (ele > leftChild) {
                     swap = leftIdx;
                 }
             }
 
             if (rightIdx < len) {
                 rightChild = this.data[rightIdx];
-                if ((swap === null && rightChild > ele) || (swap !== null && rightChild > (leftChild as number))) {
+                if ((swap === null && ele > rightChild) || (swap !== null && rightChild < (leftChild as number))) {
                     swap = rightIdx;
                 }
             }
@@ -78,19 +77,32 @@ class MaxHeap {
     }
 }
 
-function lastStoneWeight(stones: number[]): number {
-    const heap = new MaxHeap();
-    // N * log(N)
-    stones.forEach((s) => heap.insert(s));
+function maxScore(nums1: number[], nums2: number[], k: number): number {
+    const pairs = nums1
+        .map((num, idx) => {
+            return [num, nums2[idx]];
+        })
+        .sort((a, b) => b[1] - a[1]);
 
-    while (heap.data.length > 1) {
-        const x = heap.extractMax();
-        const y = heap.extractMax();
-        // log(N)
-        heap.insert(Math.abs(x - y));
+    const minHeap = new MinHeap();
+    let n1Sum = 0;
+    let result = 0;
+
+    for (const [n1, n2] of pairs) {
+        n1Sum += n1;
+        minHeap.insert(n1);
+
+        if (minHeap.data.length > k) {
+            const min = minHeap.extractMin();
+            n1Sum -= min;
+        }
+
+        if (minHeap.data.length === k) {
+            result = Math.max(result, n1Sum * n2);
+        }
     }
 
-    return heap.data[0] ?? 0;
+    return result;
 }
 
 /*
@@ -100,6 +112,8 @@ S.C.: O(N)
 
 /* ------------------------------------------------------------------------------- */
 
-const stones = [2, 7, 4, 1, 8, 1];
+const nums1 = [1, 3, 3, 2],
+    nums2 = [2, 1, 3, 4],
+    k = 3;
 
-console.log(lastStoneWeight(stones));
+console.log(maxScore(nums1, nums2, k));
