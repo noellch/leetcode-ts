@@ -1,31 +1,6 @@
 /* 
-https://leetcode.com/problems/subsets/
-
-Given an integer array nums of unique elements, return all possible 
-subsets (the power set).
-
-The solution set must not contain duplicate subsets. Return the solution in any order.
+https://leetcode.com/problems/subsets/description/
 */
-
-/* ------------------------------------------------------------------------------- */
-
-function subsets(nums: number[]): number[][] {
-    const result: number[][] = [];
-    const subset: number[] = [];
-
-    function dfs(idx: number) {
-        result.push([...subset]);
-
-        for (let i = idx; i < nums.length; i++) {
-            subset.push(nums[i]);
-            dfs(i + 1);
-            subset.pop();
-        }
-    }
-
-    dfs(0);
-    return result;
-}
 
 /* ------------------------------------------------------------------------------- */
 
@@ -34,18 +9,38 @@ function subsets(nums: number[]): number[][] {
 //     const subset: number[] = [];
 
 //     function dfs(idx: number) {
-//         if (idx > nums.length - 1) return result.push([...subset]);
+//         result.push([...subset]);
 
-//         subset.push(nums[idx]);
-//         dfs(idx + 1);
-//         subset.pop();
-//         dfs(idx + 1);
+//         for (let i = idx; i < nums.length; i++) {
+//             subset.push(nums[i]);
+//             dfs(i + 1);
+//             subset.pop();
+//         }
 //     }
 
 //     dfs(0);
-
 //     return result;
 // }
+
+/* ------------------------------------------------------------------------------- */
+
+function subsets(nums: number[]): number[][] {
+    const result: number[][] = [];
+    const subset: number[] = [];
+
+    function dfs(idx: number) {
+        if (idx > nums.length - 1) return result.push([...subset]);
+
+        subset.push(nums[idx]);
+        dfs(idx + 1);
+        subset.pop();
+        dfs(idx + 1);
+    }
+
+    dfs(0);
+
+    return result;
+}
 
 /* ------------------------------------------------------------------------------- */
 

@@ -1,10 +1,5 @@
 /* 
-https://leetcode.com/problems/subsets-ii/
-
-Given an integer array nums that may contain duplicates, return all possible 
-subsets (the power set).
-
-The solution set must not contain duplicate subsets. Return the solution in any order.
+https://leetcode.com/problems/subsets-ii/description/
 */
 
 /* ------------------------------------------------------------------------------- */
@@ -13,7 +8,7 @@ function subsetsWithDup(nums: number[]): number[][] {
     const result: number[][] = [];
     const subset: number[] = [];
 
-    // nums.sort((a, b) => a - b);
+    nums.sort((a, b) => a - b);
 
     function dfs(idx: number) {
         if (idx > nums.length - 1) return result.push([...subset]);
@@ -46,7 +41,7 @@ S.C.: O(N)
 
 /* ------------------------------------------------------------------------------- */
 
-const nums = [3, 1, 2, 2];
+const nums = [2, 1, 2];
 // const nums = [0]
 
 console.log(subsetsWithDup(nums));
