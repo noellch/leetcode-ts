@@ -1,21 +1,5 @@
 /* 
-Given a reference of a node in a connected undirected graph.
-
-Return a deep copy (clone) of the graph.
-
-Each node in the graph contains a value (int) and a list (List[Node]) of its neighbors.
-
-class Node {
-    public int val;
-    public List<Node> neighbors;
-}
-
-Test case format:
-For simplicity, each node's value is the same as the node's index (1-indexed). For example, the first node with val == 1, the second node with val == 2, and so on. The graph is represented in the test case using an adjacency list.
-
-An adjacency list is a collection of unordered lists used to represent a finite graph. Each list describes the set of neighbors of a node in the graph.
-
-The given node will always be the first node with val = 1. You must return the copy of the given node as a reference to the cloned graph.
+https://leetcode.com/problems/clone-graph/description/
 */
 
 /* ------------------------------------------------------------------------------- */
@@ -69,7 +53,7 @@ function cloneGraph(node: GraphNode | null): GraphNode | null {
 }
 
 /*
-T.C.: O(V + C)
+T.C.: O(V + E)
 - 我們需要遍歷整個圖，每個節點只訪問一次。所以遍歷圖的時間複雜度是 O(V)，其中 V 代表節點的總數。
 - 此外，還需要考慮每個節點的鄰居數目。假設鄰居的平均數為 E，則每個節點的複製過程需要額外花費 O(E) 的時間。因為我們需要處理每個節點的所有鄰居。
 - 整體的時間複雜度是 O(V + E)。

@@ -9,7 +9,7 @@ function partition(s: string): string[][] {
     const part: string[] = [];
 
     function dfs(idx: number) {
-        if (idx >= s.length) return result.push([...part]);
+        if (idx === s.length) return result.push([...part]);
 
         for (let i = idx; i < s.length; i++) {
             if (isPalindrome(s, idx, i)) {
