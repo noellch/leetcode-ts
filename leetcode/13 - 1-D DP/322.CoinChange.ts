@@ -1,23 +1,17 @@
 /* 
-You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
-
-Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
-
-You may assume that you have an infinite number of each kind of coin.
+https://leetcode.com/problems/coin-change/description/
 */
 
 /* ------------------------------------------------------------------------------- */
 
-// DP
+// Iterative
 // function coinChange(coins: number[], amount: number): number {
-//     const dp = Array.from({ length: amount + 1 }, () => Infinity);
-//     dp[0] = 0; // dp's index 表示要達到的的 amount, 值表示達到這個 amount 最小需要的 coins。
+//     const dp = Array(amount + 1).fill(Infinity); // index:amount, value: coin count to that amount
+//     dp[0] = 0;
 
 //     for (let i = 0; i <= amount; i++) {
 //         for (const coin of coins) {
-//             if (i - coin >= 0) {
-//                 dp[i] = Math.min(dp[i], 1 + dp[i - coin]);
-//             }
+//             if (i - coin >= 0) dp[i] = Math.min(dp[i], 1 + dp[i - coin]);
 //         }
 //     }
 
@@ -69,5 +63,8 @@ const coins = [1, 2, 5],
 
 // const coins = [1],
 //     amount = 0;
+
+// const coins = [2, 5, 10, 1],
+//     amount = 27;
 
 console.log(coinChange(coins, amount));

@@ -1,34 +1,31 @@
 /* 
-Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.
-
-Note that the same word in the dictionary may be reused multiple times in the segmentation.
+https://leetcode.com/problems/word-break/submissions/1158982275/
 */
 
 /* ------------------------------------------------------------------------------- */
 
 // DFS
 // function wordBreak(s: string, wordDict: string[]): boolean {
-//     const dp: Map<string, boolean> = new Map();
+//     const dp: { [word: string]: boolean } = {};
 
-//     function check(str: string): boolean {
-//         if (!str || !str.length) return true;
-//         if (dp.has(str)) return dp.get(str) as boolean;
+//     function dfs(str: string): boolean {
+//         if (!str || !str.length) return true; // base case
+//         if (str in dp) return dp[str];
 
 //         for (const word of wordDict) {
 //             const wordLen = word.length;
+//             const s = str.substring(0, wordLen);
 
-//             const subStr = str.slice(0, wordLen);
-
-//             if (word === subStr) {
-//                 dp.set(word, true);
-//                 if (check(str.slice(wordLen))) return true;
+//             if (s === word) {
+//                 dp[word] = true;
+//                 if (dfs(str.substring(wordLen))) return true;
 //             }
 //         }
-//         dp.set(str, false);
+//         dp[str] = false;
 //         return false;
 //     }
 
-//     return check(s);
+//     return dfs(s);
 // }
 
 /*
@@ -62,16 +59,16 @@ function wordBreak(s: string, wordDict: string[]): boolean {
 
 /*
 T.C.: O(N * M)
-其中 N 是 s 的長度，Ｍ 是 wordDict 的長度。
+其中 N 是 s 的長度，M 是 wordDict 的長度。
 
 S.C.: O(N)
 */
 
 /* ------------------------------------------------------------------------------- */
-const s = 'leetcode',
-    wordDict = ['leet', 'code'];
-// const s = 'applepenapple',
-//     wordDict = ['apple', 'pen'];
+// const s = 'leetcode',
+//     wordDict = ['leet', 'code'];
+const s = 'applepenapple',
+    wordDict = ['apple', 'pen'];
 // const s = 'catsandog',
 //     wordDict = ['cats', 'dog', 'sand', 'and', 'cat'];
 // const s = 'cars',

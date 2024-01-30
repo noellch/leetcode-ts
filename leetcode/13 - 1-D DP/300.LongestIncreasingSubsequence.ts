@@ -5,19 +5,56 @@ subsequence.
 
 /* ------------------------------------------------------------------------------- */
 
+// DFS
 function lengthOfLIS(nums: number[]): number {
-    const dp = Array.from({ length: nums.length }, () => 1);
+    const dp: Record<number, number> = {};
+    let result = 0;
+    const n = nums.length;
 
-    for (let i = nums.length; i >= 0; i--) {
-        for (let j = i; j < nums.length; j++) {
+    function dfs(i: number): number {
+        if (i === n - 1) {
+            return 1;
+        }
+        if (i in dp) return dp[i];
+
+        let result = 1;
+        for (let j = i + 1; j < n; j++) {
             if (nums[j] > nums[i]) {
-                dp[i] = Math.max(dp[j] + 1, dp[i]);
+                result = Math.max(result, 1 + dfs(j));
             }
         }
+        dp[i] = result;
+        return result;
     }
 
-    return Math.max(...dp);
+    for (let k = 0; k < n; k++) {
+        result = Math.max(result, dfs(k));
+    }
+
+    return result;
 }
+
+/*
+T.C.: O(N ^ 2)
+S.C.: O(N)
+*/
+
+/* ------------------------------------------------------------------------------- */
+
+// Iterative
+// function lengthOfLIS(nums: number[]): number {
+//     const dp = Array.from({ length: nums.length }, () => 1); // 從每個 index 開始最長的連續字串數
+
+//     for (let i = nums.length; i >= 0; i--) {
+//         for (let j = i; j < nums.length; j++) {
+//             if (nums[j] > nums[i]) {
+//                 dp[i] = Math.max(dp[j] + 1, dp[i]);
+//             }
+//         }
+//     }
+
+//     return Math.max(...dp);
+// }
 
 /*
 T.C.: O(N ^ 2)

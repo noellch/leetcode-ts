@@ -1,21 +1,29 @@
 /* 
-You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
-
-Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+https://leetcode.com/problems/house-robber/description/
 */
 
 /* ------------------------------------------------------------------------------- */
 
-// function rob(nums: number[]): number {
-//     const dp = Array.from({ length: nums.length }, () => 0);
-//     dp[0] = nums[0];
-//     dp[1] = Math.max(nums[0], nums[1]);
+/* ------------------------------------------------------------------------------- */
 
-//     for (let i = 2; i < nums.length; i++) {
-//         dp[i] = Math.max(nums[i] + dp[i - 2], dp[i - 1]);
+// DFS
+// function rob(nums: number[]): number {
+//     const dp: Record<number, number> = {
+//         0: nums[0],
+//         1: Math.max(nums[0], nums[1]),
+//     }; // houseIndex: maxCount
+
+//     function dfs(i: number): number {
+//         if (i < 0) return 0;
+//         if (i in dp) return dp[i];
+
+//         const result = Math.max(dfs(i - 2) + nums[i], dfs(i - 1));
+//         dp[i] = result;
+
+//         return result;
 //     }
 
-//     return dp[nums.length - 1];
+//     return dfs(nums.length - 1);
 // }
 
 /* 
@@ -24,11 +32,11 @@ Given an integer array nums representing the amount of money of each house, retu
 若房子有一間，那最大金額就是搶那間房子。f(1)
 若房子有兩間，那最大金額就是搶這兩間房子擁有金額較大的那間。Math.max(f(1), f(2))
 若房子有三間，要決定第三間房子搶或不搶。若搶，等於 f(1) + 當前房屋金額，
-若不搶，就跟房子只有兩間的情況是一樣的。所以有三間房子能搶到的最大金額等於 Math.max(f(1) + 當前房屋
+若不搶，就跟房子只有兩間的情況是一樣的。所以有三間房子能搶到的最大金額等於 Math.max(f(1) + 當前房屋, 只有兩間房屋最大金額)
 若房子有四間，要決定第四間房子搶或不搶。若搶，等於 f(2) + 當前房屋金額，
-若不搶，就跟房子只有三間的情況是一樣的。所以有四間房子能搶到的最大金額等於 Math.max(f(2) + 當前房屋
+若不搶，就跟房子只有三間的情況是一樣的。所以有四間房子能搶到的最大金額等於 Math.max(f(2) + 當前房屋, 只有三間房屋最大金額)
 若房子有五間，要決定第五間房子搶或不搶。若搶，等於 f(3) + 當前房屋金額, f(4)，
-若不搶，就跟房子只有四間的情況是一樣的。所以有五間房子能搶到的最大金額等於 Math.max(f(3) + 當前房屋
+若不搶，就跟房子只有四間的情況是一樣的。所以有五間房子能搶到的最大金額等於 Math.max(f(3) + 當前房屋, 只有四間房屋最大金額)
 所以建立一個 maxArray，每個 index 儲存有 i 間房子能搶到最大的金額。
 譬如，maxArray[0] 儲存只有一間房子能搶大的最大金額，maxArray[1] 儲存只有兩間房子能搶大的最大金額...
 */
@@ -40,15 +48,32 @@ S.C.: O(N)
 
 /* ------------------------------------------------------------------------------- */
 
-function rob(nums: number[]): number {
-    let prevPrev = 0;
-    let prev = 0;
-    let current = 0;
+// Iterative
+// function rob(nums: number[]): number {
+//     const dp = Array(nums.length).fill(0);
+//     dp[0] = nums[0]; // 只有一間房子時
+//     dp[1] = Math.max(nums[0], nums[1]); // 只有兩間房子時
 
-    for (let i = 0; i < nums.length; i++) {
-        prev = current;
-        current = Math.max(prev, nums[i] + prevPrev);
-        prevPrev = prev;
+//     for (let i = 2; i < nums.length; i++) {
+//         dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
+//     }
+
+//     return dp[nums.length - 1];
+// }
+
+/*
+T.C.: O(N)
+S.C.: O(N)
+*/
+
+function rob(nums: number[]): number {
+    let current = 0,
+        prev = 0;
+
+    for (const num of nums) {
+        const temp = current;
+        current = Math.max(current, prev + num);
+        prev = temp;
     }
 
     return current;

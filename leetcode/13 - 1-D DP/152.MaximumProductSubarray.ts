@@ -1,27 +1,27 @@
 /* 
-Given an integer array nums, find a 
-subarray
- that has the largest product, and return the product.
-
-The test cases are generated so that the answer will fit in a 32-bit integer.
+https://leetcode.com/problems/maximum-product-subarray/description/
 */
 
 /* ------------------------------------------------------------------------------- */
 
 function maxProduct(nums: number[]): number {
-    let currentMax = 1,
-        currentMin = 1,
-        result = -Infinity;
+    if (!nums.length) return 0;
+
+    let max = 1,
+        min = 1,
+        result = nums[0];
 
     for (const num of nums) {
-        const tempMax = Math.max(num, num * currentMax, num * currentMin);
-        currentMin = Math.min(num, num * currentMax, num * currentMin);
-        currentMax = tempMax;
-        result = Math.max(currentMax, result);
+        const tempMin = Math.min(num, max * num, min * num);
+        max = Math.max(num, max * num, min * num);
+        min = tempMin;
+        result = Math.max(result, max);
     }
 
     return result;
 }
+
+/**
 
 /**
  * 如果 nums 全是正數，一定會越乘越大。問題是會包含負數。

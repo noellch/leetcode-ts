@@ -11,8 +11,6 @@ function maxAreaOfIsland(grid: number[][]): number {
 
         grid[row][col] = 0;
 
-        console.count();
-
         return 1 + dfs(row + 1, col) + dfs(row - 1, col) + dfs(row, col + 1) + dfs(row, col - 1);
     }
 

@@ -8,87 +8,87 @@ https://leetcode.com/problems/course-schedule/description/
 /* ------------------------------------------------------------------------------- */
 
 // bfs
-// var canFinish = function (numCourses, prerequisites) {
-//     const graph = Array.from({ length: numCourses }, () => [])
-//     const dependencyCount = Array(numCourses).fill(0)
+var canFinish = function (numCourses: number, prerequisites: number[][]) {
+    const dependencyCount: number[] = Array(numCourses).fill(0);
 
-//     for (const [course, preReq] of prerequisites) {
-//         // index: prerequisites course, value: course
-//         graph[preReq].push(course)
-//         // the number of edges linked to the vertex
-//         ++dependencyCount[course]
-//     }
+    for (const [course, preReq] of prerequisites) {
+        // the number of edges linked to the vertex
+        ++dependencyCount[course];
+    }
 
-//     const queue = []
+    const queue: number[] = [];
 
-//     dependencyCount.forEach((d, i) => {
-//         // 如果存在沒有任何 dependency 的 course，表示可以先完成。拿來當作起點放進 queue。
-//         if (!d) {
-//             // i 是 course
-//             queue.push(i)
-//         }
-//     })
+    dependencyCount.forEach((d, i) => {
+        // 如果存在沒有任何 dependency 的 course，表示可以先完成。拿來當作起點放進 queue。
+        if (!d) {
+            // i 是 course
+            queue.push(i);
+        }
+    });
 
-//     while (queue.length) {
-//         const course = queue.shift()
-//         // 完成一門課程
-//         --numCourses
-//         graph[course].forEach((neighbor) => {
-//             // 如果 dependency 為 0，push 進 queue。
-//             if (!--dependencyCount[neighbor]) {
-//                 queue.push(neighbor)
-//             }
-//         })
-//     }
+    while (queue.length) {
+        const course = queue.shift() as number;
+        // 完成一門課程
+        --numCourses;
 
-//     // 如果 numCourses == 0 表示全部課程都完成。
-//     return !numCourses
-// }
+        for (const [crs, preq] of prerequisites) {
+            if (preq === course) {
+                --dependencyCount[crs];
+                if (dependencyCount[crs] === 0) {
+                    queue.push(crs);
+                }
+            }
+        }
+    }
+
+    // 如果 numCourses == 0 表示全部課程都完成。
+    return !numCourses;
+};
 
 /* ------------------------------------------------------------------------------- */
 
 // dfs
-function canFinish(_numCourses: number, prerequisites: number[][]): boolean {
-    const preMap: { [crs: number]: number[] } = {};
+// function canFinish(_numCourses: number, prerequisites: number[][]): boolean {
+//     const preMap: { [crs: number]: number[] } = {};
 
-    for (const [crs, prq] of prerequisites) {
-        if (preMap[crs]?.length) preMap[crs].push(prq);
-        else preMap[crs] = [prq];
-    }
+//     for (const [crs, prq] of prerequisites) {
+//         if (preMap[crs]?.length) preMap[crs].push(prq);
+//         else preMap[crs] = [prq];
+//     }
 
-    // preMap = { '0': [ 1, 2 ], '1': [ 3, 4 ], '3': [ 4 ] }
-    // { 課程 : [需要先修的課程們] }
-    // 若是空陣列代表這個課程不需要任何先修
+//     // preMap = { '0': [ 1, 2 ], '1': [ 3, 4 ], '3': [ 4 ] }
+//     // { 課程 : [需要先修的課程們] }
+//     // 若是空陣列代表這個課程不需要任何先修
 
-    // 紀錄目前遞迴所訪問的課程以及他的先修課程們。若重複存在 set 中則表示存在迴圈。
-    // 1 -> 2 , 2 -> 3, 3 -> 1
-    const visited = new Set<number>();
+//     // 紀錄目前遞迴所訪問的課程以及他的先修課程們。若重複存在 set 中則表示存在迴圈。
+//     // 1 -> 2 , 2 -> 3, 3 -> 1
+//     const visited = new Set<number>();
 
-    function dfs(crs: number) {
-        // 存在迴圈。
-        if (visited.has(crs)) return false;
-        if (!preMap[crs]?.length) return true;
+//     function dfs(crs: number) {
+//         // 存在迴圈。
+//         if (visited.has(crs)) return false;
+//         if (!preMap[crs]?.length) return true;
 
-        visited.add(crs);
+//         visited.add(crs);
 
-        for (const c of preMap[crs]) {
-            if (!dfs(c)) return false;
-        }
+//         for (const c of preMap[crs]) {
+//             if (!dfs(c)) return false;
+//         }
 
-        preMap[crs] = [];
-        visited.delete(crs);
+//         preMap[crs] = [];
+//         visited.delete(crs);
 
-        return true;
-    }
+//         return true;
+//     }
 
-    for (const [crs, _prq] of prerequisites) {
-        if (!dfs(crs)) {
-            return false;
-        }
-    }
+//     for (const [crs, _prq] of prerequisites) {
+//         if (!dfs(crs)) {
+//             return false;
+//         }
+//     }
 
-    return true;
-}
+//     return true;
+// }
 
 /*
 T.C.: O(V + E)
