@@ -41,6 +41,8 @@ function combinationSum2(candidates: number[], target: number): number[][] {
 
         let prev = -Infinity;
 
+        //[1, 2, 2, 2, 5]
+
         for (let i = idx; i < candidates.length; i++) {
             if (candidates[i] === prev) continue;
             current.push(candidates[i]);
@@ -68,8 +70,9 @@ S.C.: O(N)
 
 /* ------------------------------------------------------------------------------- */
 
-const candidates = [10, 1, 2, 7, 6, 1, 5],
-    target = 8;
-// const candidates = [2,5,2,1,2], target = 5
+// const candidates = [10, 1, 2, 7, 6, 1, 5],
+//     target = 8;
+const candidates = [2, 5, 2, 1, 2],
+    target = 5;
 
 console.log(combinationSum2(candidates, target));
