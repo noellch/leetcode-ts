@@ -39,6 +39,28 @@ S.C.: O(M * N)
 
 /* ------------------------------------------------------------------------------- */
 
+// function minDistance(word1: string, word2: string): number {
+//     const memo: Record<string, number> = {};
+
+//     function dfs(i: number, j: number): number {
+//         const key = `${i}-${j}`;
+//         if (key in memo) return memo[key];
+//         if (i === 0) return j;
+//         if (j === 0) return i;
+
+//         if (word1[i - 1] === word2[j - 1]) return dfs(i - 1, j - 1);
+//         else {
+//             const result = 1 + Math.min(dfs(i - 1, j - 1), dfs(i, j - 1), dfs(i - 1, j));
+//             memo[key] = result;
+//             return result;
+//         }
+//     }
+
+//     return dfs(word1.length, word2.length);
+// }
+
+/* ------------------------------------------------------------------------------- */
+
 const word1 = 'horse',
     word2 = 'ros';
 // const word1 = 'intention',

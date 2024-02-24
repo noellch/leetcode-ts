@@ -1,30 +1,25 @@
 /* 
-Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, return 0.
-
-A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
-
-For example, "ace" is a subsequence of "abcde".
-A common subsequence of two strings is a subsequence that is common to both strings.
+https://leetcode.com/problems/longest-common-subsequence/description/
 */
 
 //2D-DP bottom-up
 /* ------------------------------------------------------------------------------- */
 
-function longestCommonSubsequence(text1: string, text2: string): number {
-    const dp = Array.from({ length: text1.length + 1 }, () => new Array(text2.length + 1).fill(0));
+// function longestCommonSubsequence(text1: string, text2: string): number {
+//     const dp = Array.from({ length: text1.length + 1 }, () => new Array(text2.length + 1).fill(0));
 
-    for (let i = dp.length - 2; i >= 0; i--) {
-        for (let j = dp[i].length - 2; j >= 0; j--) {
-            if (text1[i] === text2[j]) {
-                dp[i][j] = 1 + dp[i + 1][j + 1];
-            } else {
-                dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]);
-            }
-        }
-    }
+//     for (let i = dp.length - 2; i >= 0; i--) {
+//         for (let j = dp[i].length - 2; j >= 0; j--) {
+//             if (text1[i] === text2[j]) {
+//                 dp[i][j] = 1 + dp[i + 1][j + 1];
+//             } else {
+//                 dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]);
+//             }
+//         }
+//     }
 
-    return dp[0][0];
-}
+//     return dp[0][0];
+// }
 
 /* 
 設計一個 2D 矩陣，列為 text2 的各個字母，行為 text1 的各個字母。
@@ -57,6 +52,61 @@ T.C.: O(M * N)
 S.C.: O(M * N)
 */
 
+/* ------------------------------------------------------------------------------- */
+function longestCommonSubsequence(text1: string, text2: string): number {
+    const memo = new Map<string, number>();
+
+    function dfs(i: number, j: number): number {
+        const key = `${i}-${j}`;
+
+        if (memo.has(key)) {
+            return memo.get(key)!;
+        }
+
+        if (i === 0 || j === 0) {
+            return 0;
+        }
+
+        if (text1[i - 1] === text2[j - 1]) {
+            memo.set(key, 1 + dfs(i - 1, j - 1));
+            return 1 + dfs(i - 1, j - 1);
+        } else {
+            memo.set(key, Math.max(dfs(i - 1, j), dfs(i, j - 1)));
+            return Math.max(dfs(i - 1, j), dfs(i, j - 1));
+        }
+    }
+
+    return dfs(text1.length, text2.length);
+}
+
+/**
+ *
+ * [   a  c  e  ''
+ * a [ 0, 0, 0, 1 ],
+ * b [ 0, 0, 0, 2 ],
+ * c [ 0, 0, 0, 3 ],
+ * ''[ 1, 2, 3, 0 ] ]
+ *
+ * 假設 word1 = '', word2 = 'abc'
+ * 將 word1 轉成 word2 共需要 3 步驟。
+ * 假設 word1 = 'ace', word2 = ''
+ * 將 word1 轉成 word2 也總共需要 3 步驟。
+ *
+ * 假設 word1 = 'ace', word2 = 'abc' 以矩陣分析
+ * 第四行列可視為空字串跟另一個字串比較的步驟數。
+ * 情況一：
+ * ‘a’ 相等，題目可簡化為 word1 = 'ce', word2 = 'bc' 的情況
+ * 兩字母剛好相等時，其為首的字串轉為另一字串的步驟為對角線右下的數字。
+ * 情況二：
+ * ‘c’ 'b' 不相等，這時有三種動作可選擇
+ * Insert => 插入 ‘b’ 題目簡化為  word1 = 'ce', word2 = 'c' 加一
+ * Delete => 刪除 ‘c’ 題目簡化為  word1 = 'e', word2 = 'bc' 加一
+ * Replace => 題目簡化為  word1 = 'e', word2 = 'c' 加一
+ * 三種選項選擇一種，也因為題目要求最小步驟數，所以取三種中步驟數最少的。
+ * 上述三種方法正好是矩陣中當下位置的右方數字、下方數字及右下對角線數字
+ * bottom-up 計算後，取 2D 矩陣 [0][0] 位置的數字
+ *
+ */
 /* ------------------------------------------------------------------------------- */
 
 const text1 = 'abcde',

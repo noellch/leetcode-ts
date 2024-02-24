@@ -1,40 +1,41 @@
 /* 
-There is a robot on an m x n grid. The robot is initially located at the top-left corner (i.e., grid[0][0]). The robot tries to move to the bottom-right corner (i.e., grid[m - 1][n - 1]). The robot can only move either down or right at any point in time.
-
-Given the two integers m and n, return the number of possible unique paths that the robot can take to reach the bottom-right corner.
-
-The test cases are generated so that the answer will be less than or equal to 2 * 109.
+https://leetcode.com/problems/unique-paths/description/
 */
 
 /* ------------------------------------------------------------------------------- */
 
 // combination solution
-function uniquePaths(m: number, n: number): number {
-    // 總共進行的步數
-    const totalSteps = m + n - 2;
+// function uniquePaths(m: number, n: number): number {
+//     // 總共進行的步數
+//     const totalSteps = m + n - 2;
 
-    // n! / m!(n-m)!
-    // 8! / 2!6!
-    // 8*7 / 2*1 = 28
+//     // n! / m!(n-m)!
+//     // 8! / 2!6!
+//     // 8*7 / 2*1 = 28
 
-    let steps = 1,
-        b = 1;
+//     let steps = 1,
+//         b = 1;
 
-    for (let i = totalSteps; i > totalSteps - (m - 1); i--) {
-        steps *= i;
-    }
+//     for (let i = totalSteps; i > totalSteps - (m - 1); i--) {
+//         steps *= i;
+//     }
 
-    for (let k = m - 1; k >= 1; k--) {
-        b *= k;
-    }
+//     for (let k = m - 1; k >= 1; k--) {
+//         b *= k;
+//     }
 
-    return steps / b;
-}
+//     return steps / b;
+// }
 
 /**
  * 題目提到只能走右跟下，從 m * n grid 左上到右下。移動方式也就是 m - 1 個下加上 n - 1 個右的排列組合。
  * 從起點到終點固定會走 m + n - 2 步。所以計算方式是 C m + n - 2 取 m - 1（或 n - 1）。
  */
+
+/*
+T.C.: O(N * M)
+S.C.: O(1)
+*/
 
 /* ------------------------------------------------------------------------------- */
 

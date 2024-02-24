@@ -56,38 +56,20 @@ function isInterleave(s1: string, s2: string, s3: string): boolean {
             if (j < s2.length && s2[j] === s3[i + j] && dp[i][j + 1]) dp[i][j] = true;
         }
     }
-
     return dp[0][0];
 }
 
-/**
- *
- * [   a  c  e  ''
- * a [ 0, 0, 0, 1 ],
- * b [ 0, 0, 0, 2 ],
- * c [ 0, 0, 0, 3 ],
- * ''[ 1, 2, 3, 0 ] ]
- *
- * 假設 word1 = '', word2 = 'abc'
- * 將 word1 轉成 word2 共需要 3 步驟。
- * 假設 word1 = 'ace', word2 = ''
- * 將 word1 轉成 word2 也總共需要 3 步驟。
- *
- * 假設 word1 = 'ace', word2 = 'abc' 以矩陣分析
- * 第四行列可視為空字串跟另一個字串比較的步驟數。
- * 情況一：
- * ‘a’ 相等，題目可簡化為 word1 = 'ce', word2 = 'bc' 的情況
- * 兩字母剛好相等時，其為首的字串轉為另一字串的步驟為對角線右下的數字。
- * 情況二：
- * ‘c’ 'b' 不相等，這時有三種動作可選擇
- * Insert => 插入 ‘b’ 題目簡化為  word1 = 'ce', word2 = 'c' 加一
- * Delete => 刪除 ‘c’ 題目簡化為  word1 = 'e', word2 = 'bc' 加一
- * Replace => 題目簡化為  word1 = 'e', word2 = 'c' 加一
- * 三種選項選擇一種，也因為題目要求最小步驟數，所以取三種中步驟數最少的。
- * 上述三種方法正好是矩陣中當下位置的右方數字、下方數字及右下對角線數字
- * bottom-up 計算後，取 2D 矩陣 [0][0] 位置的數字
- *
- */
+/* 
+
+[    d      b      b      c      a      
+ a [ false, false, false, false, false, false ],
+ a [ false, false, false, false, false, false ],
+ b [ false, false, false, false, false, false ],
+ c [ false, false, false, false, false, false ],
+ c [ false, false, false, false, false, false ],
+   [ false, false, false, false, false, true ]
+]
+*/
 
 /*
 T.C.: O(M * N)

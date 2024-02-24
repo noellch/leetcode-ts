@@ -10,7 +10,6 @@ The answer is guaranteed to fit into a signed 32-bit integer.
 
 /* ------------------------------------------------------------------------------- */
 // DFS
-
 // function change(amount: number, coins: number[]): number {
 //     const map: Map<string, number> = new Map();
 
@@ -42,24 +41,24 @@ DFS的空間複雜度主要取決於遞迴調用堆棧的深度，以及 memoiza
 /* ------------------------------------------------------------------------------- */
 
 // 2D-DP
-// function change(amount: number, coins: number[]): number {
-//     const dp = new Array(coins.length + 1).fill([]).map((_a) => new Array(amount + 1).fill(0));
+function change(amount: number, coins: number[]): number {
+    const dp = new Array(coins.length + 1).fill([]).map((_a) => new Array(amount + 1).fill(0));
 
-//     for (let i = 0; i < dp.length; i++) {
-//         dp[i][0] = 1;
-//     }
+    for (let i = 0; i < dp.length; i++) {
+        dp[i][0] = 1;
+    }
 
-//     for (let coinIdx = 1; coinIdx < dp.length; coinIdx++) {
-//         for (let amountIdx = 1; amountIdx < dp[coinIdx].length; amountIdx++) {
-//             dp[coinIdx][amountIdx] = dp[coinIdx - 1][amountIdx];
-//             if (coins[coinIdx - 1] <= amountIdx) {
-//                 dp[coinIdx][amountIdx] += dp[coinIdx][amountIdx - coins[coinIdx - 1]];
-//             }
-//         }
-//     }
+    for (let coinIdx = 1; coinIdx < dp.length; coinIdx++) {
+        for (let amountIdx = 1; amountIdx < dp[coinIdx].length; amountIdx++) {
+            dp[coinIdx][amountIdx] = dp[coinIdx - 1][amountIdx];
+            if (amountIdx - coins[coinIdx - 1] >= 0) {
+                dp[coinIdx][amountIdx] += dp[coinIdx][amountIdx - coins[coinIdx - 1]];
+            }
+        }
+    }
 
-//     return dp[coins.length][amount];
-// }
+    return dp[coins.length][amount];
+}
 
 /**
  * [1,2] 組合 5 的方法數等於：不用 2 單純使用 1 的方法數 1（1 種），
@@ -94,20 +93,20 @@ S.C.: O(M * N)
 /* ------------------------------------------------------------------------------- */
 
 // 1D-DP
-function change(amount: number, coins: number[]): number {
-    let dp = new Array(amount + 1).fill(0);
-    dp[0] = 1;
+// function change(amount: number, coins: number[]): number {
+//     let dp = new Array(amount + 1).fill(0);
+//     dp[0] = 1;
 
-    for (let coinIdx = 0; coinIdx < coins.length; coinIdx++) {
-        for (let amountIdx = 1; amountIdx < dp.length; amountIdx++) {
-            if (coins[coinIdx] <= amountIdx) {
-                dp[amountIdx] = dp[amountIdx] + dp[amountIdx - coins[coinIdx]];
-            }
-        }
-    }
+//     for (let coinIdx = 0; coinIdx < coins.length; coinIdx++) {
+//         for (let amountIdx = 1; amountIdx < dp.length; amountIdx++) {
+//             if (coins[coinIdx] <= amountIdx) {
+//                 dp[amountIdx] = dp[amountIdx] + dp[amountIdx - coins[coinIdx]];
+//             }
+//         }
+//     }
 
-    return dp[amount];
-}
+//     return dp[amount];
+// }
 
 /*
 T.C.: O(M * N)

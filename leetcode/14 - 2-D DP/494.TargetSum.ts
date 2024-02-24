@@ -9,6 +9,7 @@ Return the number of different expressions that you can build, which evaluates t
 
 /* ------------------------------------------------------------------------------- */
 
+//dfs
 // function findTargetSumWays(nums: number[], S: number): number {
 //     const map: Map<string, number> = new Map();
 
@@ -31,8 +32,8 @@ Return the number of different expressions that you can build, which evaluates t
 // }
 
 /*
-T.C.: O(2^N)
-S.C.: O(N)
+T.C.: O(N * sum(nums))
+S.C.: O(N * sum(nums))
 */
 
 /* ------------------------------------------------------------------------------- */
@@ -58,45 +59,16 @@ function findTargetSumWays(nums: number[], S: number): number {
             }
         }
         dp = next;
-        console.log(dp);
     }
 
     return dp[S + sum];
 }
 
 /*
-T.C.: O((2)sum * N)
-S.C.: O(sum)
+T.C.: O(sum(nums) * N)
+S.C.: O(sum(nums) * N)
 */
 
-/* ------------------------------------------------------------------------------- */
-
-// function findTargetSumWays(nums: number[], S: number): number {
-//     const sum = nums.reduce((total, num) => total + num, 0);
-
-//     if (S > sum || (S + sum) % 2 !== 0) {
-//         return 0;
-//     }
-
-//     const target = (S + sum) / 2;
-//     const dp: number[][] = new Array(nums.length).fill(null).map(() => new Array(S).fill(0));
-//     dp[0][0] = 1;
-
-//     for (let i = 1; i <= nums.length; i++) {
-//         for (let j = 0; j <= target; j++) {
-//             dp[i][j] = dp[i - 1][j];
-//             if (j >= nums[i - 1]) {
-//                 dp[i][j] += dp[i - 1][j - nums[i - 1]];
-//             }
-//         }
-//     }
-
-//     return dp[nums.length][target];
-// }
-
-/* 
-超難。完全不懂！！！
-*/
 /* ------------------------------------------------------------------------------- */
 
 const nums = [1, 1, 1, 1, 1],

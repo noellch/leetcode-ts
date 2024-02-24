@@ -44,12 +44,13 @@ function maxProfit(prices: number[]): number {
         if (idx >= prices.length) return 0;
         if (map.has(`${idx}-${buying}`)) return map.get(`${idx}-${buying}`) as number;
 
-        const coolDown = dfs(idx + 1, buying);
         if (buying) {
             const buy = dfs(idx + 1, !buying) - prices[idx];
+            const coolDown = dfs(idx + 1, buying);
             map.set(`${idx}-${buying}`, Math.max(buy, coolDown));
         } else {
             const sell = dfs(idx + 2, !buying) + prices[idx];
+            const coolDown = dfs(idx + 1, buying);
             map.set(`${idx}-${buying}`, Math.max(sell, coolDown));
         }
 
