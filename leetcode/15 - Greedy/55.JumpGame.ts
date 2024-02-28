@@ -23,15 +23,15 @@ S.C.: O(1)
 
 /* ------------------------------------------------------------------------------- */
 
-function canJump(nums: number[]): boolean {
-    let p = nums.length - 1;
+// function canJump(nums: number[]): boolean {
+//     let p = nums.length - 1;
 
-    for (let i = nums.length - 2; i >= 0; i--) {
-        if (nums[i] >= p - i) p = i;
-    }
+//     for (let i = nums.length - 2; i >= 0; i--) {
+//         if (nums[i] >= p - i) p = i;
+//     }
 
-    return p === 0;
-}
+//     return p === 0;
+// }
 
 /*
 T.C.: O(N)
@@ -40,7 +40,24 @@ S.C.: O(1)
 
 /* ------------------------------------------------------------------------------- */
 
-const nums = [2, 3, 1, 1, 4];
-// const nums = [3, 2, 1, 0, 4];
+function canJump(nums: number[]): boolean {
+    const dp = new Array(nums.length).fill(false);
+    dp[0] = true;
+    for (let i = 1; i < nums.length; i++) {
+        for (let j = 0; j < i; j++) {
+            if (dp[j] && j + nums[j] >= i) {
+                dp[i] = true;
+                break;
+            }
+        }
+    }
+
+    return dp[nums.length - 1];
+}
+
+/* ------------------------------------------------------------------------------- */
+
+// const nums = [2, 3, 1, 1, 4];
+const nums = [3, 2, 1, 0, 4];
 
 console.log(canJump(nums));
