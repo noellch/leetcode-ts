@@ -1,10 +1,5 @@
 /* 
-Given two strings s and t, return true if t is an anagram of s, and false otherwise.
-
-An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
-
-Follow up:
-What if the inputs contain Unicode characters? How would you adapt your solution to such a case?
+https://leetcode.com/problems/valid-anagram/description/
 */
 
 /* ------------------------------------------------------------------------------- */
@@ -24,15 +19,15 @@ S.C.: O(N) + O(N * log(N)) + O(N) = O(N * log(N))
 function isAnagram(s: string, t: string): boolean {
     if (s.length !== t.length) return false;
 
-    const table: { [key: string]: number } = {};
+    const table: Record<string, number> = {};
 
     for (const chr of s) {
         table[chr] = ++table[chr] || 1;
     }
 
     for (const chr of t) {
-        if (table[chr]) --table[chr];
-        else return false;
+        if (!table[chr] || table[chr] <= 0) return false;
+        table[chr]--;
     }
 
     return true;

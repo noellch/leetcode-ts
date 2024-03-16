@@ -1,30 +1,24 @@
 /* 
-Given a string s, return the number of unique palindromes of length three that are a subsequence of s.
-
-Note that even if there are multiple ways to obtain the same subsequence, it is still only counted once.
-
-A palindrome is a string that reads the same forwards and backwards.
-
-A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
-
-For example, "ace" is a subsequence of "abcde".
+https://leetcode.com/problems/unique-length-3-palindromic-subsequences/description/
 */
 
 /* ------------------------------------------------------------------------------- */
 
-// function countPalindromicSubsequence(s: string): number {
-//     let result = 0;
-//     let chars = new Set(s);
-//     for (const char of chars) {
-//         let first = s.indexOf(char),
-//             last = s.lastIndexOf(char);
-//         if (first !== last) {
-//             result += new Set(s.slice(first + 1, last)).size;
-//         }
-//     }
+function countPalindromicSubsequence(s: string): number {
+    const chars = new Set(s);
 
-//     return result;
-// }
+    let result = 0;
+
+    for (let char of chars) {
+        const firstIndex = s.indexOf(char);
+        const lastIndex = s.lastIndexOf(char);
+        if (firstIndex !== lastIndex) {
+            result += new Set(s.slice(firstIndex + 1, lastIndex)).size;
+        }
+    }
+
+    return result;
+}
 
 /*
 T.C.: O(N)
@@ -33,33 +27,34 @@ S.C.: O(N)
 
 /* ------------------------------------------------------------------------------- */
 
-function countPalindromicSubsequence(s: string): number {
-    const result: Set<string> = new Set();
-    const left: Set<string> = new Set();
-    const right: Map<string, number> = new Map();
+// function countPalindromicSubsequence(s: string): number {
+//     const letSet: Set<string> = new Set();
+//     const rightMap: Map<string, number> = new Map();
+//     const result: Set<string> = new Set();
 
-    for (const c of s) {
-        right.set(c, right.has(c) ? (right.get(c) as number) + 1 : 1);
-    }
+//     for (let c of s) {
+//         rightMap.has(c) ? rightMap.set(c, (rightMap.get(c) as number) + 1) : rightMap.set(c, 1);
+//     }
 
-    for (let i = 0; i < s.length; i++) {
-        if (right.has(s[i])) {
-            right.set(s[i], (right.get(s[i]) as number) - 1);
-            if (right.get(s[i]) === 0) right.delete(s[i]);
-        }
+//     for (let i = 0; i < s.length; i++) {
+//         const mid = s[i];
 
-        for (let j = 97; j < 123; j++) {
-            const c = String.fromCharCode(j);
-            if (left.has(c) && right.has(c)) {
-                result.add(`${s[i]}-${c}`);
-            }
-        }
+//         if (rightMap.has(mid)) {
+//             rightMap.set(mid, (rightMap.get(mid) as number) - 1);
+//             if (rightMap.get(mid) === 0) rightMap.delete(mid);
+//         }
 
-        left.add(s[i]);
-    }
+//         for (let j = 97; j < 123; j++) {
+//             const char = String.fromCharCode(j);
+//             if (letSet.has(char) && rightMap.has(char)) {
+//                 result.add(`${char}${mid}${char}`);
+//             }
+//         }
+//         letSet.add(mid);
+//     }
 
-    return result.size;
-}
+//     return result.size;
+// }
 
 /*
 T.C.: O(26 * N)

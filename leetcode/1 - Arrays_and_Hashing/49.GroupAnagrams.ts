@@ -1,7 +1,5 @@
 /* 
-Given an array of strings strs, group the anagrams together. You can return the answer in any order.
-
-An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+https://leetcode.com/problems/group-anagrams/description/
 */
 
 /* ------------------------------------------------------------------------------- */
@@ -28,28 +26,26 @@ S.C.: O(N * M)
 /* ------------------------------------------------------------------------------- */
 
 function groupAnagrams(strs: string[]): string[][] {
-    const table = new Map<string, string[]>();
+    const table: Record<string, Array<string>> = {};
 
     for (const str of strs) {
-        const bucket = Array(26).fill(0);
+        const bucket: number[] = new Array(26).fill(0);
         for (const s of str) {
             const charCode = s.charCodeAt(0);
-            ++bucket[charCode - 97];
+            bucket[charCode - 97] += 1;
         }
-
-        table.has(bucket.join('*'))
-            ? table.get(bucket.join('*'))?.push(str)
-            : table.set(bucket.join('*'), [str]);
+        const key = bucket.join('*');
+        !table[key] ? (table[key] = [str]) : table[key].push(str);
     }
 
-    return Array.from(table.values());
+    return Object.values(table);
 }
 
 /*
-T.C.: O(N * M)
-S.C.: O(N * M)
+T.C.: O(N * K)
+S.C.: O(N * K)
 
-- N stands for the average length of every string, M stands for the average length of the strs array
+- N stands for the average length of every string, K stands for the average length of the strs array
 */
 
 /* ------------------------------------------------------------------------------- */

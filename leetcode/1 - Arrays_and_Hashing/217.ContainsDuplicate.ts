@@ -1,5 +1,5 @@
-/* Given an integer array nums, return true if any value appears at least twice in the array, 
-and return false if every element is distinct.
+/* 
+https://leetcode.com/problems/contains-duplicate/description/
  */
 
 /* ------------------------------------------------------------------------------- */
@@ -19,19 +19,19 @@ S.C.: O(n)
 /* ------------------------------------------------------------------------------- */
 
 function containsDuplicate(nums: number[]): boolean {
-    const table = new Map<number, number>();
+    const set: Set<number> = new Set();
 
     for (const num of nums) {
-        if (table.has(num)) return true;
-        table.set(num, 1);
+        if (set.has(num)) return true;
+        set.add(num);
     }
 
     return false;
 }
 
 /*
-T.C.: O(n)
-S.C.: O(n)
+T.C.: O(N)
+S.C.: O(N)
 */
 
 /* ------------------------------------------------------------------------------- */

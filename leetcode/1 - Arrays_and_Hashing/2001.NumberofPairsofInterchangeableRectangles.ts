@@ -9,17 +9,17 @@ Return the number of pairs of interchangeable rectangles in rectangles.
 /* ------------------------------------------------------------------------------- */
 
 function interchangeableRectangles(rectangles: number[][]): number {
-    const map: Map<number, number> = new Map();
+    let result = 0,
+        table: Record<string, number> = {};
 
     for (const [w, h] of rectangles) {
-        const ratio = w / h;
-        map.set(ratio, map.has(ratio) ? (map.get(ratio) as number) + 1 : 1);
+        const radio = w / h;
+        table[radio] = ++table[radio] || 1;
     }
 
-    let result = 0;
-    for (const v of map.values()) {
+    // C v 取 2，等於 v!/(2! * (v-2)!) = (v * (v-1))/2
+    for (let v of Object.values(table)) {
         result += (v * (v - 1)) / 2;
-        // C v 取 2，等於 v!/(2! * (v-2)!) = (v * (v-1))/2
     }
 
     return result;
