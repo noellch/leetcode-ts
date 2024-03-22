@@ -1,16 +1,13 @@
 /* 
-A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
-
-Given a string s, return true if it is a palindrome, or false otherwise.
+https://leetcode.com/problems/valid-palindrome/
 */
 
 /* ------------------------------------------------------------------------------- */
 
 // function isPalindrome(s: string): boolean {
-//     const reqex = /[^a-z0-9]/gi;
-//     const str = s.toLowerCase().replace(reqex, '');
-
-//     return str === str.split('').reverse().join('');
+//     const regex = /[^a-z0-9]/gi;
+//     const str = s.toLowerCase().replace(regex, '');
+//     return str.split('').reverse().join('') === str;
 // }
 
 /*
@@ -20,19 +17,17 @@ S.C.: O(1)
 
 /* ------------------------------------------------------------------------------- */
 function isPalindrome(s: string): boolean {
-    let r = s.length - 1,
-        l = 0;
+    let l = 0,
+        r = s.length - 1;
 
     while (r > l) {
-        while (r > l && shouldSkip(s[r])) --r;
-        while (r > l && shouldSkip(s[l])) ++l;
+        while (r > l && shouldSkip(s[l])) l++;
+        while (r > l && shouldSkip(s[r])) r--;
 
         if (s[l].toLowerCase() !== s[r].toLowerCase()) return false;
-
-        ++l;
-        --r;
+        l++;
+        r--;
     }
-
     return true;
 }
 

@@ -1,15 +1,12 @@
 /* 
-Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
-
-Notice that the solution set must not contain duplicate triplets.
+https://leetcode.com/problems/3sum/description/
 */
 
 /* ------------------------------------------------------------------------------- */
 
 function threeSum(nums: number[]): number[][] {
     const result: number[][] = [];
-
-    if (nums.length < 3) return result;
+    const set: Set<string> = new Set();
 
     nums.sort((a, b) => a - b);
 
@@ -17,16 +14,19 @@ function threeSum(nums: number[]): number[][] {
         let l = i + 1,
             r = nums.length - 1;
 
-        if (i > 0 && nums[i - 1] === nums[i]) continue;
-        if (nums[i] > 0 || nums[r] < 0) break;
+        if (i > 0 && nums[i] === nums[i - 1]) continue;
+        if (nums[r] < 0 || nums[i] > 0) break;
 
         while (l < r) {
-            if (l < r && nums[i] + nums[l] + nums[r] > 0) r--;
-            else if (l < r && nums[i] + nums[l] + nums[r] < 0) l++;
-            else {
-                result.push([nums[i], nums[l], nums[r]]);
-                while (l < r && nums[l + 1] === nums[l]) l++;
-                while (l < r && nums[r - 1] === nums[r]) r--;
+            if (l < r && nums[i] + nums[l] + nums[r] > 0) {
+                r--;
+            } else if (l < r && nums[i] + nums[l] + nums[r] < 0) {
+                l++;
+            } else {
+                if (!set.has(`${nums[i]}/${nums[l]}/${nums[r]}`)) {
+                    result.push([nums[i], nums[l], nums[r]]);
+                    set.add(`${nums[i]}/${nums[l]}/${nums[r]}`);
+                }
                 r--;
                 l++;
             }
@@ -43,7 +43,8 @@ S.C.: O(N) or O(1) // depends on how sorting implements
 
 /* ------------------------------------------------------------------------------- */
 
-const nums = [-1, 0, 1, 2, -1, -4];
+// const nums = [-1, 0, 1, 2, -1, -4];
+const nums = [-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4];
 // const nums = [0, 1, 1];
 // const nums = [0, 0, 0];
 

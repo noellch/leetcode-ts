@@ -1,26 +1,32 @@
 /* 
-You are given an array of integers nums and an integer target.
-
-Return the number of non-empty subsequences of nums such that the sum of the minimum and maximum element on it is less or equal to target. Since the answer may be too large, return it modulo 109 + 7.
+https://leetcode.com/problems/number-of-subsequences-that-satisfy-the-given-sum-condition/
 */
 
 /* ------------------------------------------------------------------------------- */
 
 function numSubseq(nums: number[], target: number): number {
     nums.sort((a, b) => a - b);
-    const mod = 10 ** 9 + 7;
-
     let result = 0;
-    let r = nums.length - 1;
-    let l = 0;
+
+    let l = 0,
+        r = nums.length - 1;
+    const mod = Math.pow(10, 9) + 7;
+
+    const powersOfTwo = [1];
+
+    for (let i = 1; i < nums.length; i++) {
+        powersOfTwo[i] = (powersOfTwo[i - 1] * 2) % mod;
+    }
 
     while (l <= r) {
-        if (nums[l] + nums[r] > target) {
+        while (l <= r && nums[l] + nums[r] > target) {
             r--;
-        } else {
-            result = (result + Math.pow(2, r - l)) % mod;
-            l++;
         }
+
+        if (l <= r) {
+            result = (result + powersOfTwo[r - l]) % mod;
+        }
+        l++;
     }
 
     return result;

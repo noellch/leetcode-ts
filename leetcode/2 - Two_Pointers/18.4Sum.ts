@@ -1,10 +1,5 @@
 /* 
-Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that:
-
-0 <= a, b, c, d < n
-a, b, c, and d are distinct.
-nums[a] + nums[b] + nums[c] + nums[d] == target
-You may return the answer in any order.
+https://leetcode.com/problems/4sum/
 */
 
 /* ------------------------------------------------------------------------------- */
@@ -13,15 +8,15 @@ function fourSum(nums: number[], target: number): number[][] {
     nums.sort((a, b) => a - b);
 
     const result: number[][] = [],
-        quad: number[] = [];
+        sub: number[] = [];
 
-    function kSum(k: number, start: number, target: number) {
+    function kSum(start: number, k: number, target: number) {
         if (k !== 2) {
-            for (let i = start; i <= nums.length - k; i++) {
+            for (let i = start; i < nums.length - k + 1; i++) {
                 if (i > start && nums[i] === nums[i - 1]) continue;
-                quad.push(nums[i]);
-                kSum(k - 1, i + 1, target - nums[i]);
-                quad.pop();
+                sub.push(nums[i]);
+                kSum(i + 1, k - 1, target - nums[i]);
+                sub.pop();
             }
         } else {
             let l = start,
@@ -30,24 +25,22 @@ function fourSum(nums: number[], target: number): number[][] {
                 if (nums[l] + nums[r] > target) r--;
                 else if (nums[l] + nums[r] < target) l++;
                 else {
-                    result.push([...quad, nums[l], nums[r]]);
+                    result.push([...sub, nums[l], nums[r]]);
+                    while (l < r && nums[l] === nums[l + 1]) l++;
+                    r--;
                     l++;
-                    while (l < r && nums[l] === nums[l - 1]) {
-                        l++;
-                    }
                 }
             }
         }
     }
 
-    kSum(4, 0, target);
+    kSum(0, 4, target);
 
     return result;
 }
 
 /*
 T.C.: O(N^(k-1)) = O(N^3)
-
 S.C.: O(k)
 遞迴深度
 */

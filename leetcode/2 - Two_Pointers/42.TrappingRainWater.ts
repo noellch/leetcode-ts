@@ -1,26 +1,53 @@
 /* 
-Given n non-negative integers representing an elevation map where the width of each bar is 1, 
-compute how much water it can trap after raining.
+https://leetcode.com/problems/trapping-rain-water/description/
 */
 
 /* ------------------------------------------------------------------------------- */
 
+// function trap(height: number[]): number {
+//     const n = height.length;
+//     const leftMax = Array(n).fill(0);
+//     const rightMax = Array(n).fill(0);
+
+//     leftMax[0] = height[0];
+//     for (let i = 1; i < n; i++) {
+//         leftMax[i] = Math.max(height[i], leftMax[i - 1]);
+//     }
+
+//     rightMax[n - 1] = height[n - 1];
+//     for (let i = n - 2; i >= 0; i--) {
+//         rightMax[i] = Math.max(height[i], rightMax[i + 1]);
+//     }
+
+//     let total = 0;
+//     for (let i = 0; i < n; i++) {
+//         const waterLevel = Math.min(leftMax[i], rightMax[i]);
+//         if (waterLevel > height[i]) {
+//             total += waterLevel - height[i];
+//         }
+//     }
+
+//     return total;
+// }
+
+/* ------------------------------------------------------------------------------- */
+
 function trap(height: number[]): number {
+    let l = 0,
+        r = height.length - 1;
+    let leftMax = height[l],
+        rightMax = height[r];
     let result = 0;
-    let r = height.length - 1,
-        l = 0;
-    let lMax = height[l],
-        rMax = height[r];
 
     while (l < r) {
-        if (lMax < rMax) {
-            l++;
-            lMax = Math.max(lMax, height[l]);
-            result += lMax - height[l];
+        if (leftMax < rightMax) {
+            l += 1;
+            leftMax = Math.max(leftMax, height[l]);
+            if (leftMax > height[l]) result += leftMax - height[l];
         } else {
-            r--;
-            rMax = Math.max(rMax, height[r]);
-            result += rMax - height[r];
+            r -= 1;
+            rightMax = Math.max(rightMax, height[r]);
+            if (rightMax > height[r]) result += rightMax - height[r];
         }
     }
 
