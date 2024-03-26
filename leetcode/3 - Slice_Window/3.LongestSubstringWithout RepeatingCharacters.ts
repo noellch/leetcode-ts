@@ -1,5 +1,5 @@
 /* 
-Given a string s, find the length of the longest substring without repeating characters.
+https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
 */
 
 /* ------------------------------------------------------------------------------- */
@@ -33,26 +33,24 @@ S.C.: O(N)
 /* ------------------------------------------------------------------------------- */
 
 function lengthOfLongestSubstring(s: string): number {
-    if (!s.length) return 0;
-    if (s.length === 1) return 1;
+    const set: Set<string> = new Set();
 
-    const set = new Set<string>();
-
-    let longest = 0;
-    let l = 0,
-        r = 0;
+    let result = 0;
+    let r = 0,
+        l = 0;
 
     while (r < s.length) {
         while (set.has(s[r])) {
             set.delete(s[l]);
-            l++;
+            l += 1;
         }
+
         set.add(s[r]);
-        r++;
-        longest = Math.max(longest, r - l);
+        result = Math.max(result, r - l + 1);
+        r += 1;
     }
 
-    return longest;
+    return result;
 }
 
 /*
@@ -62,9 +60,9 @@ S.C.: O(N)
 
 /* ------------------------------------------------------------------------------- */
 
-const s = 'dvdf';
+// const s = 'dvdf';
 // const s = 'abcabcbb';
 // const s = 'bbbbb';
-// const s = 'pwwkew';
+const s = 'pwwkew';
 
 console.log(lengthOfLongestSubstring(s));

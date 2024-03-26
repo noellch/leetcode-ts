@@ -1,34 +1,27 @@
 /* 
-You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.
-
-Return the length of the longest substring containing the same letter you can get after performing the above operations.
+https://leetcode.com/problems/longest-repeating-character-replacement/description/
 */
 
 /* ------------------------------------------------------------------------------- */
 function characterReplacement(s: string, k: number): number {
-    let longest = -Infinity;
-    const table = new Map<string, number>();
-    let r = 0,
-        l = 0;
+    let result = 0;
+    let l = 0,
+        r = 0;
+    const map: Map<string, number> = new Map();
 
     while (r < s.length) {
-        table.set(s[r], 1 + (table.get(s[r]) || 0));
+        map.set(s[r], 1 + (map.get(s[r]) || 0));
 
-        // 若 window 長度減去 window 內最常出現的字母頻率大於 k，
-        // 表示現在這個 window 替換掉 k 個字母已經無法達到全相同字母 substring
-        if (r - l + 1 - Math.max(...table.values()) > k) {
-            // 所以將 l 所在位置的字母頻率減一
-            // l 向上，window 內縮
-            table.set(s[l], (table.get(s[l]) as number) - 1);
-            l++;
+        while (r - l + 1 - Math.max(...map.values()) > k) {
+            map.set(s[l], (map.get(s[l]) as number) - 1);
+            l += 1;
         }
 
-        // 每次都更新最長 substring 的長度
-        longest = Math.max(longest, r - l + 1);
-        r++;
+        result = Math.max(result, r - l + 1);
+        r += 1;
     }
 
-    return longest;
+    return result;
 }
 
 /**

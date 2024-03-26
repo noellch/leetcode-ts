@@ -1,39 +1,41 @@
 /* 
-Given two strings s and t of lengths m and n respectively, 
-return the minimum window substring of s such that every character in t (including duplicates) is included in the window. 
-If there is no such substring, return the empty string "".
-
-The testcases will be generated such that the answer is unique.
+https://leetcode.com/problems/minimum-window-substring/description/
 */
 
 /* ------------------------------------------------------------------------------- */
 
 function minWindow(s: string, t: string): string {
-    if (!t) return '';
-    const window = {} as { [key: string]: number };
-    const countT = {} as { [key: string]: number };
     let result = '';
 
-    for (const c of t) {
-        countT[c] = ++countT[c] || 1;
+    if (!s || !s.length) return result;
+
+    const TTable: Record<string, number> = {};
+    const STable: Record<string, number> = {};
+
+    for (const w of t) {
+        TTable[w] = ++TTable[w] || 1;
     }
 
     let l = 0,
+        r = 0,
         have = 0,
-        need = Object.keys(countT).length;
+        need = Object.keys(TTable).length;
 
-    for (let r = 0; r < s.length; r++) {
-        const w = s[r];
-        window[w] = ++window[w] || 1;
+    while (r < s.length) {
+        STable[s[r]] = ++STable[s[r]] || 1;
 
-        if (w in countT && window[w] === countT[w]) have++;
-        while (have === need) {
-            if (r - l + 1 < result.length || !result.length) result = s.slice(l, r + 1);
-            const w = s[l];
-            window[w]--;
-            l++;
-            if (w in countT && window[w] < countT[w]) have--;
+        if (s[r] in TTable && TTable[s[r]] === STable[s[r]]) {
+            have++;
+            while (have === need) {
+                const str = s.substring(l, r + 1);
+                if (!result.length || str.length < result.length) result = str;
+                STable[s[l]]--;
+                if (s[l] in TTable && STable[s[l]] < TTable[s[l]]) have--;
+                l++;
+            }
         }
+
+        r++;
     }
 
     return result;
@@ -50,6 +52,7 @@ S.C.: O(N + M)
 const s = 'ADOBECODEBANC',
     t = 'ABC';
 // const s = "a", t = "a"
-// const s = "a", t = "aa"
+// const s = 'aa',
+//     t = 'aa';
 
 console.log(minWindow(s, t));

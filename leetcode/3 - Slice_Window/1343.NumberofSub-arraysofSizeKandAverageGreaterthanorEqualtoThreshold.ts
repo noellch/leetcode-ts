@@ -1,13 +1,34 @@
 /* 
-Given an array of integers arr and two integers k and threshold, return the number of sub-arrays of size k and average greater than or equal to threshold.
+https://leetcode.com/problems/number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold/description/
 */
 
 /* ------------------------------------------------------------------------------- */
 
+// function numOfSubarrays(arr: number[], k: number, threshold: number): number {
+//     let ans = 0;
+//     let sum = 0;
+//     let left = 0;
+
+//     for (let right = 0; right < arr.length; right++) {
+//         sum += arr[right];
+//         if (right - left + 1 === k) {
+//             if (sum / k >= threshold) {
+//                 ans++;
+//             }
+//             sum -= arr[left];
+//             left++;
+//         }
+//     }
+
+//     return ans;
+// }
+
+/* ------------------------------------------------------------------------------- */
+
 function numOfSubarrays(arr: number[], k: number, threshold: number): number {
-    let r = k - 1,
-        l = 0,
-        currentSum = 0,
+    let l = 0,
+        r = k - 1;
+    let currentSum = 0,
         result = 0;
 
     for (let i = l; i < r; i++) {
@@ -16,9 +37,11 @@ function numOfSubarrays(arr: number[], k: number, threshold: number): number {
 
     while (r < arr.length) {
         currentSum += arr[r];
+
         if (currentSum / k >= threshold) {
             result += 1;
         }
+
         currentSum -= arr[l];
         r++;
         l++;
