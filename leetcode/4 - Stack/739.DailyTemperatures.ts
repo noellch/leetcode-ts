@@ -1,21 +1,22 @@
 /* 
-Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
+https://leetcode.com/problems/daily-temperatures/description/
 */
 
 /* ------------------------------------------------------------------------------- */
 
 /* monotonic decreasing stack problem */
 function dailyTemperatures(temperatures: number[]): number[] {
-    const result = Array(temperatures.length).fill(0) as number[];
-    const stack = [] as number[];
+    const result: number[] = Array(temperatures.length).fill(0);
+    const stack: number[] = [];
 
-    temperatures.forEach((temperature, i) => {
-        while (stack.length > 0 && temperature > temperatures[stack[stack.length - 1]]) {
+    for (let i = 0; i < temperatures.length; i += 1) {
+        while (stack.length > 0 && temperatures[i] > temperatures[stack[stack.length - 1]]) {
             const temp = stack.pop() as number;
             result[temp] = i - temp;
         }
+
         stack.push(i);
-    });
+    }
 
     return result;
 }

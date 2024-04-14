@@ -1,25 +1,24 @@
 /* 
-Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+https://leetcode.com/problems/largest-rectangle-in-histogram/
 */
 
 /* ------------------------------------------------------------------------------- */
 
 function largestRectangleArea(heights: number[]): number {
-    const stack = [] as [number, number][];
+    const stack: [number, number][] = [];
     let result = 0;
-    let heightStart = 0;
     heights.push(0);
 
     for (let i = 0; i < heights.length; i++) {
-        heightStart = i;
-        console.log(stack);
-        while (stack.length && stack[stack.length - 1][0] > heights[i]) {
-            const [height, index] = stack.pop() as [number, number];
-            result = Math.max(result, height * (i - index));
-            heightStart = index;
+        let stackIndex = i;
+
+        while (stack.length > 0 && heights[i] < stack[stack.length - 1][0]) {
+            const [height, pos] = stack.pop() as [number, number];
+            result = Math.max(result, (i - pos) * height);
+            stackIndex = pos;
         }
 
-        stack.push([heights[i], heightStart]);
+        stack.push([heights[i], stackIndex]);
     }
 
     return result;
