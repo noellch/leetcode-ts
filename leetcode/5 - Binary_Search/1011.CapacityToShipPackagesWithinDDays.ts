@@ -5,34 +5,32 @@ https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/descriptio
 /* ------------------------------------------------------------------------------- */
 
 function shipWithinDays(weights: number[], days: number): number {
-    function canShip(cap: number) {
+    let l = Math.max(1, ...weights),
+        r = weights.reduce((a, c) => a + c);
+    let result = r;
+
+    function canShip(w: number) {
         let ships = 1;
-        let currentCap = cap;
-
+        let cap = 0;
         for (const weight of weights) {
-            if (currentCap - weight < 0) {
+            if (cap + weight > w) {
                 ships++;
-                currentCap = cap;
+                cap = 0;
             }
-
-            currentCap -= weight;
+            cap += weight;
         }
 
         return ships <= days;
     }
 
-    let l = Math.max(...weights),
-        r = weights.reduce((a, c) => a + c, 0);
-    let result = r;
-
     while (l <= r) {
-        const cap = l + Math.floor((r - l) / 2);
+        let m = l + Math.floor((r - l) / 2);
 
-        if (canShip(cap)) {
-            r = cap - 1;
-            result = Math.min(result, cap);
+        if (canShip(m)) {
+            result = Math.min(result, m);
+            r = m - 1;
         } else {
-            l = cap + 1;
+            l = m + 1;
         }
     }
 
@@ -46,8 +44,10 @@ S.C.: O(1)
 
 /* ------------------------------------------------------------------------------- */
 
-const weights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    days = 5;
+const weights = [1, 2, 3, 1, 1],
+    days = 4;
+// const weights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+//     days = 5;
 // const weights = [3, 2, 2, 4, 1, 4],
 //     days = 3;
 

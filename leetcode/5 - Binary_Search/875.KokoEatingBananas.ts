@@ -7,19 +7,21 @@ https://leetcode.com/problems/koko-eating-bananas/description/
 function minEatingSpeed(piles: number[], h: number): number {
     let l = 1,
         r = Math.max(...piles),
-        hours = 0,
         result = r;
 
     while (l <= r) {
-        const k = Math.floor((r + l) / 2);
+        let m = l + Math.floor((r - l) / 2);
+        let hours = 0;
         for (const pile of piles) {
-            hours += Math.ceil(pile / k);
+            hours += Math.ceil(pile / m);
         }
+
         if (hours <= h) {
-            result = Math.min(k, result);
-            r = k - 1;
-        } else l = k + 1;
-        hours = 0;
+            result = Math.min(result, m);
+            r = m - 1;
+        } else {
+            l = m + 1;
+        }
     }
 
     return result;
@@ -40,10 +42,10 @@ S.C.: O()
 
 /* ------------------------------------------------------------------------------- */
 
-// const piles = [3, 6, 7, 11],
-//     h = 8;
-const piles = [30, 11, 23, 4, 20],
-    h = 5;
+const piles = [3, 6, 7, 11],
+    h = 8;
+// const piles = [30, 11, 23, 4, 20],
+//     h = 5;
 // const piles = [30, 11, 23, 4, 20],
 //     h = 6;
 

@@ -13,11 +13,17 @@ function search(nums: number[], target: number): number {
         if (target === nums[mid]) return mid;
 
         if (nums[mid] >= nums[l]) {
-            if (target > nums[mid] || target < nums[l]) l = mid + 1;
-            else r = mid - 1;
+            if (target > nums[mid] || target < nums[l]) {
+                l = mid + 1;
+            } else {
+                r = mid - 1;
+            }
         } else {
-            if (target < nums[mid] || target > nums[r]) r = mid - 1;
-            else l = mid + 1;
+            if (target < nums[mid] || target > nums[r]) {
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
         }
     }
 
@@ -37,10 +43,10 @@ S.C.: O(1)
 
 /* ------------------------------------------------------------------------------- */
 
-const nums = [4, 5, 6, 7, 0, 1, 2],
-    target = 0;
-// const nums = [3, 1],
-//     target = 1;
+// const nums = [4, 5, 6, 7, 0, 1, 2],
+//     target = 0;
+const nums = [3, 1],
+    target = 1;
 // const nums = [4, 5, 6, 7, 0, 1, 2],
 //     target = 3;
 // const nums = [1],

@@ -5,22 +5,18 @@ https://leetcode.com/problems/car-fleet/description/
 /* ------------------------------------------------------------------------------- */
 
 /* monotonic increasing stack problem */
-
 function carFleet(target: number, position: number[], speed: number[]): number {
     const stack = [] as number[];
 
-    const sortedCars = position
-        .reduce<[number, number][]>((a, c, i) => {
-            a.push([c, speed[i]]);
-            return a;
-        }, [])
-        .sort((a, b) => b[0] - a[0]);
+    const sortedCars = position.map((pos, i) => [pos, speed[i]]).sort((a, b) => b[0] - a[0]);
 
     for (const sortedCar of sortedCars) {
-        stack.push((target - sortedCar[0]) / sortedCar[1]);
-        while (stack.length > 1 && stack[stack.length - 1] <= stack[stack.length - 2]) {
+        const t = (target - sortedCar[0]) / sortedCar[1];
+        // 以降序排序表示 idx 小的車輛位置更靠近 target。但後面的車卻只需要更少的步數就可以抵達終點，等於會追上前面的車隊。
+        while (stack.length > 0 && t <= stack[stack.length - 1]) {
             stack.pop();
         }
+        stack.push(t);
     }
 
     return stack.length;

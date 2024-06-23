@@ -14,13 +14,11 @@ class StockSpanner {
 
     next(price: number): number {
         let span = 1;
-
         while (this.stack.length > 0 && this.stack[this.stack.length - 1][0] <= price) {
             const [, prevSpan] = this.stack.pop() as [number, number];
             span += prevSpan;
         }
         this.stack.push([price, span]);
-
         return span;
     }
 }

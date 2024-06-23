@@ -11,21 +11,19 @@ function successfulPairs(spells: number[], potions: number[], success: number): 
 
     for (const s of spells) {
         let l = 0,
-            r = potions.length - 1,
-            idx = potions.length;
+            r = potions.length - 1;
         while (l <= r) {
             const mid = l + Math.floor((r - l) / 2);
 
             const product = s * potions[mid];
             if (product >= success) {
                 r = mid - 1;
-                idx = mid;
             } else {
                 l = mid + 1;
             }
         }
 
-        result.push(potions.length - idx);
+        result.push(potions.length - l);
     }
 
     return result;

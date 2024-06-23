@@ -10,9 +10,9 @@ function search(nums: number[], target: number): number {
 
     while (l <= r) {
         let mid = l + Math.floor((r - l) / 2);
+        if (target === nums[mid]) return mid;
         if (target < nums[mid]) r = mid - 1;
         else if (target > nums[mid]) l = mid + 1;
-        else return mid;
     }
 
     return -1;
