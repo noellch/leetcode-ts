@@ -26,8 +26,9 @@ function longestConsecutive(nums: number[]): number {
 //
 /*
 T.C.: O(N)
-S.C.: O(N)
+雖然有巢狀迴圈，但每個數字最多只會被訪問兩次（一次是外層迴圈，一次是內層迴圈），所以總共還是線性時間。
 - the time complexity of set.has method is O(1) and for loop is O(N)
+S.C.: O(N)
 */
 
 /* ------------------------------------------------------------------------------- */

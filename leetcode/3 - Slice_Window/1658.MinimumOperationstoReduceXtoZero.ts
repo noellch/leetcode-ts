@@ -16,7 +16,7 @@ function minOperations(nums: number[], x: number): number {
     while (r < nums.length) {
         currentSum += nums[r];
 
-        while (l <= r && currentSum > target) {
+        while (currentSum > target) {
             currentSum -= nums[l];
             l++;
         }

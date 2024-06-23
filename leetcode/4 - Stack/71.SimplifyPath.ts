@@ -6,23 +6,41 @@ https://leetcode.com/problems/simplify-path/
 
 function simplifyPath(path: string): string {
     const stack: string[] = [];
-    let current = '';
+    const part = path.split('/');
 
-    for (let c of path + '/') {
-        if (c === '/') {
-            if (current === '..') {
-                if (stack.length > 0) stack.pop();
-            } else if (current !== '' && current !== '.') {
-                stack.push(current);
-            }
-            current = '';
+    for (let p of part) {
+        if (!p || p === '.') continue;
+        else if (p === '..') {
+            if (stack.length > 0) stack.pop();
         } else {
-            current += c;
+            stack.push(p);
         }
     }
 
     return '/' + stack.join('/');
 }
+
+/* ------------------------------------------------------------------------------- */
+
+// function simplifyPath(path: string): string {
+//     const stack: string[] = [];
+//     let current = '';
+
+//     for (let c of path + '/') {
+//         if (c === '/') {
+//             if (current === '..') {
+//                 if (stack.length > 0) stack.pop();
+//             } else if (current !== '' && current !== '.') {
+//                 stack.push(current);
+//             }
+//             current = '';
+//         } else {
+//             current += c;
+//         }
+//     }
+
+//     return '/' + stack.join('/');
+// }
 
 /*
 T.C.: O(N)

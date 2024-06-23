@@ -37,8 +37,8 @@ S.C.: O(1)
 
 /* ------------------------------------------------------------------------------- */
 
-// const s = 'abciiidef',
-//     k = 3;
-const s = 'novowels',
-    k = 1;
+const s = 'abciiidef',
+    k = 3;
+// const s = 'novowels',
+//     k = 1;
 console.log(maxVowels(s, k));

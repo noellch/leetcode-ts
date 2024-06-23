@@ -48,7 +48,7 @@ class RandomizedSet {
     T.C.: O(1)
     */
     getRandom(): number {
-        const randomIdx = Math.floor(Math.random() * this.list.length - 1) + 1;
+        const randomIdx = Math.floor(Math.random() * this.list.length);
         return this.list[randomIdx];
     }
 }

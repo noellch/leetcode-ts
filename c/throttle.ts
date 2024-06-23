@@ -1,14 +1,14 @@
 function throttle(func, time = 300) {
-    let trigger = true
+    let trigger = true;
 
     return function throttle(...args) {
         if (trigger) {
-            func.apply(this, args)
-            trigger = false
+            func.apply(this, args);
+            trigger = false;
 
             setTimeout(() => {
-                trigger = true
-            }, time)
+                trigger = true;
+            }, time);
         }
-    }
+    };
 }

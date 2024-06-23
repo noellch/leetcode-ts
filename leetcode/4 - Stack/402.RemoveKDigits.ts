@@ -17,8 +17,7 @@ function removeKdigits(num: string, k: number): string {
         }
         stack.push(n);
     }
-
-    stack = stack.slice(0, stack.length - k);
+    if (k > 0) stack = stack.slice(0, stack.length - k);
 
     while (stack[0] === '0' && stack.length > 1) {
         stack.shift();
@@ -35,14 +34,14 @@ S.C.: O(N)
 /* ------------------------------------------------------------------------------- */
 
 // const num = '1432219',
-//     k = 3;
+//     k = 4;
 // const num = '10200',
 //     k = 1;
 // const num = '10',
 //     k = 2;
-const num = '112',
-    k = 1;
-// const num = '10',
+// const num = '112',
 //     k = 1;
+const num = '10',
+    k = 1;
 
 console.log(removeKdigits(num, k));

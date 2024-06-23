@@ -1,11 +1,5 @@
 /* 
-You are given an m x n integer matrix matrix with the following two properties:
-
-Each row is sorted in non-decreasing order.
-The first integer of each row is greater than the last integer of the previous row.
-Given an integer target, return true if target is in matrix or false otherwise.
-
-You must write a solution in O(log(m * n)) time complexity.
+https://leetcode.com/problems/search-a-2d-matrix/description/
 */
 
 /* ------------------------------------------------------------------------------- */
@@ -28,13 +22,12 @@ function searchMatrix(matrix: number[][], target: number): boolean {
 
     let l = 0,
         r = matrix[row].length - 1;
-    let mid = Math.floor((r + l) / 2);
 
     while (l <= r) {
+        let mid = Math.floor((r + l) / 2);
         if (target > matrix[row][mid]) l = mid + 1;
         else if (target < matrix[row][mid]) r = mid - 1;
         else return true;
-        mid = Math.floor((r + l) / 2);
     }
 
     return false;

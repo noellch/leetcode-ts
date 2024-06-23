@@ -7,7 +7,7 @@ https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/
 function maxProfit(prices: number[]): number {
     let profit = 0;
 
-    prices.forEach((price, i, prices) => {
+    prices.forEach((_price, i, prices) => {
         if (prices[i - 1] !== undefined && prices[i] > prices[i - 1]) {
             profit += prices[i] - prices[i - 1];
         }

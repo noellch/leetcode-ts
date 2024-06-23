@@ -19,7 +19,7 @@ https://leetcode.com/problems/top-k-frequent-elements/description/
 // }
 
 /*
-T.C.: O(N) + O(N * log(N))
+T.C.: O(N) + O(N log N)
 S.C.: O(N)
 */
 
@@ -40,20 +40,20 @@ function topKFrequent(nums: number[], k: number): number[] {
 
     for (let i = bucket.length - 1; i >= 0; i--) {
         if (bucket[i].length > 0) result.push(...bucket[i]);
-        if (result.length === k) break;
+        if (result.length >= k) break;
     }
 
     return result;
 }
 
 /**
- * T.C.: O(Ｎ)
- * S.C.: O(Ｎ)
+ * T.C.: O(N)
+ * S.C.: O(N)
  */
 
 /* ------------------------------------------------------------------------------- */
 
-const nums = [1, 1, 1, 2, 2, 3],
+const nums = [1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 4],
     k = 2;
 // const  nums = [1],
 //     k = 1;

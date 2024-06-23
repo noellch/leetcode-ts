@@ -11,88 +11,88 @@ The functions get and put must each run in O(1) average time complexity. */
 //? 如果 put 時 cache 數量已滿，先移除 cache 內最少用到的(least recently used)項目後再添加。
 
 // hash table and double-linked-list
-class DListNode {
-    constructor(public key?: number, public val?: number, public pre?: DListNode | null, public next?: DListNode | null) {
-        this.key = key ?? 0
-        this.val = val ?? 0
-        this.pre = pre === undefined ? null : pre
-        this.next = next === undefined ? null : next
-    }
-}
+// class DListNode {
+//     constructor(public key?: number, public val?: number, public pre?: DListNode | null, public next?: DListNode | null) {
+//         this.key = key ?? 0
+//         this.val = val ?? 0
+//         this.pre = pre === undefined ? null : pre
+//         this.next = next === undefined ? null : next
+//     }
+// }
 
-class LRUCache {
-    cache: Map<number, DListNode>
-    head: DListNode | null
-    tail: DListNode | null
+// class LRUCache {
+//     cache: Map<number, DListNode>
+//     head: DListNode | null
+//     tail: DListNode | null
 
-    constructor(public capacity: number) {
-        // the key point to the node
-        this.cache = new Map()
-        this.capacity = capacity
+//     constructor(public capacity: number) {
+//         // the key point to the node
+//         this.cache = new Map()
+//         this.capacity = capacity
 
-        // doubly linked list :
-        // left head side is the least recently used element
-        // right head side is the most recently used element
-        this.head = new DListNode()
-        this.tail = new DListNode()
-        this.head.pre = null
-        this.head.next = this.tail
-        this.tail.next = null
-        this.tail.pre = this.head
-    }
+//         // doubly linked list :
+//         // left head side is the least recently used element
+//         // right head side is the most recently used element
+//         this.head = new DListNode()
+//         this.tail = new DListNode()
+//         this.head.pre = null
+//         this.head.next = this.tail
+//         this.tail.next = null
+//         this.tail.pre = this.head
+//     }
 
-    // remove node from the doubly linked list
-    remove(node: DListNode) {
-        const pre = node.pre
-        const next = node.next
-        pre!.next = next
-        next!.pre = pre
-    }
+//     // remove node from the doubly linked list
+//     remove(node: DListNode) {
+//         const pre = node.pre
+//         const next = node.next
+//         pre!.next = next
+//         next!.pre = pre
+//     }
 
-    // insert node to the end before tail of the doubly linked list
-    insert(node: DListNode) {
-        node.next = this.tail
-        node.pre = this.tail!.pre
-        this.tail!.pre!.next = node
-        this.tail!.pre = node
-    }
+//     // insert node to the end before tail of the doubly linked list
+//     insert(node: DListNode) {
+//         node.next = this.tail
+//         node.pre = this.tail!.pre
+//         this.tail!.pre!.next = node
+//         this.tail!.pre = node
+//     }
 
-    get(key: number): number {
-        // 若 cache 存在 key 則直接返回 key 指向的 node 的值
-        // 並且移除在 list 中的 key 對應的 node，往 list 的最右手邊插入
-        // 因為 list 最右手邊的 node，是最近使用過的
-        if (this.cache.has(key)) {
-            const node = this.cache.get(key) as DListNode
-            this.remove(node)
-            this.insert(node)
+//     get(key: number): number {
+//         // 若 cache 存在 key 則直接返回 key 指向的 node 的值
+//         // 並且移除在 list 中的 key 對應的 node，往 list 的最右手邊插入
+//         // 因為 list 最右手邊的 node，是最近使用過的
+//         if (this.cache.has(key)) {
+//             const node = this.cache.get(key) as DListNode
+//             this.remove(node)
+//             this.insert(node)
 
-            return node.val as number
-        }
+//             return node.val as number
+//         }
 
-        // 若 key 不存在於 cache
-        return -1
-    }
+//         // 若 key 不存在於 cache
+//         return -1
+//     }
 
-    put(key: number, value: number): void {
-        // 如果 key 存在於 cache，則先將 對應的 node 從 list 中移除
-        if (this.cache.has(key)) this.remove(this.cache.get(key) as DListNode)
+//     put(key: number, value: number): void {
+//         // 如果 key 存在於 cache，則先將 對應的 node 從 list 中移除
+//         if (this.cache.has(key)) this.remove(this.cache.get(key) as DListNode)
 
-        // 設定 key-val pair
-        this.cache.set(key, new DListNode(key, value))
-        // 將 node 插入 list 的最右手邊
-        this.insert(this.cache.get(key) as DListNode)
+//         // 設定 key-val pair
+//         this.cache.set(key, new DListNode(key, value))
+//         // 將 node 插入 list 的最右手邊
+//         this.insert(this.cache.get(key) as DListNode)
 
-        // 如果 cache 內的值已經超過一開始定義的 capacity
-        if (this.cache.size > this.capacity) {
-            // lru 為最左手邊的 node，也就是最少被使用過的元素
-            const lru = this.head!.next as DListNode
-            // 移除它
-            this.remove(lru)
-            // 並同步將它從 cache 中移除
-            this.cache.delete(lru.key as number)
-        }
-    }
-}
+//         // 如果 cache 內的值已經超過一開始定義的 capacity
+//         if (this.cache.size > this.capacity) {
+//             // lru 為最左手邊的 node，也就是最少被使用過的元素
+//             const lru = this.head!.next as DListNode
+//             // 移除它
+//             this.remove(lru)
+//             // 並同步將它從 cache 中移除
+//             this.cache.delete(lru.key as number)
+//         }
+//     }
+// }
 
 /**
  * if want to read in O(1), consider use map(object).
@@ -145,3 +145,75 @@ class LRUCache {
 //         this.cache.set(key, value)
 //     }
 // }
+
+class DListNode {
+    constructor(
+        public key?: number,
+        public value?: number,
+        public pre?: DListNode | null,
+        public next?: DListNode | null
+    ) {
+        this.key = key ?? 0;
+        this.value = value ?? 0;
+        this.pre = pre ?? null;
+        this.next = next ?? null;
+    }
+}
+
+class LRUCache {
+    capacity: number;
+    cache: Map<number, DListNode>;
+    head: DListNode | null;
+    tail: DListNode | null;
+
+    constructor(capacity: number) {
+        this.capacity = capacity;
+        this.cache = new Map();
+        this.tail = new DListNode();
+        this.head = new DListNode();
+
+        this.tail.next = null;
+        this.tail.pre = this.head;
+        this.head.pre = null;
+        this.head.next = this.tail;
+    }
+
+    insert(node: DListNode) {
+        node.pre = this.tail?.pre;
+        node.next = this.tail;
+        this.tail!.pre!.next = node;
+        this.tail!.pre = node;
+    }
+
+    remove(node: DListNode) {
+        const pre = node.pre;
+        const next = node.next;
+        pre!.next = next;
+        next!.pre = pre;
+    }
+
+    get(key: number) {
+        if (this.cache.has(key)) {
+            const node = this.cache.get(key) as DListNode;
+            this.remove(node);
+            this.insert(node);
+
+            return node.value;
+        }
+
+        return -1;
+    }
+
+    put(key: number, value: number) {
+        if (this.cache.has(key)) this.remove(this.cache.get(key) as DListNode);
+
+        this.cache.set(key, new DListNode(key, value));
+        this.insert(this.cache.get(key) as DListNode);
+
+        if (this.cache.size > this.capacity) {
+            const lru = this.head?.next as DListNode;
+            this.remove(lru);
+            this.cache.delete(lru.key as number);
+        }
+    }
+}

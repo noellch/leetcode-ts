@@ -38,7 +38,9 @@ S.C.: O(N)
 //     k = 2;
 // const s = 'deeedbbcccbdaa',
 //     k = 3;
-const s = 'pbbcggttciiippooaais',
-    k = 2;
+const s = 'baaaabbb',
+    k = 3;
+// const s = 'pbbcggttciiippooaais',
+//     k = 2;
 
 console.log(removeDuplicates(s, k));

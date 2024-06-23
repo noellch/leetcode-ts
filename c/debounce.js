@@ -9,11 +9,11 @@ function debounce(func, wait = 300) {
     };
 }
 
-function debounce_leading(func, time = 300) {
+function debounceLeading(fn, wait = 300) {
     let timer = null;
 
     return function (...args) {
-        if (!timer) func.apply(this, args);
+        if (!timer) fn.apply(this, args);
 
         window.clearTimeout(timer);
         timer = window.setTimeout(() => {

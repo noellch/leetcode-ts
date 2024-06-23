@@ -17,13 +17,15 @@ function checkInclusion(s1: string, s2: string): boolean {
     while (r < s2.length) {
         if (s2[r] in map) map[s2[r]]--;
         if (map[s2[r]] === 0) need--;
-        if (need === 0) return true;
-        if (r - l + 1 === s1.length && need !== 0) {
-            if (s2[l] in map) {
-                if (map[s2[l]] === 0) need++;
-                map[s2[l]]++;
+        if (r - l + 1 === s1.length) {
+            if (need === 0) return true;
+            else {
+                if (s2[l] in map) {
+                    if (map[s2[l]] === 0) need++;
+                    map[s2[l]]++;
+                }
+                l++;
             }
-            l++;
         }
         r++;
     }

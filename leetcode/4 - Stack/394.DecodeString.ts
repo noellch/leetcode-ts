@@ -43,7 +43,7 @@ S.C.: O(N)
 /* ------------------------------------------------------------------------------- */
 
 // const s = '3[a]2[bc]';
-// const s = '3[a2[c]]';
-const s = '2[abc]3[cd]ef';
+const s = '3[a2[c]]';
+// const s = '2[abc]3[cd]ef';
 
 console.log(decodeString(s));

@@ -26,7 +26,7 @@ function isAnagram(s: string, t: string): boolean {
     }
 
     for (const chr of t) {
-        if (!table[chr] || table[chr] <= 0) return false;
+        if (!table[chr]) return false;
         table[chr]--;
     }
 

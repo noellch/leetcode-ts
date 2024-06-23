@@ -34,9 +34,9 @@ S.C.: O(N)
 
 /* ------------------------------------------------------------------------------- */
 
-// const asteroids = [5, 10, -5];
+const asteroids = [5, 10, -5];
 // const asteroids = [8, -8];
 // const asteroids = [10, 2, -5];
-const asteroids = [-2, -1, 1, 2];
+// const asteroids = [-2, -1, 1, 2];
 
 console.log(asteroidCollision(asteroids));

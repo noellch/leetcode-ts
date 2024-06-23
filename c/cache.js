@@ -1,34 +1,33 @@
-// 1
-function cache1(func) {
-    const cache = {};
+// function cache1(func) {
+//     const cache = {};
 
-    return function cached(...args) {
+//     return function cached(...args) {
+//         const key = JSON.stringify(args);
+
+//         if (key in cache) {
+//             console.log('from cache');
+//             return cache[key];
+//         } else {
+//             const result = func.apply(this, args);
+//             cache[key] = result;
+//             return result;
+//         }
+//     };
+// }
+
+function cache(fn) {
+    const cached = {};
+
+    return function (...args) {
         const key = JSON.stringify(args);
 
-        if (key in cache) {
-            console.log('from cache');
-            return cache[key];
-        } else {
-            const result = func.apply(this, args);
-            cache[key] = result;
-            return result;
-        }
+        cached[key] = cached[key] || fn.apply(this, args);
+
+        return cached[key];
     };
 }
 
-// 2
-function cache2(func) {
-    const cache = {};
-
-    return function cached(...args) {
-        const key = JSON.stringify(args);
-        cache[key] = cache[key] || func.apply(this, args);
-
-        return cache[key];
-    };
-}
-
-const ca = cache1(function (a, b, c) {
+const ca = cache(function (a, b, c) {
     return a + b + c;
 });
 

@@ -11,6 +11,7 @@ function minSwaps(s: string): number {
     for (let b of s) {
         if (b === ']') close++;
         else close--;
+
         needToSwap = Math.max(needToSwap, close);
     }
 
@@ -24,7 +25,7 @@ S.C.: O(1)
 
 /* ------------------------------------------------------------------------------- */
 // const s = '][][';
-const s = ']]][[[';
+const s = '][]][[';
 // const s = '[]';
 
 console.log(minSwaps(s));

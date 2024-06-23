@@ -1,13 +1,21 @@
-function curry(func) {
-    return function curried(...args) {
-        if (args.length >= func.length) {
-            return func.apply(this, args);
-        } else {
-            return function (...args2) {
-                return curried.apply(this, args.concat(args2));
-            };
-        }
-    };
+/* ------------------------------------------------------------------------------- */
+
+function curry(fn) {
+    const arity = fn.length;
+
+    function curried(prevArgs) {
+        return function (arg) {
+            const args = [...prevArgs, arg];
+
+            if (args.length >= arity) {
+                return fn.apply(this, args);
+            } else {
+                return curried(args);
+            }
+        };
+    }
+
+    return curried([]);
 }
 
 function sum(a, b, c) {
@@ -16,21 +24,6 @@ function sum(a, b, c) {
 
 let curriedSum = curry(sum);
 
-console.log(curriedSum(1, 2, 3)); // 6, still callable normally
-const hj = curriedSum(1, 2);
-const p = hj(3);
-console.log(p); // 6, currying of 1st arg
-
-console.log(curriedSum(1)(2)(3));
-
-function curry(func) {
-    return function curried(...args) {
-        if (args.length >= func.length) {
-            return func.apply(this, args);
-        } else {
-            return function (...args2) {
-                return func.apply(this, args.concat(args2));
-            };
-        }
-    };
-}
+const curriedSum2 = curriedSum(1);
+const curriedSum3 = curriedSum2(2);
+console.log(curriedSum3(3)); // 6, currying of 1st arg

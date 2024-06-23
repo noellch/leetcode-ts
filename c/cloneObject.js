@@ -1,15 +1,19 @@
-const copyObj = (originObj) => {
-    const o_prototype = Object.getPrototypeOf(originObj);
-    const newObj = Object.create(o_prototype);
+function cloneObj(obj) {
+    const proto = Object.getPrototypeOf(obj);
+    const newObj = Object.create(proto);
+    const keys = Object.getOwnPropertyNames(obj);
 
-    const o_properties = Object.getOwnPropertyNames(originObj);
-    o_properties.forEach((prop) => {
-        const o_descriptor = Object.getOwnPropertyDescriptor(originObj, prop);
-        Object.defineProperty(newObj, prop, o_descriptor);
-    });
+    for (let key of keys) {
+        const descriptor = Object.getOwnPropertyDescriptor(obj, key);
+        Object.defineProperty(newObj, key, descriptor);
+    }
 
     return newObj;
-};
+}
 
-const oldObj = { a: 1, b: 2 };
-const newObj = copyObj(oldObj);
+const oldObj = { a: 1, b: 2, c: { d: 3 } };
+const newObj = cloneObj(oldObj);
+newObj.c.d = 4;
+
+console.log(oldObj);
+console.log(newObj);

@@ -7,13 +7,13 @@ function characterReplacement(s: string, k: number): number {
     let result = 0;
     let l = 0,
         r = 0;
-    const map: Map<string, number> = new Map();
+    const map: Record<string, number> = {};
 
     while (r < s.length) {
-        map.set(s[r], 1 + (map.get(s[r]) || 0));
+        map[s[r]] = ++map[s[r]] || 1;
 
-        while (r - l + 1 - Math.max(...map.values()) > k) {
-            map.set(s[l], (map.get(s[l]) as number) - 1);
+        while (r - l + 1 - Math.max(0, ...Object.values(map)) > k) {
+            map[s[l]]--;
             l += 1;
         }
 

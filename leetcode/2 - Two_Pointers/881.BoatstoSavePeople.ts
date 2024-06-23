@@ -23,7 +23,7 @@ function numRescueBoats(people: number[], limit: number): number {
 }
 
 /*
-T.C.: O(Nlog(N))
+T.C.: O(N log N)
 S.C.: O(1)
 */
 

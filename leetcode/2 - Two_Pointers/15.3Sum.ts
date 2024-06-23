@@ -18,9 +18,9 @@ function threeSum(nums: number[]): number[][] {
         if (nums[r] < 0 || nums[i] > 0) break;
 
         while (l < r) {
-            if (l < r && nums[i] + nums[l] + nums[r] > 0) {
+            if (nums[i] + nums[l] + nums[r] > 0) {
                 r--;
-            } else if (l < r && nums[i] + nums[l] + nums[r] < 0) {
+            } else if (nums[i] + nums[l] + nums[r] < 0) {
                 l++;
             } else {
                 if (!set.has(`${nums[i]}/${nums[l]}/${nums[r]}`)) {

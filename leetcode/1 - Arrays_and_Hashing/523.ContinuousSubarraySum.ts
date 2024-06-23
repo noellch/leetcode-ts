@@ -21,7 +21,6 @@ function checkSubarraySum(nums: number[], k: number): boolean {
                 return true;
             }
         }
-        console.log(table);
     }
 
     return false;

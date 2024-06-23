@@ -1,29 +1,43 @@
-const bubbleSort = (arr) => {
-    let noSwap = true;
-
+function bubbleSort(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
-        noSwap = true;
-
+        let swap = false;
         for (let j = 0; j < i; j++) {
             if (arr[j] > arr[j + 1]) {
-                let temp = arr[j];
+                const temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
-                noSwap = false;
+                swap = true;
             }
         }
-        // 表示這一輪已經完全沒有元素交換，可能是所有元素都已經就定位。
-        if (noSwap) break;
+        if (!swap) break;
     }
 
     return arr;
-};
+}
+console.log(bubbleSort([4, -1, 6, 2, 7, 10, 98, -3]));
 
-console.log(bubbleSort([4, 6, 2, 7, 10, 98, -3]));
+function B(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        let swap = false;
+        for (let j = 0; j < i; j++) {
+            if (arr[j] > arr[j + 1]) {
+                const temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                swap = true;
+            }
+        }
+        if (!swap) break;
+    }
 
-/**
- * T.C:
- * Best	    O(n)
- * Worst	O(n^2)
- * Average	O(n^2)
- */
+    return arr;
+}
+
+console.log(B([4, -1, 6, 2, 7, 10, 98, -3]));
+
+/*
+T.C.:
+Best：O(N)，如果陣列已經排好序，只要跑一輪檢查就好
+Worst/Avg.：O(N^2)，因為有兩個巢狀迴圈，外層跑 N 次，內層平均也要跑 N/2 次
+S.C.: O(1)
+*/

@@ -8,24 +8,19 @@ https://leetcode.com/problems/sort-colors/description/
  Do not return anything, modify nums in-place instead.
  */
 
-const swap = (i: number, j: number, nums: number[]) => {
-    const temp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = temp;
-};
-
 function sortColors(nums: number[]): void {
-    let l = 0,
-        r = nums.length - 1,
+    let left = 0,
+        right = nums.length - 1,
         i = 0;
-    while (i <= r) {
+
+    while (i <= right) {
         if (nums[i] === 0) {
-            swap(i, l, nums);
+            [nums[i], nums[left]] = [nums[left], nums[i]];
+            left++;
             i++;
-            l++;
         } else if (nums[i] === 2) {
-            swap(i, r, nums);
-            r--;
+            [nums[i], nums[right]] = [nums[right], nums[i]];
+            right--;
         } else {
             i++;
         }

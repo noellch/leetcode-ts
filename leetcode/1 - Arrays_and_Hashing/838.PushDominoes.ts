@@ -70,5 +70,5 @@ S.C.: O(N)
 */
 
 /* ------------------------------------------------------------------------------- */
-const dominoes = '.L.R...LR..L..';
+const dominoes = '.L.R....R..L..';
 console.log(pushDominoes(dominoes));

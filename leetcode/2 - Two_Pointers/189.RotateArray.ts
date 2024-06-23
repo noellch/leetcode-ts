@@ -13,12 +13,8 @@ function rotate(nums: number[], k: number): void {
     let l = 0,
         r = nums.length - 1;
     nums = reverseArray(nums, l, r);
-
-    (l = 0), (r = k - 1);
-    nums = reverseArray(nums, l, r);
-
-    (l = k), (r = nums.length - 1);
-    nums = reverseArray(nums, l, r);
+    nums = reverseArray(nums, 0, k - 1);
+    nums = reverseArray(nums, k, nums.length - 1);
 
     console.log(nums);
 }
