@@ -5,14 +5,14 @@ Given the root of a binary tree, imagine yourself standing on the right side of 
 /* ------------------------------------------------------------------------------- */
 
 class TreeNode {
-    val: number;
-    left: TreeNode | null;
-    right: TreeNode | null;
-    constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-        this.val = val === undefined ? 0 : val;
-        this.left = left === undefined ? null : left;
-        this.right = right === undefined ? null : right;
-    }
+  val: number
+  left: TreeNode | null
+  right: TreeNode | null
+  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+    this.val = val === undefined ? 0 : val
+    this.left = left === undefined ? null : left
+    this.right = right === undefined ? null : right
+  }
 }
 
 // BFS
@@ -47,20 +47,20 @@ S.C.: O(W)
 
 // DFS
 function rightSideView(root: TreeNode | null): number[] {
-    if (!root) return [];
-    let result: number[] = [];
+  if (!root) return []
+  let result: number[] = []
 
-    function dfs(node: TreeNode | null, h: number) {
-        if (!node) return null;
+  function dfs(node: TreeNode | null, h: number) {
+    if (!node) return null
 
-        result[h] = node.val;
+    result[h] = node.val
 
-        dfs(node.left, h + 1);
-        dfs(node.right, h + 1);
-    }
+    dfs(node.left, h + 1)
+    dfs(node.right, h + 1)
+  }
 
-    dfs(root, 0);
-    return result;
+  dfs(root, 0)
+  return result
 }
 
 /*
