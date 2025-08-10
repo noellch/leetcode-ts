@@ -42,7 +42,7 @@ class Solution:
         if not root:
             return True
 
-        q = deque([(root, float('-inf'),  float('inf'))])
+        q = deque([(root, float("-inf"), float("inf"))])
 
         while q:
             node, min, max = q.popleft()

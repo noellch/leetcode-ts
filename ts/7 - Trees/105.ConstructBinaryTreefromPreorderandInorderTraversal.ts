@@ -5,26 +5,26 @@ Given two integer arrays preorder and inorder where preorder is the preorder tra
 /* ------------------------------------------------------------------------------- */
 
 class TreeNode {
-    val: number;
-    left: TreeNode | null;
-    right: TreeNode | null;
-    constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-        this.val = val === undefined ? 0 : val;
-        this.left = left === undefined ? null : left;
-        this.right = right === undefined ? null : right;
-    }
+  val: number
+  left: TreeNode | null
+  right: TreeNode | null
+  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+    this.val = val === undefined ? 0 : val
+    this.left = left === undefined ? null : left
+    this.right = right === undefined ? null : right
+  }
 }
 
 function buildTree(preorder: number[], inorder: number[]): TreeNode | null {
-    if (!preorder.length || !inorder.length) return null;
+  if (!preorder.length || !inorder.length) return null
 
-    const root = new TreeNode(preorder[0]);
-    const midIdx = inorder.indexOf(preorder[0]);
+  const root = new TreeNode(preorder[0])
+  const midIdx = inorder.indexOf(preorder[0])
 
-    root.left = buildTree(preorder.slice(1, midIdx + 1), inorder.slice(0, midIdx));
-    root.right = buildTree(preorder.slice(midIdx + 1), inorder.slice(midIdx + 1));
+  root.left = buildTree(preorder.slice(1, midIdx + 1), inorder.slice(0, midIdx))
+  root.right = buildTree(preorder.slice(midIdx + 1), inorder.slice(midIdx + 1))
 
-    return root;
+  return root
 }
 
 /**
