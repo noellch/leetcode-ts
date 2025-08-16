@@ -57,6 +57,13 @@ Problems are organized by algorithmic categories with consistent naming:
 - Arrow functions and modern ES6+ syntax
 - Destructuring assignments commonly used
 
+### Python Conventions:
+
+- Follow PEP 8 with 120-character line limit (configured in .flake8)
+- Use type hints from typing module
+- Prefer f-strings for string formatting
+- Break long lines using parentheses for readability
+
 ### Data Structure Implementations:
 
 - Custom implementations available in `algorithm_and_data_structure/`
@@ -85,6 +92,59 @@ Problems are organized by algorithmic categories with consistent naming:
 - Document time/space complexity with Big O notation
 - Often include multiple solution approaches
 - Chinese comments appear in some files explaining algorithmic concepts
+
+### Problem Identification:
+
+**IMPORTANT:** When asked to analyze, optimize, or explain a solution:
+- The problem name and number are encoded in the filename
+- All problems are from LeetCode
+- Use the filename to identify the specific LeetCode problem
+- Example: `78.Subsets.py` refers to LeetCode problem #78 "Subsets"
+
+### Test Case Generation:
+
+**MANDATORY:** When analyzing any solution, you MUST generate comprehensive test cases including:
+- Basic example cases from LeetCode problem description
+- Edge cases (empty arrays, single elements, maximum constraints)
+- Corner cases specific to the algorithm approach
+- Expected outputs with explanations for verification
+- Format test cases to match the solution's expected input/output structure
+- Add test cases directly to the solution file with `if __name__ == "__main__":` block for Python
+- Include execution instructions for running the tests
+
+**Test Case Requirements:**
+- Minimum 3-5 test cases per solution
+- Cover all major algorithm branches and edge conditions
+- Include explanatory comments for complex test scenarios
+- Verify the solution handles the problem's constraints properly
+
+### Complexity Analysis Format:
+
+Every solution should include complexity analysis using this standardized template:
+
+```
+T.C: (time complexity here)
+- explain step by step analysis
+- break down each operation's contribution
+- identify dominant operations
+
+S.C: (space complexity here)
+- explain auxiliary space usage
+- account for recursion stack if applicable
+- exclude input/output space unless specified
+```
+
+**Example:**
+```
+T.C: O(n log n)
+- Sorting takes O(n log n) time
+- Single pass through array takes O(n) time
+- Overall dominated by sorting operation
+
+S.C: O(1)
+- Only using constant extra variables
+- In-place operations without additional data structures
+```
 
 ### Testing Pattern:
 

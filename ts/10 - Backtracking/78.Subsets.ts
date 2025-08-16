@@ -24,23 +24,23 @@ https://leetcode.com/problems/subsets/description/
 
 /* ------------------------------------------------------------------------------- */
 
-function subsets(nums: number[]): number[][] {
-    const result: number[][] = [];
-    const subset: number[] = [];
+// function subsets(nums: number[]): number[][] {
+//   const result: number[][] = []
+//   const subset: number[] = []
 
-    function dfs(idx: number) {
-        if (idx > nums.length - 1) return result.push([...subset]);
+//   function dfs(idx: number) {
+//     if (idx > nums.length - 1) return result.push([...subset])
 
-        subset.push(nums[idx]);
-        dfs(idx + 1);
-        subset.pop();
-        dfs(idx + 1);
-    }
+//     subset.push(nums[idx])
+//     dfs(idx + 1)
+//     subset.pop()
+//     dfs(idx + 1)
+//   }
 
-    dfs(0);
+//   dfs(0)
 
-    return result;
-}
+//   return result
+// }
 
 /* ------------------------------------------------------------------------------- */
 
@@ -61,5 +61,20 @@ S.C.: O(N)
 - subset 的隨著遞迴的進行而變化，最大大小不會超過輸入的陣列長度 N。
 */
 
-const nums = [1, 2, 3];
-console.log(subsets(nums));
+function subsets(nums) {
+  let res: Array<Array<number>> = [[]]
+
+  for (let num of nums) {
+    let size = res.length
+    for (let i = 0; i < size; i++) {
+      let subset = res[i].slice()
+      subset.push(num)
+      res.push(subset)
+    }
+  }
+
+  return res
+}
+
+const nums = [1, 2, 3]
+console.log(subsets(nums))
